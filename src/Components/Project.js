@@ -14,7 +14,8 @@ import {
   IconButton
 } from '@material-ui/core';
 import { DeleteOutlined } from '@material-ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 const Project = ({ project, addTask, completeTask, deleteTask }) => {
   const [newAction, setNewAction] = useState('');
   const useStyles = makeStyles({
@@ -25,6 +26,8 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
   });
 
   const classes = useStyles();
+  //   When Project is updated, resets the action state to empty string
+  useEffect(() => setNewAction(''), [project]);
 
   const renderProjects = () => {
     return project.taskList.map((task, index) => {
@@ -63,6 +66,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
         <CardActions>
           <form onSubmit={(e) => addTask(e, project.id, newAction)}>
             <TextField
+              label="Add next action"
               variant="outlined"
               color="secondary"
               onChange={(e) => setNewAction(e.target.value)}

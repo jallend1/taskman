@@ -18,9 +18,12 @@ const Home = () => {
   const addTask = (e, projectID, newTask) => {
     // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
     e.preventDefault();
-    const projectCopy = JSON.parse(JSON.stringify(project));
-    projectCopy.taskList.push({ action: newTask, isComplete: false });
-    setProject(projectCopy);
+    if (newTask.trim() !== '') {
+      const projectCopy = JSON.parse(JSON.stringify(project));
+      projectCopy.taskList.push({ action: newTask, isComplete: false });
+      setProject(projectCopy);
+    }
+    e.target.reset();
   };
 
   const completeTask = (projectID, index) => {
