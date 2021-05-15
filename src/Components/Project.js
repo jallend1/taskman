@@ -9,10 +9,13 @@ import {
   CardHeader,
   CardContent,
   CardActions,
-  TextField
+  TextField,
+  ListItemSecondaryAction,
+  IconButton
 } from '@material-ui/core';
+import { DeleteOutlined } from '@material-ui/icons';
 import { useState } from 'react';
-const Project = ({ project, addTask, completeTask }) => {
+const Project = ({ project, addTask, completeTask, deleteTask }) => {
   const [newAction, setNewAction] = useState('');
   const useStyles = makeStyles({
     completed: {
@@ -37,6 +40,15 @@ const Project = ({ project, addTask, completeTask }) => {
             primary={task.action}
             className={task.isComplete ? classes.completed : null}
           />
+          <ListItemSecondaryAction>
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => deleteTask(project.id, index)}
+            >
+              <DeleteOutlined />
+            </IconButton>
+          </ListItemSecondaryAction>
         </ListItem>
       );
     });
