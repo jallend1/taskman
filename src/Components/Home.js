@@ -1,5 +1,6 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import Project from './Project';
+// import About from './About';
 const Home = () => {
     const [project, setProject ] = useState({
         title: 'My First Project!',
@@ -10,7 +11,7 @@ const Home = () => {
             {action: 'Union meeting', isComplete: false}
         ]
     })
-    
+
     const completeTask = (projectID, index) => {
         // Passing in task so we can navigate to correct project once multiple project functionality rolled out
         const projectCopy = project;
@@ -19,10 +20,10 @@ const Home = () => {
     }
 
 
-    useEffect(renderProjects, [project])
     return (
         <>
             <h1>Home!</h1>
+            {/* <About /> */}
             <Project key={project.id} project={project} completeTask = {completeTask}/>
         </>
     )
