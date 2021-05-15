@@ -1,8 +1,12 @@
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+
 const NavBar = () => {
     return (
-        <nav>
-            Navbar!
-        </nav>
+        <AppBar position="static">
+            <Toolbar>
+            <Typography variant="h5">TaskMan</Typography>
+            </Toolbar>
+        </AppBar>
     )
 }
 
