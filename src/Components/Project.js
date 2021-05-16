@@ -1,4 +1,5 @@
 import {
+  CardActionArea,
   Checkbox,
   List,
   ListItem,
@@ -8,7 +9,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
   TextField,
   ListItemSecondaryAction,
   IconButton
@@ -19,6 +19,10 @@ import { useEffect, useState } from 'react';
 const Project = ({ project, addTask, completeTask, deleteTask }) => {
   const [newAction, setNewAction] = useState('');
   const useStyles = makeStyles({
+    root: {
+      width: 400,
+      margin: '2em auto'
+    },
     completed: {
       textDecoration: 'line-through',
       opacity: 0.4
@@ -58,7 +62,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
   };
   return (
     <>
-      <Card>
+      <Card className={classes.root}>
         <CardHeader
           title={project.title}
           subheader={project.createdAt.toString()}
@@ -66,16 +70,17 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
         <CardContent>
           <List>{project ? renderProjects() : 'Add a project'}</List>
         </CardContent>
-        <CardActions>
+        <CardActionArea>
           <form onSubmit={(e) => addTask(e, project.id, newAction)}>
             <TextField
               label="Add next action"
               variant="outlined"
               color="secondary"
               onChange={(e) => setNewAction(e.target.value)}
+              fullWidth
             />
           </form>
-        </CardActions>
+        </CardActionArea>
       </Card>
     </>
   );

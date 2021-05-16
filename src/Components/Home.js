@@ -53,13 +53,10 @@ const Home = () => {
       taskList: []
     };
     setProject(newProject);
-    console.log(newProject);
-    console.log(project);
   };
 
   return (
     <>
-      <h1>Home</h1>
       {/* <About /> */}
       {project ? (
         <Project
