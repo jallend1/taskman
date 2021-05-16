@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Project from './Project';
+import NewProject from './NewProject';
 // import About from './About';
 const Home = () => {
   const sampleProject = {
@@ -13,7 +14,7 @@ const Home = () => {
     ]
   };
 
-  const [project, setProject] = useState(sampleProject);
+  const [project, setProject] = useState('');
 
   const addTask = (e, projectID, newTask) => {
     // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
@@ -43,17 +44,34 @@ const Home = () => {
     setProject(projectCopy);
   };
 
+  const addProject = (e, name) => {
+    e.preventDefault();
+    const newProject = {
+      title: name,
+      createdAt: new Date(),
+      id: Math.random(),
+      taskList: []
+    };
+    setProject(newProject);
+    console.log(newProject);
+    console.log(project);
+  };
+
   return (
     <>
       <h1>Home</h1>
       {/* <About /> */}
-      <Project
-        key={project.id}
-        project={project}
-        completeTask={completeTask}
-        addTask={addTask}
-        deleteTask={deleteTask}
-      />
+      {project ? (
+        <Project
+          key={project.id}
+          project={project}
+          completeTask={completeTask}
+          addTask={addTask}
+          deleteTask={deleteTask}
+        />
+      ) : (
+        <NewProject addProject={addProject} />
+      )}
     </>
   );
 };
