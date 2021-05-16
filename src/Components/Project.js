@@ -56,10 +56,14 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
       );
     });
   };
+  console.log(typeof project.createdAt);
   return (
     <>
       <Card>
-        <CardHeader title={project.title} subheader={project.createdAt} />
+        <CardHeader
+          title={project.title}
+          subheader={project.createdAt.toDateString()}
+        />
         <CardContent>
           <List>{project ? renderProjects() : 'Add a project'}</List>
         </CardContent>

@@ -4,7 +4,7 @@ import Project from './Project';
 const Home = () => {
   const sampleProject = {
     title: 'My First Project!',
-    createdAt: Date.now(),
+    createdAt: new Date(),
     id: 5000,
     taskList: [
       { action: 'Play Mario Kart', isComplete: true },
