@@ -16,8 +16,12 @@ import {
 import { DeleteOutlined } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 
-const Project = ({ project, addTask, completeTask, deleteTask }) => {
+const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) => {
   const [newAction, setNewAction] = useState('');
+  
+  //   When Project is updated, resets the action state to empty string
+  useEffect(() => setNewAction(''), [project]);
+
   const useStyles = makeStyles({
     root: {
       width: 400,
@@ -30,8 +34,6 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
   });
 
   const classes = useStyles();
-  //   When Project is updated, resets the action state to empty string
-  useEffect(() => setNewAction(''), [project]);
 
   const renderTasks = () => {
     return project.taskList.map((task, index) => {
@@ -67,6 +69,11 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
         <CardHeader
           title={project.title}
           subheader={project.createdAt.toString()}
+          action={
+            <IconButton aria-label="delete project" onClick={deleteProject}>
+              <DeleteOutlined color="secondary" />
+            </IconButton>
+          }
         />
         <CardContent>
           <List>{project ? renderTasks() : 'Add a project'}</List>

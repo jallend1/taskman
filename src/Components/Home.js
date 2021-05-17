@@ -61,7 +61,10 @@ const Home = () => {
     setProject(newProject);
   };
 
-    
+  const deleteProject = (projectID) => {
+    // Includes projectID for later functionality when there are multiple projects
+    setProject('');
+  } 
 
   return (
     <>
@@ -73,6 +76,7 @@ const Home = () => {
           completeTask={completeTask}
           addTask={addTask}
           deleteTask={deleteTask}
+          deleteProject={deleteProject}
         />
       ) : (
         <NewProject addProject={addProject} />
