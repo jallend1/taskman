@@ -5,7 +5,7 @@ import NewProject from './NewProject';
 const Home = () => {
   const sampleProject = {
     title: 'My First Project!',
-    createdAt: new Date(),
+    createdAt: new Date().toDateString(),
     id: 5000,
     taskList: [
       { action: 'Play Mario Kart', isComplete: true },
@@ -14,9 +14,12 @@ const Home = () => {
     ]
   };
 
+  // If existing project in localStorage, populates that. If not, defaults to blank
   const storedProject = JSON.parse(localStorage.getItem('project')) || '';
   const [project, setProject] = useState(storedProject);
-
+  
+  // When project changes, updates version stored locally
+  useEffect(() => localStorage.setItem('project', JSON.stringify(project)), [project]);
   
   
   const addTask = (e, projectID, newTask) => {
@@ -51,15 +54,14 @@ const Home = () => {
     e.preventDefault();
     const newProject = {
       title: name,
-      createdAt: new Date(),
+      createdAt: new Date().toDateString(),
       id: Math.random(),
       taskList: []
     };
     setProject(newProject);
   };
 
-    // When project changes, updates version stored locally
-    useEffect(() => localStorage.setItem('project', JSON.stringify(project)), [project]);
+    
 
   return (
     <>

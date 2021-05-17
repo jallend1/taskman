@@ -60,7 +60,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
       );
     });
   };
-
+  
   return (
     <>
       <Card className={classes.root}>
