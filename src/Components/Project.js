@@ -33,7 +33,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
   //   When Project is updated, resets the action state to empty string
   useEffect(() => setNewAction(''), [project]);
 
-  const renderProjects = () => {
+  const renderTasks = () => {
     return project.taskList.map((task, index) => {
       return (
         <ListItem key={task.action}>
@@ -60,6 +60,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
       );
     });
   };
+
   return (
     <>
       <Card className={classes.root}>
@@ -68,7 +69,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
           subheader={project.createdAt.toString()}
         />
         <CardContent>
-          <List>{project ? renderProjects() : 'Add a project'}</List>
+          <List>{project ? renderTasks() : 'Add a project'}</List>
         </CardContent>
         <CardActionArea>
           <form onSubmit={(e) => addTask(e, project.id, newAction)}>

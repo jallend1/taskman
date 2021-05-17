@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Project from './Project';
 import NewProject from './NewProject';
 // import About from './About';
@@ -14,8 +14,11 @@ const Home = () => {
     ]
   };
 
-  const [project, setProject] = useState('');
+  const storedProject = JSON.parse(localStorage.getItem('project')) || '';
+  const [project, setProject] = useState(storedProject);
 
+  
+  
   const addTask = (e, projectID, newTask) => {
     // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
     e.preventDefault();
@@ -54,6 +57,9 @@ const Home = () => {
     };
     setProject(newProject);
   };
+
+    // When project changes, updates version stored locally
+    useEffect(() => localStorage.setItem('project', JSON.stringify(project)), [project]);
 
   return (
     <>
