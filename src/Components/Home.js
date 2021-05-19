@@ -4,7 +4,7 @@ import NewProject from "./NewProject";
 import NavBar from './NavBar';
 import Footer from './Footer';
 import { makeStyles } from '@material-ui/core';
-import About from './About';
+// import About from './About';
 
 const Home = () => {
   
@@ -85,7 +85,7 @@ const Home = () => {
   return (
     <>
       <div className={classes.root}>
-      <About />
+      {/* <About /> */}
       <NavBar />
       {project ? (
         <Project

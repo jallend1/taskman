@@ -3,7 +3,7 @@ import Project from "./Project";
 import NewProject from "./NewProject";
 import NavBar from './NavBar';
 import Footer from './Footer';
-import { makeStyles } from '@material-ui/core';
+import { Typography, makeStyles } from '@material-ui/core';
 
 const Home = () => {
   
@@ -84,6 +84,7 @@ const Home = () => {
   return (
     <>
       <div className={classes.root}>
+      <Typography variant="h2">Version 1</Typography>
       <NavBar />
       {project ? (
         <Project
