@@ -26,6 +26,7 @@ const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) 
     root: {
       width: 400,
       margin: "2em auto",
+      padding: "1em 0.5em"
     },
     completed: {
       textDecoration: "line-through",

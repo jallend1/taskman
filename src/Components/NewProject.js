@@ -15,6 +15,7 @@ const NewProject = ({ addProject }) => {
     createNew: {
       maxWidth: "80%",
       margin: "2em auto",
+      padding: "2em 0"
     },
     submit: {
       display: "block",
