@@ -11,10 +11,10 @@ import {
   CardContent,
   TextField,
   ListItemSecondaryAction,
-  IconButton
-} from '@material-ui/core';
-import { DeleteOutlined } from '@material-ui/icons';
-import { useEffect, useState } from 'react';
+  IconButton,
+} from "@material-ui/core";
+import { DeleteOutlined } from "@material-ui/icons";
+import { useEffect, useState } from "react";
 
 const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) => {
   const [newAction, setNewAction] = useState('');
@@ -25,12 +25,12 @@ const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) 
   const useStyles = makeStyles({
     root: {
       width: 400,
-      margin: '2em auto'
+      margin: "2em auto",
     },
     completed: {
-      textDecoration: 'line-through',
-      opacity: 0.4
-    }
+      textDecoration: "line-through",
+      opacity: 0.4,
+    },
   });
 
   const classes = useStyles();
@@ -62,7 +62,7 @@ const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) 
       );
     });
   };
-  
+
   return (
     <>
       <Card className={classes.root}>
@@ -76,16 +76,18 @@ const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) 
           }
         />
         <CardContent>
-          <List>{project ? renderTasks() : 'Add a project'}</List>
+          <List>{project ? renderTasks() : "Add a project"}</List>
         </CardContent>
         <CardActionArea>
           <form onSubmit={(e) => addTask(e, project.id, newAction)}>
+            {/* TODO: Not liking the textfieldwhen in focus -- Weird color change? */}
             <TextField
               label="Add next action"
-              variant="outlined"
-              color="secondary"
               onChange={(e) => setNewAction(e.target.value)}
               fullWidth
+              autoFocus
+              variant="outlined"
+              color="primary"
             />
           </form>
         </CardActionArea>
