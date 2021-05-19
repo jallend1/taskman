@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import Project from "./Project";
 import NewProject from "./NewProject";
-import NavBar from './NavBar';
 import Footer from './Footer';
 import { makeStyles } from '@material-ui/core';
-// import About from './About';
 
 const Home = () => {
   
@@ -85,8 +83,6 @@ const Home = () => {
   return (
     <>
       <div className={classes.root}>
-      {/* <About /> */}
-      <NavBar />
       {project ? (
         <Project
           key={project.id}
