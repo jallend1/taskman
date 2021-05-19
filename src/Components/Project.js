@@ -1,5 +1,4 @@
 import {
-  Box,
   CardActionArea,
   Checkbox,
   List,
@@ -64,7 +63,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
 
   return (
     <>
-      <Card className={classes.root} boxShadow={3}>
+      <Card className={classes.root}>
         <CardHeader
           title={project.title}
           subheader={project.createdAt.toString()}
@@ -74,6 +73,7 @@ const Project = ({ project, addTask, completeTask, deleteTask }) => {
         </CardContent>
         <CardActionArea>
           <form onSubmit={(e) => addTask(e, project.id, newAction)}>
+            {/* TODO: Not liking the textfieldwhen in focus -- Weird color change? */}
             <TextField
               label="Add next action"
               onChange={(e) => setNewAction(e.target.value)}
