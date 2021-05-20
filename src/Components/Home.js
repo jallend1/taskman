@@ -9,7 +9,8 @@ const Home = () => {
   const useStyles = makeStyles({
     root: {
         background: "#084b83",
-        height: "100vh"
+        height: "100vh",
+        padding: "1em 0"
       }
     }
   )

@@ -25,7 +25,7 @@ const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) 
   const useStyles = makeStyles({
     root: {
       width: 400,
-      margin: "2em auto",
+      margin: "auto",
       padding: "1em 0.5em"
     },
     completed: {
