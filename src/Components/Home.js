@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import Project from "./Project";
 import NewProject from "./NewProject";
 import Footer from './Footer';
 import { makeStyles } from '@material-ui/core';
+import { ProjectContext } from '../Contexts/ProjectContext';
 
-const Home = () => {
+const Home = ({projects}) => {
   
   const useStyles = makeStyles({
     root: {
@@ -14,28 +15,12 @@ const Home = () => {
       }
     }
   )
+  console.log(useContext(ProjectContext));
   const classes = useStyles();
-
-  const sampleProject = {
-    title: "My First Project!",
-    createdAt: new Date().toDateString(),
-    id: 5000,
-    taskList: [
-      { action: "Play Mario Kart", isComplete: true },
-      { action: "Do laundry", isComplete: false },
-      { action: "Union meeting", isComplete: false },
-    ],
-  };
 
   // If existing project in localStorage, populates that. If not, defaults to blank
   const storedProject = JSON.parse(localStorage.getItem("project")) || "";
   const [project, setProject] = useState(storedProject);
-
-  // When project changes, updates version stored locally
-  useEffect(
-    () => localStorage.setItem("project", JSON.stringify(project)),
-    [project]
-  );
 
   const addTask = (e, projectID, newTask) => {
     // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
