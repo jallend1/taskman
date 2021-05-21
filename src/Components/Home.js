@@ -5,8 +5,9 @@ import Footer from './Footer';
 import { makeStyles } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 
-const Home = ({projects}) => {
-  
+const Home = () => {
+  const {projects, addTask} = useContext(ProjectContext);
+  console.log(projects)
   const useStyles = makeStyles({
     root: {
         background: "#084b83",
@@ -15,23 +16,22 @@ const Home = ({projects}) => {
       }
     }
   )
-  console.log(useContext(ProjectContext));
   const classes = useStyles();
 
   // If existing project in localStorage, populates that. If not, defaults to blank
   const storedProject = JSON.parse(localStorage.getItem("project")) || "";
   const [project, setProject] = useState(storedProject);
 
-  const addTask = (e, projectID, newTask) => {
-    // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
-    e.preventDefault();
-    if (newTask.trim() !== "") {
-      const projectCopy = JSON.parse(JSON.stringify(project));
-      projectCopy.taskList.push({ action: newTask, isComplete: false });
-      setProject(projectCopy);
-    }
-    e.target.reset();
-  };
+  // const addTask = (e, projectID, newTask) => {
+  //   // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
+  //   e.preventDefault();
+  //   if (newTask.trim() !== "") {
+  //     const projectCopy = JSON.parse(JSON.stringify(project));
+  //     projectCopy.taskList.push({ action: newTask, isComplete: false });
+  //     setProject(projectCopy);
+  //   }
+  //   e.target.reset();
+  // };
 
   const completeTask = (projectID, index) => {
     // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
