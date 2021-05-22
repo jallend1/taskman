@@ -17,8 +17,9 @@ class ProjectContextProvider extends React.Component {
   retrieveProjects = () => {
     db.collection('projects')
       .doc('sample')
-      .get()
-      .then((doc) => this.setState({ projects: [doc.data().sampleProject] }));
+      .onSnapshot(doc => this.setState({ projects: [doc.data().sampleProject]}));
+      // .get()
+      // .then((doc) => this.setState({ projects: [doc.data().sampleProject] }));
   };
 
   addTask = (e, projectID, newTask) => {
