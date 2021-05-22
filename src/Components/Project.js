@@ -14,10 +14,14 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { DeleteOutlined } from "@material-ui/icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ProjectContext } from '../Contexts/ProjectContext';
 
-const Project = ({ project, addTask, completeTask, deleteTask, deleteProject }) => {
+const Project = ({ completeTask, deleteTask, deleteProject }) => {
   const [newAction, setNewAction] = useState('');
+  const { projects, addTask } = useContext(ProjectContext);
+  const project = projects[0];
+  console.log(projects)
   
   //   When Project is updated, resets the action state to empty string
   useEffect(() => setNewAction(''), [project]);

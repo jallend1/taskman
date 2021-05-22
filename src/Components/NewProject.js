@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Box,
   Paper,
@@ -7,8 +7,10 @@ import {
   makeStyles,
   Button,
 } from "@material-ui/core";
+import { ProjectContext } from '../Contexts/ProjectContext'
 
-const NewProject = ({ addProject }) => {
+const NewProject = () => {
+  const { addProject } = useContext(ProjectContext)
   const [projectTitle, setProjectTitle] = useState("");
 
   const useStyles = makeStyles({

@@ -16,10 +16,28 @@ class ProjectContextProvider extends React.Component {
 
   retrieveProjects = () => {
     db.collection('projects')
-      .doc('sample')
-      .onSnapshot(doc => this.setState({ projects: [doc.data().sampleProject]}));
+    .onSnapshot(snapshot => {
+      const fetchedProjects = [];
+      snapshot.forEach(doc => {
+        fetchedProjects.push(doc.data())
+      })
+      this.setState({projects: fetchedProjects})
+    })
+        // doc => doc.forEach(console.log((doc.data()))))
+        // this.setState({ projects: [doc.data().sampleProject]}));
       // .get()
       // .then((doc) => this.setState({ projects: [doc.data().sampleProject] }));
+  };
+
+  addProject = (e, name) => {
+    e.preventDefault();
+    const newProject = {
+      title: name,
+      createdAt: new Date().toDateString(),
+      id: Math.random(),
+      taskList: [],
+    };
+    db.collection('projects').add(newProject)
   };
 
   addTask = (e, projectID, newTask) => {
@@ -28,10 +46,7 @@ class ProjectContextProvider extends React.Component {
     if (newTask.trim() !== '') {
       const projectsCopy = this.state.projects;
       projectsCopy[0].taskList.push({ action: newTask, isComplete: false });
-      this.setState(
-        { projects: projectsCopy },
-        console.log(this.state.projects)
-      );
+      db.collection('projects').doc('sample').update({sampleProject: {projectsCopy}})
     }
     e.target.reset();
   };
@@ -39,7 +54,7 @@ class ProjectContextProvider extends React.Component {
   render() {
     return (
       <ProjectContext.Provider
-        value={{ projects: this.state.projects, addTask: this.addTask }}
+        value={{ projects: this.state.projects, addTask: this.addTask, addProject: this.addProject }}
       >
         {this.props.children}
       </ProjectContext.Provider>

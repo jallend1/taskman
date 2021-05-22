@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 
 const Home = () => {
-  const {projects, addTask} = useContext(ProjectContext);
+  const {projects, addTask, addProject} = useContext(ProjectContext);
   console.log(projects)
   const useStyles = makeStyles({
     root: {
@@ -50,16 +50,16 @@ const Home = () => {
     setProject(projectCopy);
   };
 
-  const addProject = (e, name) => {
-    e.preventDefault();
-    const newProject = {
-      title: name,
-      createdAt: new Date().toDateString(),
-      id: Math.random(),
-      taskList: [],
-    };
-    setProject(newProject);
-  };
+  // const addProject = (e, name) => {
+  //   e.preventDefault();
+  //   const newProject = {
+  //     title: name,
+  //     createdAt: new Date().toDateString(),
+  //     id: Math.random(),
+  //     taskList: [],
+  //   };
+  //   setProject(newProject);
+  // };
 
   const deleteProject = (projectID) => {
     // Includes projectID for later functionality when there are multiple projects
@@ -79,7 +79,7 @@ const Home = () => {
           deleteProject={deleteProject}
         />
       ) : (
-        <NewProject addProject={addProject} />
+        <NewProject />
       )}
       <Footer />
       </div>
