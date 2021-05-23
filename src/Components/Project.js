@@ -16,12 +16,14 @@ import {
 import { DeleteOutlined } from "@material-ui/icons";
 import { useEffect, useState, useContext } from "react";
 import { ProjectContext } from '../Contexts/ProjectContext';
+import { useHistory } from 'react-router-dom';
 
-const Project = ({ completeTask, deleteTask, deleteProject }) => {
+const Project = ({ completeTask, deleteTask, deleteProject, projectInURL = false }) => {
+  const history = useHistory();
+  console.log(history.location)
   const [newAction, setNewAction] = useState('');
   const { projects, addTask } = useContext(ProjectContext);
   const project = projects[0];
-  console.log(project)
   
   //   When Project is updated, resets the action state to empty string
   useEffect(() => setNewAction(''), [project]);

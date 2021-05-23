@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 
 const Home = () => {
-  const {projects, addTask, addProject} = useContext(ProjectContext);
+  const {projects, addTask} = useContext(ProjectContext);
   console.log(projects)
   const useStyles = makeStyles({
     root: {
@@ -21,17 +21,6 @@ const Home = () => {
   // If existing project in localStorage, populates that. If not, defaults to blank
   const storedProject = JSON.parse(localStorage.getItem("project")) || "";
   const [project, setProject] = useState(storedProject);
-
-  // const addTask = (e, projectID, newTask) => {
-  //   // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
-  //   e.preventDefault();
-  //   if (newTask.trim() !== "") {
-  //     const projectCopy = JSON.parse(JSON.stringify(project));
-  //     projectCopy.taskList.push({ action: newTask, isComplete: false });
-  //     setProject(projectCopy);
-  //   }
-  //   e.target.reset();
-  // };
 
   const completeTask = (projectID, index) => {
     // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
@@ -50,17 +39,6 @@ const Home = () => {
     setProject(projectCopy);
   };
 
-  // const addProject = (e, name) => {
-  //   e.preventDefault();
-  //   const newProject = {
-  //     title: name,
-  //     createdAt: new Date().toDateString(),
-  //     id: Math.random(),
-  //     taskList: [],
-  //   };
-  //   setProject(newProject);
-  // };
-
   const deleteProject = (projectID) => {
     // Includes projectID for later functionality when there are multiple projects
     setProject('');
@@ -74,7 +52,6 @@ const Home = () => {
           key={project.id}
           project={project}
           completeTask={completeTask}
-          addTask={addTask}
           deleteTask={deleteTask}
           deleteProject={deleteProject}
         />

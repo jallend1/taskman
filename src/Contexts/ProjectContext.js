@@ -1,5 +1,7 @@
 import React, { createContext } from 'react';
 import { db } from '../firebaseConfig';
+import { useHistory, withRouter } from 'react-router-dom';
+
 export const ProjectContext = createContext();
 
 class ProjectContextProvider extends React.Component {
@@ -34,6 +36,7 @@ class ProjectContextProvider extends React.Component {
       taskList: []
     };
     newProjectRef.set(newProject);
+    this.props.history.push(`/project/${newProject.id}`);
   };
 
   addTask = (e, projectID, newTask) => {
@@ -49,6 +52,7 @@ class ProjectContextProvider extends React.Component {
   };
 
   render() {
+    console.log(this.props.history);
     return (
       <ProjectContext.Provider
         value={{
@@ -62,4 +66,5 @@ class ProjectContextProvider extends React.Component {
     );
   }
 }
-export default ProjectContextProvider;
+// Exports HOC with access to history
+export default withRouter(ProjectContextProvider);

@@ -32,7 +32,7 @@ function App() {
               <Home />
             </Route>
             <Route path="/project/:id">
-              <Project />
+              <Project projectInURL={true} />
             </Route>
           </ProjectContextProvider>
         </Switch>
