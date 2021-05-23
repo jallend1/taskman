@@ -6,8 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 
 const Home = () => {
-  const {projects, addTask} = useContext(ProjectContext);
-  console.log(projects)
+  const {projects} = useContext(ProjectContext);
   const useStyles = makeStyles({
     root: {
         background: "#084b83",
@@ -44,20 +43,23 @@ const Home = () => {
     setProject('');
   } 
 
+  const renderProjects = () => {
+    return projects.map(project => {
+      return (
+      <Project
+        key={project.id}
+        project={project}
+        completeTask={completeTask}
+        deleteTask={deleteTask}
+        deleteProject={deleteProject}
+      />
+    )})
+  }
+
   return (
     <>
       <div className={classes.root}>
-      {project ? (
-        <Project
-          key={project.id}
-          project={project}
-          completeTask={completeTask}
-          deleteTask={deleteTask}
-          deleteProject={deleteProject}
-        />
-      ) : (
-        <NewProject />
-      )}
+      {projects ? renderProjects() : <NewProject /> }
       <Footer />
       </div>
     </>

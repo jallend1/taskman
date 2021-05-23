@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { auth } from './firebaseConfig';
 
 import ProjectContextProvider from './Contexts/ProjectContext';
@@ -11,7 +11,6 @@ import NewProject from './Components/NewProject';
 import Project from './Components/Project'
 
 function App() {
-
 
   return (
     <div className="App">

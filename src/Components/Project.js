@@ -16,14 +16,11 @@ import {
 import { DeleteOutlined } from "@material-ui/icons";
 import { useEffect, useState, useContext } from "react";
 import { ProjectContext } from '../Contexts/ProjectContext';
-import { useHistory } from 'react-router-dom';
 
-const Project = ({ completeTask, deleteTask, deleteProject, projectInURL = false }) => {
-  const history = useHistory();
-  console.log(history.location)
+const Project = ({ project, completeTask, deleteTask, deleteProject, projectInURL = false }) => {
+  // TODO: If projectInURL === true then pull the project ID from the URL
   const [newAction, setNewAction] = useState('');
-  const { projects, addTask } = useContext(ProjectContext);
-  const project = projects[0];
+  const { addTask } = useContext(ProjectContext);
   
   //   When Project is updated, resets the action state to empty string
   useEffect(() => setNewAction(''), [project]);
@@ -42,7 +39,7 @@ const Project = ({ completeTask, deleteTask, deleteProject, projectInURL = false
 
   const classes = useStyles();
 
-  const renderProjects = () => {
+  const renderProject = () => {
     return (
       <>
       <Card className={classes.root}>
@@ -105,7 +102,7 @@ const Project = ({ completeTask, deleteTask, deleteProject, projectInURL = false
 
   return (
     <>
-      {project ? renderProjects() : 'Loading...'}
+      {renderProject()}
     </>
   );
 };

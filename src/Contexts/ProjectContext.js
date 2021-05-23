@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { db } from '../firebaseConfig';
-import { useHistory, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 export const ProjectContext = createContext();
 
@@ -52,7 +52,6 @@ class ProjectContextProvider extends React.Component {
   };
 
   render() {
-    console.log(this.props.history);
     return (
       <ProjectContext.Provider
         value={{
