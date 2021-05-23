@@ -44,9 +44,13 @@ class ProjectContextProvider extends React.Component {
     e.preventDefault();
     if (newTask.trim() !== '') {
       const projectsCopy = this.state.projects;
-      const currentProject = projectsCopy[0];
+      const currentProject = projectsCopy.find(
+        (project) => project.id === projectID
+      );
       currentProject.taskList.push({ action: newTask, isComplete: false });
-      db.collection('projects').doc(projectID).update({ currentProject });
+      db.collection('projects')
+        .doc(projectID)
+        .update({ taskList: currentProject.taskList });
     }
     e.target.reset();
   };
