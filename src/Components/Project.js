@@ -21,7 +21,7 @@ const Project = ({ completeTask, deleteTask, deleteProject }) => {
   const [newAction, setNewAction] = useState('');
   const { projects, addTask } = useContext(ProjectContext);
   const project = projects[0];
-  console.log(projects)
+  console.log(project)
   
   //   When Project is updated, resets the action state to empty string
   useEffect(() => setNewAction(''), [project]);
@@ -40,6 +40,39 @@ const Project = ({ completeTask, deleteTask, deleteProject }) => {
 
   const classes = useStyles();
 
+  const renderProjects = () => {
+    return (
+      <>
+      <Card className={classes.root}>
+      <CardHeader
+        title={project.title}
+        subheader={project.createdAt.toString()}
+        action={
+          <IconButton aria-label="delete project" onClick={deleteProject}>
+            <DeleteOutlined color="secondary" />
+          </IconButton>
+        }
+      />
+      <CardContent>
+        <List>{project ? renderTasks() : "Add a project"}</List>
+      </CardContent>
+      <CardActionArea>
+        <form onSubmit={(e) => addTask(e, project.id, newAction)}>
+          {/* TODO: Not liking the textfieldwhen in focus -- Weird color change? */}
+          <TextField
+            label="Add next action"
+            onChange={(e) => setNewAction(e.target.value)}
+            fullWidth
+            autoFocus
+            variant="outlined"
+            color="primary"
+          />
+        </form>
+      </CardActionArea>
+    </Card>
+    </>
+    )
+  }
   const renderTasks = () => {
     return project.taskList.map((task, index) => {
       return (
@@ -70,33 +103,7 @@ const Project = ({ completeTask, deleteTask, deleteProject }) => {
 
   return (
     <>
-      <Card className={classes.root}>
-        <CardHeader
-          title={project.title}
-          subheader={project.createdAt.toString()}
-          action={
-            <IconButton aria-label="delete project" onClick={deleteProject}>
-              <DeleteOutlined color="secondary" />
-            </IconButton>
-          }
-        />
-        <CardContent>
-          <List>{project ? renderTasks() : "Add a project"}</List>
-        </CardContent>
-        <CardActionArea>
-          <form onSubmit={(e) => addTask(e, project.id, newAction)}>
-            {/* TODO: Not liking the textfieldwhen in focus -- Weird color change? */}
-            <TextField
-              label="Add next action"
-              onChange={(e) => setNewAction(e.target.value)}
-              fullWidth
-              autoFocus
-              variant="outlined"
-              color="primary"
-            />
-          </form>
-        </CardActionArea>
-      </Card>
+      {project ? renderProjects() : 'Loading...'}
     </>
   );
 };

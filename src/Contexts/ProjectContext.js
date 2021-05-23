@@ -15,29 +15,25 @@ class ProjectContextProvider extends React.Component {
   }
 
   retrieveProjects = () => {
-    db.collection('projects')
-    .onSnapshot(snapshot => {
+    db.collection('projects').onSnapshot((snapshot) => {
       const fetchedProjects = [];
-      snapshot.forEach(doc => {
-        fetchedProjects.push(doc.data())
-      })
-      this.setState({projects: fetchedProjects})
-    })
-        // doc => doc.forEach(console.log((doc.data()))))
-        // this.setState({ projects: [doc.data().sampleProject]}));
-      // .get()
-      // .then((doc) => this.setState({ projects: [doc.data().sampleProject] }));
+      snapshot.forEach((doc) => {
+        fetchedProjects.push(doc.data());
+      });
+      this.setState({ projects: fetchedProjects });
+    });
   };
 
   addProject = (e, name) => {
     e.preventDefault();
+    const newProjectRef = db.collection('projects').doc();
     const newProject = {
       title: name,
       createdAt: new Date().toDateString(),
-      id: Math.random(),
-      taskList: [],
+      id: newProjectRef.id,
+      taskList: []
     };
-    db.collection('projects').add(newProject)
+    newProjectRef.set(newProject);
   };
 
   addTask = (e, projectID, newTask) => {
@@ -45,8 +41,9 @@ class ProjectContextProvider extends React.Component {
     e.preventDefault();
     if (newTask.trim() !== '') {
       const projectsCopy = this.state.projects;
-      projectsCopy[0].taskList.push({ action: newTask, isComplete: false });
-      db.collection('projects').doc('sample').update({sampleProject: {projectsCopy}})
+      const currentProject = projectsCopy[0];
+      currentProject.taskList.push({ action: newTask, isComplete: false });
+      db.collection('projects').doc(projectID).update({ currentProject });
     }
     e.target.reset();
   };
@@ -54,7 +51,11 @@ class ProjectContextProvider extends React.Component {
   render() {
     return (
       <ProjectContext.Provider
-        value={{ projects: this.state.projects, addTask: this.addTask, addProject: this.addProject }}
+        value={{
+          projects: this.state.projects,
+          addTask: this.addTask,
+          addProject: this.addProject
+        }}
       >
         {this.props.children}
       </ProjectContext.Provider>
