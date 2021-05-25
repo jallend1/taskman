@@ -7,7 +7,9 @@ const About = () => {
         <Typography variant="h2">About</Typography>
         <Typography variant="body1">Just a basic little tasklist app.</Typography>
         <Typography variant="h5">Explore previous versions: </Typography>
-        <V1 />
+        <img src="./images/version1.jpg" />
+
+        {/* <V1 /> */}
         </>
 
     )
