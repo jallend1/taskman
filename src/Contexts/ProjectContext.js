@@ -59,7 +59,14 @@ class ProjectContextProvider extends React.Component {
     const projectsCopy = this.state.projects;
     const targetProject = projectsCopy.find(project => project.id === projectID);
     targetProject.taskList[index].isComplete = !targetProject.taskList[index].isComplete;
-    this.setState({projects: projectsCopy})
+    db.collection('projects').doc(projectID).update({taskList: targetProject.taskList});
+  }
+
+  deleteTask = (projectID, index) => {
+    const projectsCopy = this.state.projects;
+    const targetProject = projectsCopy.find(project => project.id);
+    targetProject.taskList.splice(index, 1);
+    db.collection('projects').doc(projectID).update({taskList: targetProject.taskList});
   }
 
   render() {
@@ -69,7 +76,8 @@ class ProjectContextProvider extends React.Component {
           projects: this.state.projects,
           addTask: this.addTask,
           addProject: this.addProject,
-          completeTask: this.completeTask
+          completeTask: this.completeTask,
+          deleteTask: this.deleteTask
         }}
       >
         {this.props.children}

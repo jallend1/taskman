@@ -21,14 +21,6 @@ const Home = () => {
   const storedProject = JSON.parse(localStorage.getItem("project")) || "";
   const [project, setProject] = useState(storedProject);
 
-  const deleteTask = (projectID, index) => {
-    // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
-    // Creates deep copy of current project
-    const projectCopy = JSON.parse(JSON.stringify(project));
-    projectCopy.taskList.splice(index, 1);
-    setProject(projectCopy);
-  };
-
   const deleteProject = (projectID) => {
     // Includes projectID for later functionality when there are multiple projects
     setProject('');
@@ -40,7 +32,6 @@ const Home = () => {
       <Project
         key={project.id}
         project={project}
-        deleteTask={deleteTask}
         deleteProject={deleteProject}
       />
     )})
