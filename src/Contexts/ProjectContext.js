@@ -55,13 +55,21 @@ class ProjectContextProvider extends React.Component {
     e.target.reset();
   };
 
+  completeTask = (projectID, index) => {
+    const projectsCopy = this.state.projects;
+    const targetProject = projectsCopy.find(project => project.id === projectID);
+    targetProject.taskList[index].isComplete = !targetProject.taskList[index].isComplete;
+    this.setState({projects: projectsCopy})
+  }
+
   render() {
     return (
       <ProjectContext.Provider
         value={{
           projects: this.state.projects,
           addTask: this.addTask,
-          addProject: this.addProject
+          addProject: this.addProject,
+          completeTask: this.completeTask
         }}
       >
         {this.props.children}
