@@ -16,13 +16,7 @@ const Home = () => {
     }
   )
   const classes = useStyles();
-
-  // If existing project in localStorage, populates that. If not, defaults to blank
-  const storedProject = JSON.parse(localStorage.getItem("project")) || "";
-  const [project, setProject] = useState(storedProject);
-
-
-
+  
   const renderProjects = () => {
     return projects.map(project => {
       return (
@@ -36,7 +30,7 @@ const Home = () => {
   return (
     <>
       <div className={classes.root}>
-      {projects ? renderProjects() : <NewProject /> }
+      {projects.length > 0 ? renderProjects() : <NewProject /> }
       <Footer />
       </div>
     </>
