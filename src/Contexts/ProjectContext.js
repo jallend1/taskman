@@ -40,7 +40,6 @@ class ProjectContextProvider extends React.Component {
   };
 
   addTask = (e, projectID, newTask) => {
-    // Passing in project ID so we can navigate to correct project once multiple project functionality rolled out
     e.preventDefault();
     if (newTask.trim() !== '') {
       const projectsCopy = this.state.projects;
@@ -62,6 +61,14 @@ class ProjectContextProvider extends React.Component {
     db.collection('projects').doc(projectID).update({taskList: targetProject.taskList});
   }
 
+  deleteProject = (projectID) => {
+    console.log(projectID)
+    const projectsCopy = this.state.projects;
+    const targetProjectIndex = projectsCopy.findIndex(project => project.id === projectID);
+    projectsCopy.splice(targetProjectIndex, 1);
+    db.collection('projects').doc(projectID).delete().then(() => console.log('BUHLETED'))
+  }
+  
   deleteTask = (projectID, index) => {
     const projectsCopy = this.state.projects;
     const targetProject = projectsCopy.find(project => project.id);
@@ -77,6 +84,7 @@ class ProjectContextProvider extends React.Component {
           addTask: this.addTask,
           addProject: this.addProject,
           completeTask: this.completeTask,
+          deleteProject: this.deleteProject,
           deleteTask: this.deleteTask
         }}
       >

@@ -21,10 +21,7 @@ const Home = () => {
   const storedProject = JSON.parse(localStorage.getItem("project")) || "";
   const [project, setProject] = useState(storedProject);
 
-  const deleteProject = (projectID) => {
-    // Includes projectID for later functionality when there are multiple projects
-    setProject('');
-  } 
+
 
   const renderProjects = () => {
     return projects.map(project => {
@@ -32,7 +29,6 @@ const Home = () => {
       <Project
         key={project.id}
         project={project}
-        deleteProject={deleteProject}
       />
     )})
   }

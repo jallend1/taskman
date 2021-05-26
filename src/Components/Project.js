@@ -17,10 +17,10 @@ import { DeleteOutlined } from "@material-ui/icons";
 import { useEffect, useState, useContext } from "react";
 import { ProjectContext } from '../Contexts/ProjectContext';
 
-const Project = ({ project, deleteProject, projectInURL = false }) => {
+const Project = ({ project, projectInURL = false }) => {
   // TODO: If projectInURL === true then pull the project ID from the URL
   const [newAction, setNewAction] = useState('');
-  const { addTask, completeTask, deleteTask } = useContext(ProjectContext);
+  const { addTask, completeTask, deleteTask, deleteProject } = useContext(ProjectContext);
   
   //   When Project is updated, resets the action state to empty string
   useEffect(() => setNewAction(''), [project]);
@@ -47,7 +47,7 @@ const Project = ({ project, deleteProject, projectInURL = false }) => {
         title={project.title}
         subheader={project.createdAt.toString()}
         action={
-          <IconButton aria-label="delete project" onClick={deleteProject}>
+          <IconButton aria-label="delete project" onClick={() => deleteProject(project.id)}>
             <DeleteOutlined color="secondary" />
           </IconButton>
         }
