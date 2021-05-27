@@ -20,10 +20,12 @@ import { ProjectContext } from '../Contexts/ProjectContext';
 
 const Project = ({ project }) => {
   // TODO: Shift Project component to take in only ProjectID (either from parameters or passed in)
-  const {id} = useParams()
-  console.log(id)
   const [newAction, setNewAction] = useState('');
   const { addTask, completeTask, deleteTask, deleteProject, projects } = useContext(ProjectContext);
+  const {id} = useParams()
+  if(!project){
+    project = projects.find(project => project.id === id)
+  }
   
   //   When Project is updated, resets the action state to empty string
   useEffect(() => setNewAction(''), [project]);
