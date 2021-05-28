@@ -62,7 +62,6 @@ const Project = ({ project }) => {
       </CardContent>
       <CardActionArea>
         <form onSubmit={(e) => addTask(e, project.id, newAction)}>
-          {/* TODO: Not liking the textfieldwhen in focus -- Weird color change? */}
           <TextField
             label="Add next action"
             onChange={(e) => setNewAction(e.target.value)}
