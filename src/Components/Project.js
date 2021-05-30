@@ -15,21 +15,15 @@ import {
 } from "@material-ui/core";
 import { useParams } from 'react-router-dom';
 import { DeleteOutlined } from "@material-ui/icons";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { ProjectContext } from '../Contexts/ProjectContext';
 
-const Project = ({ project }) => {
-  // TODO: Shift Project component to take in only ProjectID (either from parameters or passed in)
-  const [newAction, setNewAction] = useState('');
+const Project = ({ projectID }) => {
   const { addTask, completeTask, deleteTask, deleteProject, projects } = useContext(ProjectContext);
   const {id} = useParams()
-  if(!project){
-    project = projects.find(project => project.id === id)
-  }
+  const targetProjectID = projectID || id;
+  const [newAction, setNewAction] = useState('');
   
-  //   When Project is updated, resets the action state to empty string
-  useEffect(() => setNewAction(''), [project]);
-
   const useStyles = makeStyles({
     root: {
       width: 400,
@@ -45,6 +39,7 @@ const Project = ({ project }) => {
   const classes = useStyles();
 
   const renderProject = () => {
+    const project = projects.find(project => project.id === targetProjectID)
     return (
       <>
       <Card className={classes.root}>
@@ -58,10 +53,13 @@ const Project = ({ project }) => {
         }
       />
       <CardContent>
-        <List>{project ? renderTasks() : "Add a project"}</List>
+        <List>{project ? renderTasks(project) : "Add a project"}</List>
       </CardContent>
       <CardActionArea>
-        <form onSubmit={(e) => addTask(e, project.id, newAction)}>
+        <form onSubmit={(e) => {
+          addTask(e, project.id, newAction);
+          setNewAction('');
+          }}>
           <TextField
             label="Add next action"
             onChange={(e) => setNewAction(e.target.value)}
@@ -76,7 +74,7 @@ const Project = ({ project }) => {
     </>
     )
   }
-  const renderTasks = () => {
+  const renderTasks = (project) => {
     return project.taskList.map((task, index) => {
       return (
         <ListItem key={task.action}>
@@ -103,10 +101,10 @@ const Project = ({ project }) => {
       );
     });
   };
-
+  
   return (
     <>
-      {renderProject()}
+      {projects.length > 0 ? renderProject() : 'Loading...'}
     </>
   );
 };

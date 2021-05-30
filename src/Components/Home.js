@@ -18,7 +18,7 @@ const Home = () => {
 
   const renderProjects = () => {
     return projects.map((project) => {
-      return <Project key={project.id} project={project} />;
+      return <Project key={project.id} projectID={project.id} />;
     });
   };
 
