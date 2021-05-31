@@ -8,7 +8,6 @@ const About = () => {
         <Typography variant="body1">Just a basic little tasklist app.</Typography>
         <Typography variant="h5">Explore previous versions: </Typography>
         <img src="./images/version1.jpg" alt="Layout of version 1"/>
-
         {/* <V1 /> */}
         </>
 
