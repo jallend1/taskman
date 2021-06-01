@@ -62,7 +62,6 @@ class ProjectContextProvider extends React.Component {
   }
 
   deleteProject = (projectID) => {
-    console.log(projectID)
     const projectsCopy = this.state.projects;
     const targetProjectIndex = projectsCopy.findIndex(project => project.id === projectID);
     projectsCopy.splice(targetProjectIndex, 1);

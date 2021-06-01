@@ -40,6 +40,10 @@ const Project = ({ projectID }) => {
 
   const renderProject = () => {
     const project = projects.find(project => project.id === targetProjectID)
+    if(!project){
+      return 'Fetching project...'
+    }
+    else{
     return (
       <>
       <Card className={classes.root}>
@@ -72,7 +76,7 @@ const Project = ({ projectID }) => {
       </CardActionArea>
     </Card>
     </>
-    )
+    )}
   }
   const renderTasks = (project) => {
     return project.taskList.map((task, index) => {
