@@ -12,6 +12,10 @@ const Home = () => {
       // background: '#084b83',
       height: '100vh',
       padding: '1em 0'
+    },
+    projects: {
+      display: "flex",
+      flexWrap: "wrap"
     }
   });
   const classes = useStyles();
@@ -19,14 +23,16 @@ const Home = () => {
   const renderProjects = () => {
     return projects.map((project) => {
       return <Project key={project.id} projectID={project.id} />;
-    });
+    })
   };
 
   return (
     <>
       <div className={classes.root}>
         {projects.length > 0 ? (
-          renderProjects()
+          <div className={classes.projects}>
+          {renderProjects()}
+          </div>
         ) : (
           <>
             <Typography variant="h4">
