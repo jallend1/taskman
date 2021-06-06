@@ -1,12 +1,16 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 import { Button } from "@material-ui/core";
-import { AuthContext } from '../Contexts/AuthContext'
+import { AuthContext } from "../Contexts/AuthContext";
 
 const Login = () => {
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   return (
     <>
-      <Button variant="secondary">Login</Button>
+      {user ? (
+        <Button variant="secondary">Logout</Button>
+      ) : (
+        <Button variant="secondary">Login</Button>
+      )}
     </>
   );
 };
