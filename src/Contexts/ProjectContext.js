@@ -56,24 +56,36 @@ class ProjectContextProvider extends React.Component {
 
   completeTask = (projectID, index) => {
     const projectsCopy = this.state.projects;
-    const targetProject = projectsCopy.find(project => project.id === projectID);
-    targetProject.taskList[index].isComplete = !targetProject.taskList[index].isComplete;
-    db.collection('projects').doc(projectID).update({taskList: targetProject.taskList});
-  }
+    const targetProject = projectsCopy.find(
+      (project) => project.id === projectID
+    );
+    targetProject.taskList[index].isComplete =
+      !targetProject.taskList[index].isComplete;
+    db.collection('projects')
+      .doc(projectID)
+      .update({ taskList: targetProject.taskList });
+  };
 
   deleteProject = (projectID) => {
     const projectsCopy = this.state.projects;
-    const targetProjectIndex = projectsCopy.findIndex(project => project.id === projectID);
+    const targetProjectIndex = projectsCopy.findIndex(
+      (project) => project.id === projectID
+    );
     projectsCopy.splice(targetProjectIndex, 1);
-    db.collection('projects').doc(projectID).delete().then(() => console.log('BUHLETED'))
-  }
-  
+    db.collection('projects')
+      .doc(projectID)
+      .delete()
+      .then(() => console.log('BUHLETED'));
+  };
+
   deleteTask = (projectID, index) => {
     const projectsCopy = this.state.projects;
-    const targetProject = projectsCopy.find(project => project.id);
+    const targetProject = projectsCopy.find((project) => project.id);
     targetProject.taskList.splice(index, 1);
-    db.collection('projects').doc(projectID).update({taskList: targetProject.taskList});
-  }
+    db.collection('projects')
+      .doc(projectID)
+      .update({ taskList: targetProject.taskList });
+  };
 
   render() {
     return (

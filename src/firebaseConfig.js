@@ -17,4 +17,6 @@ export const db = firebase.firestore();
 export const auth = firebase.auth();
 // export const fb = firebase;
 
+export const provider = new firebase.auth.GoogleAuthProvider();
+
 firebase.firestore().settings({ timestampsinSnapshots: true });
