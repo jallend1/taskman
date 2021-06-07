@@ -32,6 +32,7 @@ const NavBar = () => {
   };
 
   const classes = useStyles();
+  console.log(user);
   return (
     <div className={classes.root}>
       <AppBar position="static" color="primary">
