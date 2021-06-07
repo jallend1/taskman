@@ -10,6 +10,7 @@ import V1 from './v1/Components/Home';
 import NewProject from './Components/NewProject';
 import Project from './Components/Project';
 import Login from './Components/Login';
+import Profile from './Components/Profile';
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
               </Route>
               <Route path="/login">
                 <Login />
+              </Route>
+              <Route path="/profile">
+                <Profile />
               </Route>
             </ProjectContextProvider>
           </Switch>
