@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext } from 'react';
 import { db } from '../firebaseConfig';
 import { withRouter } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
