@@ -19,6 +19,13 @@ class ProjectContextProvider extends React.Component {
     this.retrieveProjects();
   }
 
+  componentDidUpdate() {
+    const { user } = this.context;
+    if(user && user.uid !== this.state.uid){
+        this.retrieveProjects();
+      }
+  }
+
   retrieveProjects = () => {
     const { user } = this.context;
     if (user) {
