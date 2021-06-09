@@ -13,18 +13,24 @@ const NavBar = () => {
     },
     leftBar: {
       flexBasis: '90%'
+    },
+    userPhoto: { 
+      borderRadius: "50%",
+      height: 50
     }
   }));
 
   const loggedIn = () => {
+    console.log(user)
     return (
       <>
+
         <IconButton
           label="Current user account info"
           component={RRDLink}
           to="/profile"
         >
-          <AccountCircle />
+        {user.photoURL ? <img src={user.photoURL} alt="profile icon" className={classes.userPhoto}/>: <AccountCircle />}
         </IconButton>
         <Button onClick={logout}>Logout</Button>
       </>
