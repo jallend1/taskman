@@ -7,7 +7,7 @@ import { ProjectContext } from '../Contexts/ProjectContext';
 import { AuthContext } from '../Contexts/AuthContext';
 
 const Home = () => {
-  const { projects } = useContext(ProjectContext);
+  const { projects, isFetching } = useContext(ProjectContext);
   const { user } = useContext(AuthContext);
 
   const useStyles = makeStyles({
@@ -60,6 +60,7 @@ const Home = () => {
     <>
       {user ? (
         <div className={classes.root}>
+          {isFetching && <Typography>Loading...</Typography>}
           {projects.length > 0 ? (
             <div className={classes.projects}>{renderProjects()}</div>
           ) : (

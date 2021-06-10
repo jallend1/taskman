@@ -11,7 +11,8 @@ class ProjectContextProvider extends React.Component {
     super(props);
     this.state = {
       projects: [],
-      uid: ''
+      uid: '',
+      isFetching: true
     };
   }
 
@@ -24,6 +25,10 @@ class ProjectContextProvider extends React.Component {
     if(user && user.uid !== this.state.uid){
         this.retrieveProjects();
       }
+      // If the user logs out, clears the projet and uid states
+      if(!user && this.state.uid){
+        this.setState({projects: [], uid: ''})
+      }
   }
 
   retrieveProjects = () => {
@@ -35,8 +40,11 @@ class ProjectContextProvider extends React.Component {
         snapshot.forEach((doc) => {
           fetchedProjects.push(doc.data());
         });
-        this.setState({ projects: fetchedProjects, uid: userID });
+        this.setState({ projects: fetchedProjects, uid: userID, isFetching: false });
       });
+    }
+    else{
+      this.setState({projects: [], uid: ''})
     }
   };
 
@@ -106,6 +114,7 @@ class ProjectContextProvider extends React.Component {
       <ProjectContext.Provider
         value={{
           projects: this.state.projects,
+          isFetching: this.state.isFetching,
           addTask: this.addTask,
           addProject: this.addProject,
           completeTask: this.completeTask,
