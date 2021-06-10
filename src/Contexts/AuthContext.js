@@ -12,6 +12,12 @@ class AuthContextProvider extends React.Component {
     };
   }
 
+  login = (e, email, password) => {
+    e.preventDefault();
+    console.log(e, email, password)
+    // auth.signInWithEmailAndPassword(email, password);
+  }
+
   loginWithGoogle = () => {
     auth.signInWithPopup(provider).then((result) => {
       const userInfo = result.user;
@@ -29,6 +35,7 @@ class AuthContextProvider extends React.Component {
         value={{
           user: auth.currentUser,
           loginWithGoogle: this.loginWithGoogle,
+          login: this.login,
           logout: this.logout
         }}
       >
