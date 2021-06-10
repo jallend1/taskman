@@ -33,7 +33,9 @@ const NavBar = () => {
           {user.photoURL ? (
             <Avatar alt={user.displayName || null} src={user.photoURL} />
           ) : (
-            <AccountCircle />
+            <Avatar>
+              <AccountCircle />
+            </Avatar>
           )}
         </IconButton>
         <Button onClick={logout}>Logout</Button>
