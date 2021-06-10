@@ -1,5 +1,5 @@
 import { Typography } from "@material-ui/core";
-import V1 from '../v1/Components/Home'
+// import V1 from '../v1/Components/Home'
 
 const About = () => {
     return (

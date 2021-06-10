@@ -16,16 +16,16 @@ const Home = () => {
   )
   const classes = useStyles();
 
-  const sampleProject = {
-    title: "My First Project!",
-    createdAt: new Date().toDateString(),
-    id: 5000,
-    taskList: [
-      { action: "Play Mario Kart", isComplete: true },
-      { action: "Do laundry", isComplete: false },
-      { action: "Union meeting", isComplete: false },
-    ],
-  };
+  // const sampleProject = {
+  //   title: "My First Project!",
+  //   createdAt: new Date().toDateString(),
+  //   id: 5000,
+  //   taskList: [
+  //     { action: "Play Mario Kart", isComplete: true },
+  //     { action: "Do laundry", isComplete: false },
+  //     { action: "Union meeting", isComplete: false },
+  //   ],
+  // };
 
   // If existing project in localStorage, populates that. If not, defaults to blank
   const storedProject = JSON.parse(localStorage.getItem("project")) || "";
