@@ -15,37 +15,50 @@ class AuthContextProvider extends React.Component {
 
   createNew = (e, email, password) => {
     e.preventDefault();
-    auth.createUserWithEmailAndPassword(email, password).then(result => {
-      const userInfo = result.user;
-      this.setState(userInfo)
-    }).catch(error => {
-      if(error.code === 'auth/email-already-in-use'){
-        this.setState({status: error.message})
-      }
-      console.log(error)
-    })
-  }
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        const userInfo = result.user;
+        this.setState(userInfo);
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          this.setState({ status: error.message });
+        }
+        console.log(error);
+      });
+  };
   login = (e, email, password) => {
     e.preventDefault();
-    auth.signInWithEmailAndPassword(email, password).then(result => {
-      const userInfo = result.user;
-      this.setState({userInfo, status: ''})
-    }).catch(error => {
-      if(error.code === "auth/user-not-found"){
-        this.setState({status: "We don't see an account under that email address. Should we make one?"})
-      }
-      else if(error.code === "auth/wrong-password"){
-        this.setState({status: "That password doesn't match what we got over here."})
-      }
-      console.log(error)
-    })
-  }
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        const userInfo = result.user;
+        this.setState({ userInfo, status: '' });
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          this.setState({
+            status:
+              "We don't see an account under that email address. Should we make one?"
+          });
+        } else if (error.code === 'auth/wrong-password') {
+          this.setState({
+            status: "That password doesn't match what we got over here."
+          });
+        }
+        console.log(error);
+      });
+  };
 
   loginWithGoogle = () => {
-    auth.signInWithPopup(provider).then((result) => {
-      const userInfo = result.user;
-      this.setState({ userInfo: userInfo }, this.props.history.push('/'));
-    }).catch(err => console.log(err.message));
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        const userInfo = result.user;
+        this.setState({ userInfo: userInfo }, this.props.history.push('/'));
+      })
+      .catch((err) => console.log(err.message));
   };
 
   logout = () => {

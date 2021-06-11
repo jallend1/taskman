@@ -22,29 +22,35 @@ class ProjectContextProvider extends React.Component {
 
   componentDidUpdate() {
     const { user } = this.context;
-    if(user && user.uid !== this.state.uid){
-        this.retrieveProjects();
-      }
-      // If the user logs out, clears the projet and uid states
-      if(!user && this.state.uid){
-        this.setState({projects: [], uid: ''})
-      }
+    if (user && user.uid !== this.state.uid) {
+      this.retrieveProjects();
+    }
+    // If the user logs out, clears the projet and uid states
+    if (!user && this.state.uid) {
+      this.setState({ projects: [], uid: '' });
+    }
   }
 
   retrieveProjects = () => {
     const { user } = this.context;
     if (user) {
       const userID = user.uid;
-      db.collection(userID).onSnapshot((snapshot) => {
-        const fetchedProjects = [];
-        snapshot.forEach((doc) => {
-          fetchedProjects.push(doc.data());
-        });
-        this.setState({ projects: fetchedProjects, uid: userID, isFetching: false });
-      }, error => console.log(error));
-    }
-    else{
-      this.setState({projects: [], uid: ''})
+      db.collection(userID).onSnapshot(
+        (snapshot) => {
+          const fetchedProjects = [];
+          snapshot.forEach((doc) => {
+            fetchedProjects.push(doc.data());
+          });
+          this.setState({
+            projects: fetchedProjects,
+            uid: userID,
+            isFetching: false
+          });
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      this.setState({ projects: [], uid: '' });
     }
   };
 
