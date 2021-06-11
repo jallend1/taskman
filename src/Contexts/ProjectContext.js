@@ -41,7 +41,7 @@ class ProjectContextProvider extends React.Component {
           fetchedProjects.push(doc.data());
         });
         this.setState({ projects: fetchedProjects, uid: userID, isFetching: false });
-      });
+      }, error => console.log(error));
     }
     else{
       this.setState({projects: [], uid: ''})

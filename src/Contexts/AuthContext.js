@@ -20,9 +20,12 @@ class AuthContextProvider extends React.Component {
 
   loginWithGoogle = () => {
     auth.signInWithPopup(provider).then((result) => {
+      if(!result.ok){
+        throw Error('There was a problem???')
+      }
       const userInfo = result.user;
       this.setState({ userInfo: userInfo }, this.props.history.push('/'));
-    });
+    }).catch(err => console.log(err.message, err));
   };
 
   logout = () => {
