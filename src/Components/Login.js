@@ -81,10 +81,10 @@ const Login = () => {
             <Typography variant="h6" align="center">Sign In Using</Typography>
             <Button
               color="primary"
-              variant="outlined"
+              
               onClick={loginWithGoogle}
             >
-              Google
+              <img src="./images/google_signin.png" alt="Sign in with Google" />
             </Button>
           </div>
           <div >
