@@ -7,7 +7,6 @@ import {
   Container,
   makeStyles,
   Typography,
-  Link,
   Paper
 } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';

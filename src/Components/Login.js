@@ -20,17 +20,13 @@ const Login = () => {
       maxWidth: '400px',
       margin: '2em auto',
       padding: '2em',
-      textAlign: 'center'
-    },
-    title: {
-      textAlign: 'center'
+      textAlign: "center"
     },
     otherLogins: {
-      textAlign: 'center',
-      margin: '5em auto'
+      margin: "2em"
     },
-    buttons: {
-      textAlign: 'center'
+    spacious: {
+      margin: "1.5em"
     }
   });
 
@@ -55,7 +51,7 @@ const Login = () => {
             autoComplete="off"
             onSubmit={(e) => login(e, email, password)}
           >
-            <TextField
+            <TextField autoFocus
               fullWidth
               id="email"
               value={email}
@@ -72,6 +68,7 @@ const Login = () => {
               onChange={handleChange}
             />
             <Button
+              className={classes.spacious}
               type="submit"
               size="large"
               variant="contained"
@@ -81,7 +78,7 @@ const Login = () => {
             </Button>
           </form>
           <div className={classes.otherLogins}>
-            <Typography variant="h6">Sign In Using</Typography>
+            <Typography variant="h6" align="center">Sign In Using</Typography>
             <Button
               color="primary"
               variant="outlined"
@@ -90,8 +87,9 @@ const Login = () => {
               Google
             </Button>
           </div>
-          <div className={classes.buttons}>
+          <div >
             <Button
+              align="center"
               color="primary"
               variant="outlined"
               onClick={() => setNewUser(true)}
@@ -107,7 +105,7 @@ const Login = () => {
   const newUserForm = () => {
     return (
       <Paper className={classes.loginBox}>
-        <Typography variant="h4" className={classes.title}>
+        <Typography variant="h4" align="center">
           New Account
         </Typography>
         <form
