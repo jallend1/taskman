@@ -26,7 +26,7 @@ const Login = () => {
       margin: "2em"
     },
     spacious: {
-      margin: "1.5em"
+      margin: "1em"
     }
   });
 
@@ -43,7 +43,7 @@ const Login = () => {
     return (
       <>
         <Paper className={classes.loginBox}>
-          <Typography variant="h4" className={classes.title}>
+          <Typography variant="h4" className={classes.spacious}>
             Log into TaskMan
           </Typography>
           <form
@@ -78,10 +78,9 @@ const Login = () => {
             </Button>
           </form>
           <div className={classes.otherLogins}>
-            <Typography variant="h6" align="center">Sign In Using</Typography>
+            <Typography variant="h6" align="center">Or</Typography>
             <Button
               color="primary"
-              
               onClick={loginWithGoogle}
             >
               <img src="./images/google_signin.png" alt="Sign in with Google" />
@@ -129,16 +128,19 @@ const Login = () => {
             type="password"
             onChange={handleChange}
           />
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
+           <Button
+              className={classes.spacious}
+              type="submit"
+              size="large"
+              variant="contained"
+              color="secondary"
             onClick={(e) => createNew(e, email, password)}
-          >
+            >
+          
             Create a New Account
           </Button>
         </form>
-        <Button onClick={() => setNewUser(false)}>
+        <Button variant="outlined" onClick={() => setNewUser(false)}>
           Or Login to an Existing Account
         </Button>
       </Paper>

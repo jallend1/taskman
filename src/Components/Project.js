@@ -10,74 +10,89 @@ import {
   CardHeader,
   CardContent,
   TextField,
+  Typography,
   ListItemSecondaryAction,
-  IconButton,
-} from "@material-ui/core";
-import { useParams } from 'react-router-dom';
-import { DeleteOutlined } from "@material-ui/icons";
-import { useState, useContext } from "react";
+  IconButton
+} from '@material-ui/core';
+import { useParams, Link as RRDLink } from 'react-router-dom';
+import { DeleteOutlined } from '@material-ui/icons';
+import { useState, useContext } from 'react';
 import { ProjectContext } from '../Contexts/ProjectContext';
 
 const Project = ({ projectID }) => {
-  const { addTask, completeTask, deleteTask, deleteProject, projects } = useContext(ProjectContext);
-  const {id} = useParams()
+  const { addTask, completeTask, deleteTask, deleteProject, projects } =
+    useContext(ProjectContext);
+  const { id } = useParams();
   const targetProjectID = projectID || id;
   const [newAction, setNewAction] = useState('');
-  
+
   const useStyles = makeStyles({
     root: {
       width: 400,
-      margin: "auto",
-      padding: "1em 0.5em"
+      margin: 'auto',
+      padding: '1em 0.5em'
     },
     completed: {
-      textDecoration: "line-through",
-      opacity: 0.4,
-    },
+      textDecoration: 'line-through',
+      opacity: 0.4
+    }
   });
 
   const classes = useStyles();
 
   const renderProject = () => {
-    const project = projects.find(project => project.id === targetProjectID)
-    if(!project){
-      return 'Fetching project...'
+    const project = projects.find((project) => project.id === targetProjectID);
+    if (!project) {
+      return 'Fetching project...';
+    } else {
+      return (
+        <>
+          <Card className={classes.root}>
+            <CardHeader
+              title={
+                <Typography
+                  variant="h6"
+                  component={RRDLink}
+                  to={`/project/${project.id}`}
+                >
+                  {project.title}
+                </Typography>
+              }
+              subheader={project.createdAt.toString()}
+              action={
+                <IconButton
+                  aria-label="delete project"
+                  onClick={() => deleteProject(project.id)}
+                >
+                  <DeleteOutlined color="secondary" />
+                </IconButton>
+              }
+            />
+            <CardContent>
+              <List>{project ? renderTasks(project) : 'Add a project'}</List>
+            </CardContent>
+            <CardActionArea>
+              <form
+                onSubmit={(e) => {
+                  addTask(e, project.id, newAction);
+                  setNewAction('');
+                }}
+              >
+                <TextField
+                  label="Add next action"
+                  onChange={(e) => setNewAction(e.target.value)}
+                  fullWidth
+                  autoFocus
+                  variant="outlined"
+                  color="primary"
+                />
+              </form>
+            </CardActionArea>
+          </Card>
+        </>
+      );
     }
-    else{
-    return (
-      <>
-      <Card className={classes.root}>
-      <CardHeader
-        title={project.title}
-        subheader={project.createdAt.toString()}
-        action={
-          <IconButton aria-label="delete project" onClick={() => deleteProject(project.id)}>
-            <DeleteOutlined color="secondary" />
-          </IconButton>
-        }
-      />
-      <CardContent>
-        <List>{project ? renderTasks(project) : "Add a project"}</List>
-      </CardContent>
-      <CardActionArea>
-        <form onSubmit={(e) => {
-          addTask(e, project.id, newAction);
-          setNewAction('');
-          }}>
-          <TextField
-            label="Add next action"
-            onChange={(e) => setNewAction(e.target.value)}
-            fullWidth
-            autoFocus
-            variant="outlined"
-            color="primary"
-          />
-        </form>
-      </CardActionArea>
-    </Card>
-    </>
-    )}
-  }
+  };
   const renderTasks = (project) => {
     return project.taskList.map((task, index) => {
       return (
@@ -105,12 +120,8 @@ const Project = ({ projectID }) => {
       );
     });
   };
-  
-  return (
-    <>
-      {projects.length > 0 ? renderProject() : 'Loading...'}
-    </>
-  );
+
+  return <>{projects.length > 0 ? renderProject() : 'Loading...'}</>;
 };
 
 export default Project;
