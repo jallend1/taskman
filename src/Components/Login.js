@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import {
   makeStyles,
   Button,
-  ButtonGroup,
   TextField,
   Paper,
   Typography
@@ -18,11 +17,19 @@ const Login = () => {
 
   const useStyles = makeStyles({
     loginBox: {
-      maxWidth: '600px',
+      maxWidth: '400px',
       margin: '2em auto',
-      padding: '2em'
+      padding: '2em',
+      textAlign: 'center'
     },
     title: {
+      textAlign: 'center'
+    },
+    otherLogins: {
+      textAlign: 'center',
+      margin: '5em auto'
+    },
+    buttons: {
       textAlign: 'center'
     }
   });
@@ -64,16 +71,26 @@ const Login = () => {
               type="password"
               onChange={handleChange}
             />
-            <Button type="submit">Email Login</Button>
+            <Button
+              type="submit"
+              size="large"
+              variant="contained"
+              color="secondary"
+            >
+              Email Login
+            </Button>
           </form>
-          <ButtonGroup>
+          <div className={classes.otherLogins}>
+            <Typography variant="h6">Sign In Using</Typography>
             <Button
               color="primary"
               variant="outlined"
               onClick={loginWithGoogle}
             >
-              Sign In With Google
+              Google
             </Button>
+          </div>
+          <div className={classes.buttons}>
             <Button
               color="primary"
               variant="outlined"
@@ -81,7 +98,7 @@ const Login = () => {
             >
               Create a New Account
             </Button>
-          </ButtonGroup>
+          </div>
         </Paper>
       </>
     );
