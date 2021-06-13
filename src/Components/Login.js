@@ -14,19 +14,18 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [newUser, setNewUser] = useState(false);
-
   const useStyles = makeStyles({
     loginBox: {
       maxWidth: '400px',
       margin: '2em auto',
       padding: '2em',
-      textAlign: "center"
+      textAlign: 'center'
     },
     otherLogins: {
-      margin: "2em"
+      margin: '2em'
     },
     spacious: {
-      margin: "1em"
+      margin: '1em'
     }
   });
 
@@ -51,7 +50,8 @@ const Login = () => {
             autoComplete="off"
             onSubmit={(e) => login(e, email, password)}
           >
-            <TextField autoFocus
+            <TextField
+              autoFocus
               fullWidth
               id="email"
               value={email}
@@ -78,15 +78,14 @@ const Login = () => {
             </Button>
           </form>
           <div className={classes.otherLogins}>
-            <Typography variant="h6" align="center">Or</Typography>
-            <Button
-              color="primary"
-              onClick={loginWithGoogle}
-            >
+            <Typography variant="h6" align="center">
+              Or
+            </Typography>
+            <Button color="primary" onClick={loginWithGoogle}>
               <img src="./images/google_signin.png" alt="Sign in with Google" />
             </Button>
           </div>
-          <div >
+          <div>
             <Button
               align="center"
               color="primary"
@@ -128,15 +127,14 @@ const Login = () => {
             type="password"
             onChange={handleChange}
           />
-           <Button
-              className={classes.spacious}
-              type="submit"
-              size="large"
-              variant="contained"
-              color="secondary"
+          <Button
+            className={classes.spacious}
+            type="submit"
+            size="large"
+            variant="contained"
+            color="secondary"
             onClick={(e) => createNew(e, email, password)}
-            >
-          
+          >
             Create a New Account
           </Button>
         </form>
@@ -150,12 +148,15 @@ const Login = () => {
   return (
     <>
       {/* TODO: Create a profile page and get rid of this goofiness */}
-      {user && (
+      {user ? (
         <Button color="primary" variant="contained" onClick={logout}>
           Logout
         </Button>
+      ) : newUser ? (
+        newUserForm()
+      ) : (
+        loginPage()
       )}
-      {newUser ? newUserForm() : loginPage()}
     </>
   );
 };
