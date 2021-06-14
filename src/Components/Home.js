@@ -96,12 +96,13 @@ const Home = () => {
     <>
       {user ? (
         <div className={classes.root}>
-          {isFetching && <Typography>Loading...</Typography>}
-          {projects.length > 0 ? (
-            <div className={classes.projects}>{renderProjects()}</div>
-          ) : (
-            noProjects()
-          )}
+          {/* Loading message while fetching  */}
+          {isFetching && <Typography>Getting your projects...</Typography>}
+          {/* If projects exist, renders them */}
+          {projects.length > 0 && <div className={classes.projects}>{renderProjects()}</div>}
+          {/* If fetching is complete and no projects, tells you to make one */}
+          {!isFetching && projects.length === 0 ? noProjects() : null}
+
           <Footer />
         </div>
       ) : (
