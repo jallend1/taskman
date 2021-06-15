@@ -18,7 +18,10 @@ const NavBar = () => {
       flexGrow: 1
     },
     leftBar: {
-      flexBasis: '90%'
+      flexBasis: '60%'
+    },
+    spacious: {
+      margin: "0 10em"
     }
   }));
 
@@ -50,13 +53,13 @@ const NavBar = () => {
         <Toolbar>
           <div className={classes.leftBar}>
             <Button component={RRDLink} to="/">
-              <Typography variant="h5">TaskMan</Typography>
+              <Typography variant="h5">TaskMan 2.0</Typography>
             </Button>
-            <Button component={RRDLink} to="/new">
+            <Button className={classes.spacious} color="secondary" variant="contained" component={RRDLink} to="/new">
               Create New Project
             </Button>
           </div>
-          <div className={classes.rightBar}>
+          <div>
             {user ? (
               loggedIn()
             ) : (
@@ -64,6 +67,9 @@ const NavBar = () => {
                 Login
               </Button>
             )}
+            <Button component={RRDLink} to="/about">
+              About
+            </Button>
           </div>
         </Toolbar>
       </AppBar>
