@@ -21,7 +21,7 @@ const NavBar = () => {
       flexBasis: '60%'
     },
     spacious: {
-      margin: "0 10em"
+      margin: '0 10em'
     }
   }));
 
@@ -55,7 +55,13 @@ const NavBar = () => {
             <Button component={RRDLink} to="/">
               <Typography variant="h5">TaskMan 2.0</Typography>
             </Button>
-            <Button className={classes.spacious} color="secondary" variant="contained" component={RRDLink} to="/new">
+            <Button
+              className={classes.spacious}
+              color="secondary"
+              variant="contained"
+              component={RRDLink}
+              to="/new"
+            >
               Create New Project
             </Button>
           </div>

@@ -1,11 +1,11 @@
-import { Typography, makeStyles } from "@material-ui/core";
+import { Typography, makeStyles } from '@material-ui/core';
 
 const Footer = () => {
   const useStyles = makeStyles({
     root: {
-      color: "#f0f6f6",
+      color: '#f0f6f6'
     }
-  })
+  });
 
   const classes = useStyles();
   return (
