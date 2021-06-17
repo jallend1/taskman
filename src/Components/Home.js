@@ -4,7 +4,6 @@ import Project from './Project';
 import Footer from './Footer';
 import {
   Button,
-  Container,
   makeStyles,
   Typography,
   Paper
