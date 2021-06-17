@@ -18,8 +18,6 @@ const Home = () => {
 
   const useStyles = makeStyles({
     root: {
-      // background: '#084b83',
-      height: '100vh',
       padding: '1em 0'
     },
     projects: {
@@ -49,7 +47,7 @@ const Home = () => {
   };
   const notLoggedIn = () => {
     return (
-      <Container maxWidth="sm">
+      <>
         <Typography variant="h1" align="center">
           TaskMan
         </Typography>
@@ -83,7 +81,7 @@ const Home = () => {
             Login Page
           </Button>
         </Paper>
-      </Container>
+      </>
     );
   };
   const renderProjects = () => {
