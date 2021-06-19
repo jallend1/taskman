@@ -19,6 +19,7 @@ import { useParams, Link as RRDLink } from 'react-router-dom';
 import { DeleteOutlined } from '@material-ui/icons';
 import { useState, useContext } from 'react';
 import { ProjectContext } from '../Contexts/ProjectContext';
+import Footer from './Footer';
 
 const Project = ({ projectID }) => {
   const { addTask, completeTask, deleteTask, deleteProject, projects } =
@@ -143,6 +144,7 @@ const Project = ({ projectID }) => {
           </Button>
         ) : null}
       </div>
+      {onProjectPage ? <Footer /> : null}
     </>
   );
 };
