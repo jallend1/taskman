@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   makeStyles,
   Button,
@@ -148,15 +149,7 @@ const Login = () => {
   return (
     <>
       {/* TODO: Create a profile page and get rid of this goofiness */}
-      {user ? (
-        <Button color="primary" variant="contained" onClick={logout}>
-          Logout
-        </Button>
-      ) : newUser ? (
-        newUserForm()
-      ) : (
-        loginPage()
-      )}
+      {user ? <Redirect to="/" /> : newUser ? newUserForm() : loginPage()}
     </>
   );
 };
