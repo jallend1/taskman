@@ -1,4 +1,5 @@
 import {
+  Button,
   CardActionArea,
   Checkbox,
   List,
@@ -25,6 +26,8 @@ const Project = ({ projectID }) => {
   const { id } = useParams();
   const targetProjectID = projectID || id;
   const [newAction, setNewAction] = useState('');
+  // If there are URL parameters passed down, display individual project page components
+  const onProjectPage = id ? true : false;
 
   const useStyles = makeStyles({
     root: {
@@ -35,6 +38,9 @@ const Project = ({ projectID }) => {
     completed: {
       textDecoration: 'line-through',
       opacity: 0.4
+    },
+    homeButton: {
+      margin: '1.25em 0em'
     }
   });
 
@@ -47,7 +53,7 @@ const Project = ({ projectID }) => {
     } else {
       return (
         <>
-          <Card className={classes.root}>
+          <Card>
             <CardHeader
               title={
                 <Typography
@@ -121,7 +127,24 @@ const Project = ({ projectID }) => {
     });
   };
 
-  return <>{projects.length > 0 ? renderProject() : 'Loading...'}</>;
+  return (
+    <>
+      <div className={classes.root}>
+        {projects.length > 0 ? renderProject() : 'Loading...'}
+        {onProjectPage ? (
+          <Button
+            variant="contained"
+            color="secondary"
+            component={RRDLink}
+            to="/"
+            className={classes.homeButton}
+          >
+            Return Home
+          </Button>
+        ) : null}
+      </div>
+    </>
+  );
 };
 
 export default Project;

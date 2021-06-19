@@ -10,7 +10,7 @@ import {
 import { AuthContext } from '../Contexts/AuthContext';
 
 const Login = () => {
-  const { user, createNew, login, loginWithGoogle, logout } =
+  const { user, createNew, login, loginWithGoogle} =
     useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -148,7 +148,6 @@ const Login = () => {
 
   return (
     <>
-      {/* TODO: Create a profile page and get rid of this goofiness */}
       {user ? <Redirect to="/" /> : newUser ? newUserForm() : loginPage()}
     </>
   );
