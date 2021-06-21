@@ -10,8 +10,7 @@ import {
 import { AuthContext } from '../Contexts/AuthContext';
 
 const Login = () => {
-  const { user, createNew, login, loginWithGoogle} =
-    useContext(AuthContext);
+  const { user, createNew, login, loginWithGoogle } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [bio, setBio] = useState('');
@@ -38,7 +37,7 @@ const Login = () => {
       setEmail(e.target.value);
     } else if (e.target.id === 'password') {
       setPassword(e.target.value);
-    } else if(e.target.id === 'bio'){
+    } else if (e.target.id === 'bio') {
       setBio(e.target.value);
     }
   };
@@ -158,9 +157,7 @@ const Login = () => {
   };
 
   return (
-    <>
-      {user ? <Redirect to="/" /> : newUser ? newUserForm() : loginPage()}
-    </>
+    <>{user ? <Redirect to="/" /> : newUser ? newUserForm() : loginPage()}</>
   );
 };
 

@@ -35,20 +35,23 @@ class ProjectContextProvider extends React.Component {
     const { user } = this.context;
     if (user) {
       const userID = user.uid;
-      db.collection('userProjects').doc(userID).collection('projects').onSnapshot(
-        (snapshot) => {
-          const fetchedProjects = [];
-          snapshot.forEach((doc) => {
-            fetchedProjects.push(doc.data());
-          });
-          this.setState({
-            projects: fetchedProjects,
-            uid: userID,
-            isFetching: false
-          });
-        },
-        (error) => console.log(error)
-      );
+      db.collection('userProjects')
+        .doc(userID)
+        .collection('projects')
+        .onSnapshot(
+          (snapshot) => {
+            const fetchedProjects = [];
+            snapshot.forEach((doc) => {
+              fetchedProjects.push(doc.data());
+            });
+            this.setState({
+              projects: fetchedProjects,
+              uid: userID,
+              isFetching: false
+            });
+          },
+          (error) => console.log(error)
+        );
     } else {
       this.setState({ projects: [], uid: '' });
     }
@@ -56,7 +59,11 @@ class ProjectContextProvider extends React.Component {
 
   addProject = (e, name) => {
     e.preventDefault();
-    const newProjectRef = db.collection('userProjects').doc(this.state.uid).collection('projects').doc();
+    const newProjectRef = db
+      .collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
+      .doc();
     const newProject = {
       title: name,
       createdAt: new Date().toDateString(),
@@ -75,7 +82,9 @@ class ProjectContextProvider extends React.Component {
         (project) => project.id === projectID
       );
       currentProject.taskList.push({ action: newTask, isComplete: false });
-      db.collection('userProjects').doc(this.state.uid).collection('projects')
+      db.collection('userProjects')
+        .doc(this.state.uid)
+        .collection('projects')
         .doc(projectID)
         .update({ taskList: currentProject.taskList });
     }
@@ -89,7 +98,9 @@ class ProjectContextProvider extends React.Component {
     );
     targetProject.taskList[index].isComplete =
       !targetProject.taskList[index].isComplete;
-    db.collection('userProjects').doc(this.state.uid).collection('projects')
+    db.collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
       .doc(projectID)
       .update({ taskList: targetProject.taskList });
   };
@@ -100,7 +111,9 @@ class ProjectContextProvider extends React.Component {
       (project) => project.id === projectID
     );
     projectsCopy.splice(targetProjectIndex, 1);
-    db.collection('userProjects').doc(this.state.uid).collection('projects')
+    db.collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
       .doc(projectID)
       .delete()
       .then(() => console.log('BUHLETED'));
@@ -110,7 +123,9 @@ class ProjectContextProvider extends React.Component {
     const projectsCopy = this.state.projects;
     const targetProject = projectsCopy.find((project) => project.id);
     targetProject.taskList.splice(index, 1);
-    db.collection('userProjects').doc(this.state.uid).collection('projects')
+    db.collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
       .doc(projectID)
       .update({ taskList: targetProject.taskList });
   };
