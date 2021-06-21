@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { withRouter } from 'react-router-dom';
-import { auth, provider } from '../firebaseConfig';
+import { auth, provider, db } from '../firebaseConfig';
 
 export const AuthContext = createContext();
 
@@ -24,13 +24,16 @@ class AuthContextProvider extends React.Component {
     });
   }
 
-  createNew = (e, email, password) => {
+  createNew = (e, email, password, bio) => {
+    console.log(bio);
     e.preventDefault();
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        const userInfo = result.user;
-        this.setState(userInfo);
+        this.setState({userInfo: result.user})
+        return db.collection('users').doc(result.user.uid).set({
+          bio
+        });
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {

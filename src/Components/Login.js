@@ -14,6 +14,7 @@ const Login = () => {
     useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [bio, setBio] = useState('');
   const [newUser, setNewUser] = useState(false);
   const useStyles = makeStyles({
     loginBox: {
@@ -37,6 +38,8 @@ const Login = () => {
       setEmail(e.target.value);
     } else if (e.target.id === 'password') {
       setPassword(e.target.value);
+    } else if(e.target.id === 'bio'){
+      setBio(e.target.value);
     }
   };
   const loginPage = () => {
@@ -110,7 +113,7 @@ const Login = () => {
         <form
           noValidate
           autoComplete="off"
-          onSubmit={(e) => createNew(e, email, password)}
+          onSubmit={(e) => createNew(e, email, password, bio)}
         >
           <TextField
             fullWidth
@@ -128,13 +131,21 @@ const Login = () => {
             type="password"
             onChange={handleChange}
           />
+          <TextField
+            fullWidth
+            id="bio"
+            value={bio}
+            label="Bio"
+            type="text"
+            onChange={handleChange}
+          />
           <Button
             className={classes.spacious}
             type="submit"
             size="large"
             variant="contained"
             color="secondary"
-            onClick={(e) => createNew(e, email, password)}
+            onClick={(e) => createNew(e, email, password, bio)}
           >
             Create a New Account
           </Button>
