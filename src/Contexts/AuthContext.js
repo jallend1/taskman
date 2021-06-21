@@ -13,6 +13,17 @@ class AuthContextProvider extends React.Component {
     };
   }
 
+  componentDidMount(){
+    auth.onAuthStateChanged(user => {
+      if(user){
+        this.setState({userInfo: user, status: ''})
+      }
+      else{
+        this.setState({userInfo: ''})
+      }
+    });
+  }
+
   createNew = (e, email, password) => {
     e.preventDefault();
     auth

@@ -13,36 +13,36 @@ import {
   TextField,
   Typography,
   ListItemSecondaryAction,
-  IconButton,
-} from "@material-ui/core";
-import { useParams, Link as RRDLink } from "react-router-dom";
-import { DeleteOutlined } from "@material-ui/icons";
-import { useState, useContext } from "react";
-import { ProjectContext } from "../Contexts/ProjectContext";
-import Footer from "./Footer";
+  IconButton
+} from '@material-ui/core';
+import { useParams, Link as RRDLink } from 'react-router-dom';
+import { DeleteOutlined } from '@material-ui/icons';
+import { useState, useContext } from 'react';
+import { ProjectContext } from '../Contexts/ProjectContext';
+import Footer from './Footer';
 
 const Project = ({ projectID }) => {
   const { addTask, completeTask, deleteTask, deleteProject, projects } =
     useContext(ProjectContext);
   const { id } = useParams();
   const targetProjectID = projectID || id;
-  const [newAction, setNewAction] = useState("");
+  const [newAction, setNewAction] = useState('');
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
 
   const useStyles = makeStyles({
     root: {
       width: 400,
-      margin: "auto",
-      padding: "1em 0.5em",
+      margin: 'auto',
+      padding: '1em 0.5em'
     },
     completed: {
-      textDecoration: "line-through",
-      opacity: 0.4,
+      textDecoration: 'line-through',
+      opacity: 0.4
     },
     homeButton: {
-      margin: "1.25em 0",
-    },
+      margin: '1.25em 0'
+    }
   });
 
   const classes = useStyles();
@@ -50,7 +50,7 @@ const Project = ({ projectID }) => {
   const renderProject = () => {
     const project = projects.find((project) => project.id === targetProjectID);
     if (!project) {
-      return "Fetching project...";
+      return 'Fetching project...';
     } else {
       return (
         <>
@@ -76,13 +76,13 @@ const Project = ({ projectID }) => {
               }
             />
             <CardContent>
-              <List>{project ? renderTasks(project) : "Add a project"}</List>
+              <List>{project ? renderTasks(project) : 'Add a project'}</List>
             </CardContent>
             <CardActionArea>
               <form
                 onSubmit={(e) => {
                   addTask(e, project.id, newAction);
-                  setNewAction("");
+                  setNewAction('');
                 }}
               >
                 <TextField
@@ -131,7 +131,7 @@ const Project = ({ projectID }) => {
   return (
     <>
       <div className={classes.root}>
-        {projects.length > 0 ? renderProject() : "Loading..."}
+        {projects.length > 0 ? renderProject() : 'Loading...'}
         {onProjectPage ? (
           <Button
             variant="contained"
