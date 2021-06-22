@@ -5,7 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100%;
+  min-height: 100vh;
+  background-image: url(./images/cartoonworld.png);
+  background-position: bottom;
+  background-repeat: repeat no-repeat;
+  background-color: #bfecff;
 }
 
 code {
