@@ -66,7 +66,7 @@ class ProjectContextProvider extends React.Component {
       .doc();
     const newProject = {
       title: name,
-      createdAt: new Date().toDateString(),
+      createdAt: Date.now(),
       id: newProjectRef.id,
       taskList: []
     };

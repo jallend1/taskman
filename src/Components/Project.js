@@ -1,3 +1,5 @@
+import { useParams, Link as RRDLink } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import {
   Button,
   CardActionArea,
@@ -15,9 +17,8 @@ import {
   ListItemSecondaryAction,
   IconButton
 } from '@material-ui/core';
-import { useParams, Link as RRDLink } from 'react-router-dom';
 import { DeleteOutlined } from '@material-ui/icons';
-import { useState, useContext } from 'react';
+import { formatDistanceToNow } from 'date-fns';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Footer from './Footer';
 
@@ -49,6 +50,7 @@ const Project = ({ projectID }) => {
 
   const renderProject = () => {
     const project = projects.find((project) => project.id === targetProjectID);
+    // TODO: Meant to display only when fetching; Add project not found message
     if (!project) {
       return 'Fetching project...';
     } else {
@@ -65,7 +67,9 @@ const Project = ({ projectID }) => {
                   {project.title}
                 </Typography>
               }
-              subheader={project.createdAt.toString()}
+              subheader={`${formatDistanceToNow(
+                new Date(project.createdAt)
+              )} ago`}
               action={
                 <IconButton
                   aria-label="delete project"
