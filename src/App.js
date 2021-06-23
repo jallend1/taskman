@@ -33,7 +33,7 @@ function App() {
               <Route path="/project/:id">
                 <Project projectInURL={true} />
               </Route>
-              <Route path="/projects/:id">
+              <Route path="/projects/:filter">
                 <ProjectList />
               </Route>
               <Route exact path="/">

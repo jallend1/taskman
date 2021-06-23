@@ -9,7 +9,7 @@ import { Button, capitalize, Typography } from '@material-ui/core';
 const ProjectList = () => {
   const { projects, isFetching } = useContext(ProjectContext);
   const { user } = useContext(AuthContext);
-  const { id } = useParams();
+  const { filter } = useParams();
 
   const notLoggedIn = () => {
     return (
@@ -18,7 +18,7 @@ const ProjectList = () => {
           TaskMan
         </Typography>
         <Typography paragraph align="center">
-          Log in, and then we can scope out any {id} projects.
+          Log in, and then we can scope out any {filter} projects.
         </Typography>
         <Button
           variant="contained"
@@ -33,11 +33,11 @@ const ProjectList = () => {
     );
   };
   const renderProjects = () => {
-    const filteredProjects = projects.filter((project) => project[id]);
+    const filteredProjects = projects.filter((project) => project[filter]);
     if (filteredProjects.length === 0) {
       return (
         <Typography variant="h6">
-          Looks like you don't have any {capitalize(id)} projects.
+          Looks like you don't have any {capitalize(filter)} projects.
         </Typography>
       );
     } else
@@ -50,7 +50,7 @@ const ProjectList = () => {
     <>
       {user ? (
         <div>
-          <Typography variant="h3">{capitalize(id)} Projects</Typography>
+          <Typography variant="h3">{capitalize(filter)} Projects</Typography>
           {/* Loading message while fetching  */}
           {isFetching && <Typography>Getting your projects...</Typography>}
           {/* If projects exist, renders them */}

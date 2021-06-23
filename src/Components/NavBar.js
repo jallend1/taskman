@@ -16,7 +16,8 @@ const NavBar = () => {
   const useStyles = makeStyles((theme) => ({
     spacious: {
       margin: '0 5em',
-      flexGrow: 1
+      flexGrow: 1,
+      backgroundColor: '#FEA443'
     }
   }));
 
