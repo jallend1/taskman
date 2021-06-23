@@ -68,7 +68,8 @@ class ProjectContextProvider extends React.Component {
       title: name,
       createdAt: Date.now(),
       id: newProjectRef.id,
-      taskList: []
+      taskList: [],
+      isArchived: false
     };
     newProjectRef.set(newProject);
     this.props.history.push(`/project/${newProject.id}`);
@@ -90,6 +91,13 @@ class ProjectContextProvider extends React.Component {
     }
     e.target.reset();
   };
+
+  archiveProject = (projectID) => {
+    const projectsCopy = this.state.projects;
+    const targetProject = projectsCopy.find((project) => project.id === projectID);
+    targetProject.isArchived = !targetProject.isArchived;
+    db.collection('userProjects').doc(this.state.uid).collection('projects').doc(projectID).update({isArchived: targetProject.isArchived})
+  }
 
   completeTask = (projectID, index) => {
     const projectsCopy = this.state.projects;
@@ -138,6 +146,7 @@ class ProjectContextProvider extends React.Component {
           isFetching: this.state.isFetching,
           addTask: this.addTask,
           addProject: this.addProject,
+          archiveProject: this.archiveProject,
           completeTask: this.completeTask,
           deleteProject: this.deleteProject,
           deleteTask: this.deleteTask

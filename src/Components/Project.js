@@ -3,30 +3,44 @@ import { useState, useContext } from 'react';
 import {
   Button,
   CardActionArea,
-  Checkbox,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  makeStyles,
   Card,
   CardHeader,
   CardContent,
-  TextField,
-  Typography,
+  Checkbox,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
   ListItemSecondaryAction,
-  IconButton
+  ListItemText,
+  makeStyles,
+  Menu,
+  MenuItem,
+  TextField,
+  Typography
 } from '@material-ui/core';
-import { DeleteOutlined } from '@material-ui/icons';
+import {
+  DeleteOutlined,
+  MoreVert,
+  ArchiveOutlined,
+  UnarchiveOutlined
+} from '@material-ui/icons';
 import { formatDistanceToNow } from 'date-fns';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Footer from './Footer';
 
 const Project = ({ projectID }) => {
-  const { addTask, completeTask, deleteTask, deleteProject, projects } =
-    useContext(ProjectContext);
+  const {
+    addTask,
+    completeTask,
+    deleteTask,
+    archiveProject,
+    deleteProject,
+    projects
+  } = useContext(ProjectContext);
   const { id } = useParams();
   const targetProjectID = projectID || id;
+  const [anchorEl, setAnchorEl] = useState(null);
   const [newAction, setNewAction] = useState('');
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
@@ -47,6 +61,10 @@ const Project = ({ projectID }) => {
   });
 
   const classes = useStyles();
+
+  const handleOpen = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
 
   const renderProject = () => {
     const project = projects.find((project) => project.id === targetProjectID);
@@ -71,12 +89,51 @@ const Project = ({ projectID }) => {
                 new Date(project.createdAt)
               )} ago`}
               action={
-                <IconButton
-                  aria-label="delete project"
-                  onClick={() => deleteProject(project.id)}
-                >
-                  <DeleteOutlined color="secondary" />
-                </IconButton>
+                <>
+                  <IconButton aria-label="More" onClick={handleOpen}>
+                    <MoreVert />
+                  </IconButton>
+                  <Menu
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={() => setAnchorEl(null)}
+                  >
+                    <MenuItem
+                      onClick={() => {
+                        setAnchorEl(null);
+                        archiveProject(project.id);
+                      }}
+                    >
+                      {project.isArchived ? (
+                        <>
+                          <ListItemIcon>
+                            <UnarchiveOutlined color="secondary" />
+                          </ListItemIcon>
+                          <ListItemText>Unarchive Project</ListItemText>
+                        </>
+                      ) : (
+                        <>
+                          <ListItemIcon>
+                            <ArchiveOutlined color="primary" />
+                          </ListItemIcon>
+                          <ListItemText>Archive Project</ListItemText>
+                        </>
+                      )}
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        setAnchorEl(null);
+                        deleteProject(project.id);
+                      }}
+                    >
+                      <ListItemIcon>
+                        <DeleteOutlined color="secondary" />
+                      </ListItemIcon>
+                      <ListItemText>Delete Project</ListItemText>
+                    </MenuItem>
+                  </Menu>
+                </>
               }
             />
             <CardContent>

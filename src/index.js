@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // Disabled strict mode because Material-UI utilizes the deprecated findDOMNode
+  // <React.StrictMode>
+    <App />,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
