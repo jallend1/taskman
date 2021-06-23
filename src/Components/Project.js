@@ -29,7 +29,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Footer from './Footer';
 
-const Project = ({ projectID }) => {
+const Project = ({ projectID, archived }) => {
   const {
     addTask,
     completeTask,

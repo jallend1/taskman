@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ProjectContextProvider from './Contexts/ProjectContext';
 import AuthContextProvider from './Contexts/AuthContext';
+import Archive from './Components/Archive';
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import About from './Components/About';
@@ -20,6 +21,9 @@ function App() {
               <About />
             </Route>
             <ProjectContextProvider>
+              <Route path="/archive">
+                <Archive />
+              </Route>
               <Route path="/login">
                 <Login />
               </Route>

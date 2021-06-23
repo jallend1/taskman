@@ -69,7 +69,8 @@ class ProjectContextProvider extends React.Component {
       createdAt: Date.now(),
       id: newProjectRef.id,
       taskList: [],
-      isArchived: false
+      isArchived: false,
+      isComplete: false
     };
     newProjectRef.set(newProject);
     this.props.history.push(`/project/${newProject.id}`);
