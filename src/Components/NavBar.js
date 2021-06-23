@@ -14,14 +14,9 @@ import { AccountCircle } from '@material-ui/icons';
 const NavBar = () => {
   const { user, logout } = useContext(AuthContext);
   const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1
-    },
-    leftBar: {
-      flexBasis: '60%'
-    },
     spacious: {
-      margin: '0 10em'
+      margin: '0 5em',
+      flexGrow: 1
     }
   }));
 
@@ -48,38 +43,34 @@ const NavBar = () => {
 
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <div className={classes.leftBar}>
-            <Button component={RRDLink} to="/">
-              <Typography variant="h5">TaskMan 2.0</Typography>
+    <AppBar position="static" color="primary">
+      <Toolbar>
+        <Button component={RRDLink} to="/">
+          <Typography variant="h5">TaskMan 2.0</Typography>
+        </Button>
+        <Button
+          color="secondary"
+          variant="contained"
+          component={RRDLink}
+          to="/new"
+          className={classes.spacious}
+        >
+          Create A New Project
+        </Button>
+        <div>
+          {user ? (
+            loggedIn()
+          ) : (
+            <Button edge="end" component={RRDLink} to="/login">
+              Login
             </Button>
-            <Button
-              className={classes.spacious}
-              color="secondary"
-              variant="contained"
-              component={RRDLink}
-              to="/new"
-            >
-              Create New Project
-            </Button>
-          </div>
-          <div>
-            {user ? (
-              loggedIn()
-            ) : (
-              <Button edge="end" component={RRDLink} to="/login">
-                Login
-              </Button>
-            )}
-            <Button component={RRDLink} to="/about">
-              About
-            </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+          )}
+          <Button component={RRDLink} to="/about">
+            About
+          </Button>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 
