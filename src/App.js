@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ProjectContextProvider from './Contexts/ProjectContext';
 import AuthContextProvider from './Contexts/AuthContext';
-import Archive from './Components/Archive';
+import ProjectList from './Components/ProjectList';
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import About from './Components/About';
@@ -21,9 +21,6 @@ function App() {
               <About />
             </Route>
             <ProjectContextProvider>
-              <Route path="/archive">
-                <Archive />
-              </Route>
               <Route path="/login">
                 <Login />
               </Route>
@@ -35,6 +32,9 @@ function App() {
               </Route>
               <Route path="/project/:id">
                 <Project projectInURL={true} />
+              </Route>
+              <Route path="/projects/:id">
+                <ProjectList />
               </Route>
               <Route exact path="/">
                 <Home />

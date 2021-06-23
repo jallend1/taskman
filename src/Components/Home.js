@@ -79,7 +79,7 @@ const Home = () => {
     );
   };
   const renderProjects = () => {
-    return projects.map((project) => {
+    return projects.filter(project => !project.isArchived).map((project) => {
       return <Project key={project.id} projectID={project.id} />;
     });
   };
