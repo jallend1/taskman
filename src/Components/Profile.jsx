@@ -1,13 +1,22 @@
 import { useContext } from 'react';
 import { AuthContext } from '../Contexts/AuthContext';
+import { Paper, Typography } from '@material-ui/core';
 
 const Profile = () => {
-    const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  if (user) {
     return (
-        <div>
-        Currently logged in as: {user.displayName}
-        </div>
-    )
-}
+      <Paper>
+        <Typography>Currently logged in as: {user.displayName}</Typography>
+      </Paper>
+    );
+  } else {
+    return (
+      <Paper>
+        <Typography>Time to sign in, boss.</Typography>
+      </Paper>
+    );
+  }
+};
 
 export default Profile;

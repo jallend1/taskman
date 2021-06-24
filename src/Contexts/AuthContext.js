@@ -28,10 +28,11 @@ class AuthContextProvider extends React.Component {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.setState({ userInfo: result.user });
-        return db.collection('users').doc(result.user.uid).set({
+        const userInfo = result.user;
+        db.collection('users').doc(userInfo.uid).set({
           bio
         });
+        this.setState({ userInfo: result.user });
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
@@ -40,6 +41,7 @@ class AuthContextProvider extends React.Component {
         console.log(error);
       });
   };
+
   login = (e, email, password) => {
     e.preventDefault();
     auth
@@ -68,6 +70,14 @@ class AuthContextProvider extends React.Component {
       .signInWithPopup(provider)
       .then((result) => {
         const userInfo = result.user;
+        const userRef = db.collection('users').doc(userInfo.uid);
+        userRef.get().then((data) => {
+          if (!data.exists) {
+            userRef.set({
+              bio: ''
+            });
+          }
+        });
         this.setState({ userInfo: userInfo }, this.props.history.push('/'));
       })
       .catch((err) => console.log(err.message));
