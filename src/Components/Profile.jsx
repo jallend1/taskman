@@ -11,6 +11,7 @@ const Profile = () => {
       </Paper>
     );
   } else {
+    // TODO: Currently displays for a few seconds if you refresh on this page while signed in
     return (
       <Paper>
         <Typography>Time to sign in, boss.</Typography>
