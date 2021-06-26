@@ -71,12 +71,17 @@ class ProjectContextProvider extends React.Component {
       taskList: [],
       archived: false,
       complete: false,
-      active: true
+      active: true,
+      tags: []
     };
     newProjectRef.set(newProject);
     this.props.history.push(`/project/${newProject.id}`);
   };
 
+  addTag = (projectID, tags) => {
+    const tagList = tags.toLowerCase().split(' ')
+    db.collection('userProjects').doc(this.state.uid).collection('projects').doc(projectID).update({tags: tagList})
+  }
   addTask = (e, projectID, newTask) => {
     e.preventDefault();
     if (newTask.trim() !== '') {
@@ -152,6 +157,7 @@ class ProjectContextProvider extends React.Component {
         value={{
           projects: this.state.projects,
           isFetching: this.state.isFetching,
+          addTag: this.addTag,
           addTask: this.addTask,
           addProject: this.addProject,
           archiveProject: this.archiveProject,

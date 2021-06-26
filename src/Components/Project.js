@@ -36,6 +36,7 @@ import Footer from './Footer';
 
 const Project = ({ projectID }) => {
   const {
+    addTag,
     addTask,
     completeTask,
     deleteTask,
@@ -73,10 +74,14 @@ const Project = ({ projectID }) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const closeDialog = (value) => {
-    console.log(value);
+  const closeDialog = (projectID) => {
+    addTag(projectID, tags)
     setTagsOpen(false);
   };
+
+  const editTags = (e) => {
+    setTags(e.target.value);
+  }
 
   const renderProject = () => {
     const project = projects.find((project) => project.id === targetProjectID);
@@ -158,13 +163,13 @@ const Project = ({ projectID }) => {
               >
                 Add Tags
               </Button>
-              <Dialog open={tagsOpen} onClose={closeDialog}>
+              <Dialog open={tagsOpen} onClose={() => closeDialog(project.id)}>
                 <DialogTitle>Add Tags</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    Plase add tags separated by a comma
+                    Please separate tags with a space
                   </DialogContentText>
-                  <TextField autoFocus fullWidth id="tags" label="Tags" />
+                  <TextField autoFocus fullWidth id="tags" label="Tags" onChange={editTags} value={tags} />
                 </DialogContent>
               </Dialog>
             </CardActions>
