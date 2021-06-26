@@ -2,11 +2,16 @@ import { useParams, Link as RRDLink } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import {
   Button,
+  CardActions,
   CardActionArea,
   Card,
   CardHeader,
   CardContent,
   Checkbox,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   IconButton,
   List,
   ListItem,
@@ -42,6 +47,8 @@ const Project = ({ projectID }) => {
   const targetProjectID = projectID || id;
   const [anchorEl, setAnchorEl] = useState(null);
   const [newAction, setNewAction] = useState('');
+  const [tags, setTags] = useState('');
+  const [tagsOpen, setTagsOpen] = useState(false);
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
 
@@ -64,6 +71,11 @@ const Project = ({ projectID }) => {
 
   const handleOpen = (e) => {
     setAnchorEl(e.currentTarget);
+  };
+
+  const closeDialog = (value) => {
+    console.log(value);
+    setTagsOpen(false);
   };
 
   const renderProject = () => {
@@ -139,6 +151,23 @@ const Project = ({ projectID }) => {
             <CardContent>
               <List>{project ? renderTasks(project) : 'Add a project'}</List>
             </CardContent>
+            <CardActions>
+              <Button
+                variant="contained"
+                onClick={() => setTagsOpen(!tagsOpen)}
+              >
+                Add Tags
+              </Button>
+              <Dialog open={tagsOpen} onClose={closeDialog}>
+                <DialogTitle>Add Tags</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Plase add tags separated by a comma
+                  </DialogContentText>
+                  <TextField autoFocus fullWidth id="tags" label="Tags" />
+                </DialogContent>
+              </Dialog>
+            </CardActions>
             <CardActionArea>
               <form
                 onSubmit={(e) => {
