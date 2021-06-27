@@ -169,6 +169,14 @@ class ProjectContextProvider extends React.Component {
       .update({ taskList: targetProject.taskList });
   };
 
+  updateProjectName = (projectID, newTitle) => {
+    db.collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
+      .doc(projectID)
+      .update({ title: newTitle });
+  };
+
   render() {
     return (
       <ProjectContext.Provider
@@ -182,7 +190,8 @@ class ProjectContextProvider extends React.Component {
           completeProject: this.completeProject,
           completeTask: this.completeTask,
           deleteProject: this.deleteProject,
-          deleteTask: this.deleteTask
+          deleteTask: this.deleteTask,
+          updateProjectName: this.updateProjectName
         }}
       >
         {this.props.children}

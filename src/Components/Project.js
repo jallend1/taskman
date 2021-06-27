@@ -1,3 +1,5 @@
+// TODO: Revisit Project name updating process because it feels unnecessary clunky
+
 import { useParams, Link as RRDLink } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import {
@@ -26,10 +28,11 @@ import {
   Typography
 } from '@material-ui/core';
 import {
+  ArchiveOutlined,
   DeleteOutlined,
   DoneAll,
+  Edit,
   MoreVert,
-  ArchiveOutlined,
   UnarchiveOutlined
 } from '@material-ui/icons';
 import { formatDistanceToNow } from 'date-fns';
@@ -45,16 +48,19 @@ const Project = ({ projectID }) => {
     deleteTask,
     archiveProject,
     deleteProject,
+    updateProjectName,
     projects
   } = useContext(ProjectContext);
   const { id } = useParams();
   const targetProjectID = projectID || id;
   const [anchorEl, setAnchorEl] = useState(null);
   const [newAction, setNewAction] = useState('');
+  const [tags, setTags] = useState([]);
   const [tagsOpen, setTagsOpen] = useState(false);
+  const [editTitle, setEditTitle] = useState(false);
+  const [newTitle, setNewTitle] = useState('');
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
-  const [tags, setTags] = useState([]);
 
   const useStyles = makeStyles({
     root: {
@@ -98,6 +104,20 @@ const Project = ({ projectID }) => {
     setTags(e.target.value);
   };
 
+  const changeTitle = (projectTitle) => {
+    setNewTitle(projectTitle);
+    setEditTitle(!editTitle);
+  };
+
+  const handleUpdateTitle = (e, projectID) => {
+    if (e.key === 'Enter') {
+      setEditTitle(false);
+      updateProjectName(projectID, newTitle);
+    } else {
+      setNewTitle(e.target.value);
+    }
+  };
+
   const renderProject = () => {
     const project = projects.find((project) => project.id === targetProjectID);
     // TODO: Meant to display only when fetching; Add project not found message
@@ -109,13 +129,26 @@ const Project = ({ projectID }) => {
           <Card>
             <CardHeader
               title={
-                <Typography
-                  variant="h6"
-                  component={RRDLink}
-                  to={`/project/${project.id}`}
-                >
-                  {project.title}
-                </Typography>
+                editTitle ? (
+                  <TextField
+                    label="Edit Project Name"
+                    onChange={(e) => handleUpdateTitle(e, project.id)}
+                    onKeyPress={(e) => handleUpdateTitle(e, project.id)}
+                    value={newTitle}
+                    fullWidth
+                    autoFocus
+                    variant="outlined"
+                    color="primary"
+                  />
+                ) : (
+                  <Typography
+                    variant="h6"
+                    component={RRDLink}
+                    to={`/project/${project.id}`}
+                  >
+                    {project.title}
+                  </Typography>
+                )
               }
               subheader={
                 <>
@@ -183,6 +216,17 @@ const Project = ({ projectID }) => {
                     open={Boolean(anchorEl)}
                     onClose={() => setAnchorEl(null)}
                   >
+                    <MenuItem
+                      onClick={(e) => {
+                        setAnchorEl(null);
+                        changeTitle(project.title);
+                      }}
+                    >
+                      <ListItemIcon>
+                        <Edit />
+                      </ListItemIcon>
+                      <ListItemText>Update Project Title</ListItemText>
+                    </MenuItem>
                     <MenuItem
                       onClick={() => {
                         setAnchorEl(null);
