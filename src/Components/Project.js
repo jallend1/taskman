@@ -27,6 +27,7 @@ import {
 } from '@material-ui/core';
 import {
   DeleteOutlined,
+  DoneAll,
   MoreVert,
   ArchiveOutlined,
   UnarchiveOutlined
@@ -39,6 +40,7 @@ const Project = ({ projectID }) => {
   const {
     addTag,
     addTask,
+    completeProject,
     completeTask,
     deleteTask,
     archiveProject,
@@ -181,6 +183,28 @@ const Project = ({ projectID }) => {
                     open={Boolean(anchorEl)}
                     onClose={() => setAnchorEl(null)}
                   >
+                    <MenuItem
+                      onClick={() => {
+                        setAnchorEl(null);
+                        completeProject(project.id);
+                      }}
+                    >
+                      {project.complete ? (
+                        <>
+                          <ListItemIcon>
+                            <DoneAll color="secondary" />
+                          </ListItemIcon>
+                          <ListItemText>Mark Incomplete</ListItemText>
+                        </>
+                      ) : (
+                        <>
+                          <ListItemIcon>
+                            <DoneAll color="primary" />
+                          </ListItemIcon>
+                          <ListItemText>Mark Complete</ListItemText>
+                        </>
+                      )}
+                    </MenuItem>
                     <MenuItem
                       onClick={() => {
                         setAnchorEl(null);

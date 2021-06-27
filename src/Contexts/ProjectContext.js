@@ -79,11 +79,15 @@ class ProjectContextProvider extends React.Component {
   };
 
   addTag = (projectID, tags) => {
-    if(typeof tags === 'string'){
+    if (typeof tags === 'string') {
       tags = tags.toLowerCase().split(',');
     }
-    db.collection('userProjects').doc(this.state.uid).collection('projects').doc(projectID).update({tags})
-  }
+    db.collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
+      .doc(projectID)
+      .update({ tags });
+  };
   addTask = (e, projectID, newTask) => {
     e.preventDefault();
     if (newTask.trim() !== '') {
@@ -112,6 +116,18 @@ class ProjectContextProvider extends React.Component {
       .collection('projects')
       .doc(projectID)
       .update({ isArchived: targetProject.isArchived });
+  };
+
+  completeProject = (projectID) => {
+    const targetProject = this.state.projects.find(
+      (project) => project.id === projectID
+    );
+    targetProject.complete = !targetProject.complete;
+    db.collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
+      .doc(projectID)
+      .update({ complete: targetProject.complete });
   };
 
   completeTask = (projectID, index) => {
@@ -163,6 +179,7 @@ class ProjectContextProvider extends React.Component {
           addTask: this.addTask,
           addProject: this.addProject,
           archiveProject: this.archiveProject,
+          completeProject: this.completeProject,
           completeTask: this.completeTask,
           deleteProject: this.deleteProject,
           deleteTask: this.deleteTask
