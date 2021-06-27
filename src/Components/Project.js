@@ -102,9 +102,16 @@ const Project = ({ projectID }) => {
                   {project.title}
                 </Typography>
               }
-              subheader={`${formatDistanceToNow(
+              subheader={
+                <>
+                <div>
+                {formatDistanceToNow(
                 new Date(project.createdAt)
-              )} ago`}
+              )} ago
+              </div>
+              <div>{project.tags.map(tag => <Button variant="outlined">{tag}</Button>)}</div>
+              </>
+              }
               action={
                 <>
                   <IconButton aria-label="More" onClick={handleOpen}>
