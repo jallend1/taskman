@@ -52,8 +52,7 @@ const Project = ({ projectID }) => {
   const [tagsOpen, setTagsOpen] = useState(false);
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
-  const project = projects.find((project) => project.id === targetProjectID);
-  const [tags, setTags] = useState(project.tags);
+  const [tags, setTags] = useState([]);
 
   const useStyles = makeStyles({
     root: {
@@ -82,11 +81,13 @@ const Project = ({ projectID }) => {
   };
 
   const closeDialog = (projectID, e = null) => {
-    console.log(tags, project.tags);
     if (e.target.textContent === 'Submit') {
       addTag(projectID, tags);
     } else {
-      setTags(project.tags);
+      const targetProject = projects.find(
+        (project) => project.id === projectID
+      );
+      setTags(targetProject.tags);
     }
     setTagsOpen(false);
   };
@@ -96,7 +97,7 @@ const Project = ({ projectID }) => {
   };
 
   const renderProject = () => {
-    // const project = projects.find((project) => project.id === targetProjectID);
+    const project = projects.find((project) => project.id === targetProjectID);
     // TODO: Meant to display only when fetching; Add project not found message
     if (!project) {
       return 'Fetching project...';
@@ -121,7 +122,7 @@ const Project = ({ projectID }) => {
                   </div>
                   <div className={classes.tags}>
                     <div>
-                      <ButtonGroup>
+                      <ButtonGroup size="small">
                         {project.tags.map((tag) => (
                           <Button key={tag} variant="outlined">
                             {tag}
@@ -133,9 +134,10 @@ const Project = ({ projectID }) => {
                       <Button
                         variant="outlined"
                         color="secondary"
+                        size="small"
                         onClick={() => setTagsOpen(!tagsOpen)}
                       >
-                        Add Tags
+                        {project.tags.length > 0 ? 'Add/Edit Tags' : 'Add Tags'}
                       </Button>
                       <Dialog
                         open={tagsOpen}
