@@ -2,7 +2,7 @@ import { useParams, Link as RRDLink } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import {
   Button,
-  CardActions,
+  ButtonGroup,
   CardActionArea,
   Card,
   CardHeader,
@@ -48,10 +48,11 @@ const Project = ({ projectID }) => {
   const targetProjectID = projectID || id;
   const [anchorEl, setAnchorEl] = useState(null);
   const [newAction, setNewAction] = useState('');
-  const [tags, setTags] = useState('');
   const [tagsOpen, setTagsOpen] = useState(false);
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
+  const project = projects.find((project) => project.id === targetProjectID);
+  const [tags, setTags] = useState(project.tags);
 
   const useStyles = makeStyles({
     root: {
@@ -65,6 +66,11 @@ const Project = ({ projectID }) => {
     },
     homeButton: {
       margin: '1.25em 0'
+    },
+    tags: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-between'
     }
   });
 
@@ -75,16 +81,16 @@ const Project = ({ projectID }) => {
   };
 
   const closeDialog = (projectID) => {
-    addTag(projectID, tags)
+    addTag(projectID, tags);
     setTagsOpen(false);
   };
 
   const editTags = (e) => {
     setTags(e.target.value);
-  }
+  };
 
   const renderProject = () => {
-    const project = projects.find((project) => project.id === targetProjectID);
+    // const project = projects.find((project) => project.id === targetProjectID);
     // TODO: Meant to display only when fetching; Add project not found message
     if (!project) {
       return 'Fetching project...';
@@ -104,13 +110,47 @@ const Project = ({ projectID }) => {
               }
               subheader={
                 <>
-                <div>
-                {formatDistanceToNow(
-                new Date(project.createdAt)
-              )} ago
-              </div>
-              <div>{project.tags.map(tag => <Button variant="outlined">{tag}</Button>)}</div>
-              </>
+                  <div>
+                    {formatDistanceToNow(new Date(project.createdAt))} ago
+                  </div>
+                  <div className={classes.tags}>
+                    <div>
+                      <ButtonGroup>
+                        {project.tags.map((tag) => (
+                          <Button variant="outlined">{tag}</Button>
+                        ))}
+                      </ButtonGroup>
+                    </div>
+                    <div>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => setTagsOpen(!tagsOpen)}
+                      >
+                        Add Tags
+                      </Button>
+                      <Dialog
+                        open={tagsOpen}
+                        onClose={() => closeDialog(project.id)}
+                      >
+                        <DialogTitle>Add Tags</DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                            Please separate tags with a comma
+                          </DialogContentText>
+                          <TextField
+                            autoFocus
+                            fullWidth
+                            id="tags"
+                            label="Tags"
+                            onChange={editTags}
+                            value={tags}
+                          />
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  </div>
+                </>
               }
               action={
                 <>
@@ -163,23 +203,6 @@ const Project = ({ projectID }) => {
             <CardContent>
               <List>{project ? renderTasks(project) : 'Add a project'}</List>
             </CardContent>
-            <CardActions>
-              <Button
-                variant="contained"
-                onClick={() => setTagsOpen(!tagsOpen)}
-              >
-                Add Tags
-              </Button>
-              <Dialog open={tagsOpen} onClose={() => closeDialog(project.id)}>
-                <DialogTitle>Add Tags</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    Please separate tags with a space
-                  </DialogContentText>
-                  <TextField autoFocus fullWidth id="tags" label="Tags" onChange={editTags} value={tags} />
-                </DialogContent>
-              </Dialog>
-            </CardActions>
             <CardActionArea>
               <form
                 onSubmit={(e) => {

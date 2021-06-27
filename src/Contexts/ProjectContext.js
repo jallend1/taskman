@@ -79,7 +79,7 @@ class ProjectContextProvider extends React.Component {
   };
 
   addTag = (projectID, tags) => {
-    const tagList = tags.toLowerCase().split(' ')
+    const tagList = tags.toLowerCase().split(',')
     db.collection('userProjects').doc(this.state.uid).collection('projects').doc(projectID).update({tags: tagList})
   }
   addTask = (e, projectID, newTask) => {
