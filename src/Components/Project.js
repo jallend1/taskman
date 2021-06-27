@@ -9,6 +9,7 @@ import {
   CardContent,
   Checkbox,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -80,8 +81,13 @@ const Project = ({ projectID }) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const closeDialog = (projectID) => {
-    addTag(projectID, tags);
+  const closeDialog = (projectID, e = null) => {
+    console.log(tags, project.tags);
+    if (e.target.textContent === 'Submit') {
+      addTag(projectID, tags);
+    } else {
+      setTags(project.tags);
+    }
     setTagsOpen(false);
   };
 
@@ -117,7 +123,9 @@ const Project = ({ projectID }) => {
                     <div>
                       <ButtonGroup>
                         {project.tags.map((tag) => (
-                          <Button variant="outlined">{tag}</Button>
+                          <Button key={tag} variant="outlined">
+                            {tag}
+                          </Button>
                         ))}
                       </ButtonGroup>
                     </div>
@@ -131,7 +139,7 @@ const Project = ({ projectID }) => {
                       </Button>
                       <Dialog
                         open={tagsOpen}
-                        onClose={() => closeDialog(project.id)}
+                        onClose={(e) => closeDialog(project.id, e)}
                       >
                         <DialogTitle>Add Tags</DialogTitle>
                         <DialogContent>
@@ -147,6 +155,14 @@ const Project = ({ projectID }) => {
                             value={tags}
                           />
                         </DialogContent>
+                        <DialogActions>
+                          <Button onClick={(e) => closeDialog(project.id, e)}>
+                            Submit
+                          </Button>
+                          <Button onClick={(e) => closeDialog(project.id, e)}>
+                            Cancel
+                          </Button>
+                        </DialogActions>
                       </Dialog>
                     </div>
                   </div>
