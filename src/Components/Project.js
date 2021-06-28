@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardContent,
   Checkbox,
+  Collapse,
   Dialog,
   DialogActions,
   DialogContent,
@@ -32,6 +33,8 @@ import {
   DeleteOutlined,
   DoneAll,
   Edit,
+  ExpandLess,
+  ExpandMore,
   MoreVert,
   Star,
   StarOutline,
@@ -62,6 +65,7 @@ const Project = ({ projectID }) => {
   const [tagsOpen, setTagsOpen] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [newTitle, setNewTitle] = useState("");
+  const [expanded, setExpanded] = useState(false);
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
 
@@ -120,6 +124,10 @@ const Project = ({ projectID }) => {
       setNewTitle(e.target.value);
     }
   };
+
+  const handleExpand = () => {
+    setExpanded(!expanded);
+  }
 
   const renderProject = () => {
     const project = projects.find((project) => project.id === targetProjectID);
@@ -216,6 +224,9 @@ const Project = ({ projectID }) => {
                   >
                     {project.favorite ? <Star /> : <StarOutline />}
                   </IconButton>
+                  <IconButton aria-label="Expand" onClick={handleExpand}>
+                    {expanded ? <ExpandLess /> : <ExpandMore />}
+                  </IconButton>
                   <IconButton aria-label="More" onClick={handleOpen}>
                     <MoreVert />
                   </IconButton>
@@ -295,9 +306,6 @@ const Project = ({ projectID }) => {
                 </>
               }
             />
-            <CardContent>
-              <List>{project ? renderTasks(project) : "Add a project"}</List>
-            </CardContent>
             <CardActionArea>
               <form
                 onSubmit={(e) => {
@@ -315,6 +323,11 @@ const Project = ({ projectID }) => {
                 />
               </form>
             </CardActionArea>
+            <Collapse in={expanded} unmountOnExit>
+            <CardContent>
+              <List>{project ? renderTasks(project) : "Add a project"}</List>
+            </CardContent>
+            </Collapse>
           </Card>
         </>
       );
