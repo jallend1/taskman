@@ -1,7 +1,7 @@
-import React, { createContext } from 'react';
-import { db } from '../firebaseConfig';
-import { withRouter } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
+import React, { createContext } from "react";
+import { db } from "../firebaseConfig";
+import { withRouter } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 export const ProjectContext = createContext();
 
@@ -11,8 +11,8 @@ class ProjectContextProvider extends React.Component {
     super(props);
     this.state = {
       projects: [],
-      uid: '',
-      isFetching: true
+      uid: "",
+      isFetching: true,
     };
   }
 
@@ -27,7 +27,7 @@ class ProjectContextProvider extends React.Component {
     }
     // If the user logs out, clears the projet and uid states
     if (!user && this.state.uid) {
-      this.setState({ projects: [], uid: '' });
+      this.setState({ projects: [], uid: "" });
     }
   }
 
@@ -35,9 +35,9 @@ class ProjectContextProvider extends React.Component {
     const { user } = this.context;
     if (user) {
       const userID = user.uid;
-      db.collection('userProjects')
+      db.collection("userProjects")
         .doc(userID)
-        .collection('projects')
+        .collection("projects")
         .onSnapshot(
           (snapshot) => {
             const fetchedProjects = [];
@@ -47,22 +47,22 @@ class ProjectContextProvider extends React.Component {
             this.setState({
               projects: fetchedProjects,
               uid: userID,
-              isFetching: false
+              isFetching: false,
             });
           },
           (error) => console.log(error)
         );
     } else {
-      this.setState({ projects: [], uid: '' });
+      this.setState({ projects: [], uid: "" });
     }
   };
 
   addProject = (e, name) => {
     e.preventDefault();
     const newProjectRef = db
-      .collection('userProjects')
+      .collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
       .doc();
     const newProject = {
       title: name,
@@ -72,33 +72,34 @@ class ProjectContextProvider extends React.Component {
       archived: false,
       complete: false,
       active: true,
-      tags: []
+      favorite: false,
+      tags: [],
     };
     newProjectRef.set(newProject);
     this.props.history.push(`/project/${newProject.id}`);
   };
 
   addTag = (projectID, tags) => {
-    if (typeof tags === 'string') {
-      tags = tags.toLowerCase().split(',');
+    if (typeof tags === "string") {
+      tags = tags.toLowerCase().split(",");
     }
-    db.collection('userProjects')
+    db.collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
       .doc(projectID)
       .update({ tags });
   };
   addTask = (e, projectID, newTask) => {
     e.preventDefault();
-    if (newTask.trim() !== '') {
+    if (newTask.trim() !== "") {
       const projectsCopy = this.state.projects;
       const currentProject = projectsCopy.find(
         (project) => project.id === projectID
       );
       currentProject.taskList.push({ action: newTask, isComplete: false });
-      db.collection('userProjects')
+      db.collection("userProjects")
         .doc(this.state.uid)
-        .collection('projects')
+        .collection("projects")
         .doc(projectID)
         .update({ taskList: currentProject.taskList });
     }
@@ -111,9 +112,9 @@ class ProjectContextProvider extends React.Component {
       (project) => project.id === projectID
     );
     targetProject.isArchived = !targetProject.isArchived;
-    db.collection('userProjects')
+    db.collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
       .doc(projectID)
       .update({ isArchived: targetProject.isArchived });
   };
@@ -123,9 +124,9 @@ class ProjectContextProvider extends React.Component {
       (project) => project.id === projectID
     );
     targetProject.complete = !targetProject.complete;
-    db.collection('userProjects')
+    db.collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
       .doc(projectID)
       .update({ complete: targetProject.complete });
   };
@@ -137,9 +138,9 @@ class ProjectContextProvider extends React.Component {
     );
     targetProject.taskList[index].isComplete =
       !targetProject.taskList[index].isComplete;
-    db.collection('userProjects')
+    db.collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
       .doc(projectID)
       .update({ taskList: targetProject.taskList });
   };
@@ -150,29 +151,41 @@ class ProjectContextProvider extends React.Component {
       (project) => project.id === projectID
     );
     projectsCopy.splice(targetProjectIndex, 1);
-    db.collection('userProjects')
+    db.collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
       .doc(projectID)
       .delete()
-      .then(() => console.log('BUHLETED'));
+      .then(() => console.log("BUHLETED"));
   };
 
   deleteTask = (projectID, index) => {
     const projectsCopy = this.state.projects;
     const targetProject = projectsCopy.find((project) => project.id);
     targetProject.taskList.splice(index, 1);
-    db.collection('userProjects')
+    db.collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
       .doc(projectID)
       .update({ taskList: targetProject.taskList });
   };
 
-  updateProjectName = (projectID, newTitle) => {
-    db.collection('userProjects')
+  toggleFavorite = (projectID) => {
+    const targetProject = this.state.projects.find(
+      (project) => project.id === projectID
+    );
+    const newFavorite = !targetProject.favorite;
+    db.collection("userProjects")
       .doc(this.state.uid)
-      .collection('projects')
+      .collection("projects")
+      .doc(projectID)
+      .update({ favorite: newFavorite });
+  };
+
+  updateProjectName = (projectID, newTitle) => {
+    db.collection("userProjects")
+      .doc(this.state.uid)
+      .collection("projects")
       .doc(projectID)
       .update({ title: newTitle });
   };
@@ -191,7 +204,8 @@ class ProjectContextProvider extends React.Component {
           completeTask: this.completeTask,
           deleteProject: this.deleteProject,
           deleteTask: this.deleteTask,
-          updateProjectName: this.updateProjectName
+          toggleFavorite: this.toggleFavorite,
+          updateProjectName: this.updateProjectName,
         }}
       >
         {this.props.children}

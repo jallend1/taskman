@@ -1,7 +1,7 @@
 // TODO: Revisit Project name updating process because it feels unnecessary clunky
 
-import { useParams, Link as RRDLink } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useParams, Link as RRDLink } from "react-router-dom";
+import { useState, useContext } from "react";
 import {
   Button,
   ButtonGroup,
@@ -25,19 +25,21 @@ import {
   Menu,
   MenuItem,
   TextField,
-  Typography
-} from '@material-ui/core';
+  Typography,
+} from "@material-ui/core";
 import {
   ArchiveOutlined,
   DeleteOutlined,
   DoneAll,
   Edit,
   MoreVert,
-  UnarchiveOutlined
-} from '@material-ui/icons';
-import { formatDistanceToNow } from 'date-fns';
-import { ProjectContext } from '../Contexts/ProjectContext';
-import Footer from './Footer';
+  Star,
+  StarOutline,
+  UnarchiveOutlined,
+} from "@material-ui/icons";
+import { formatDistanceToNow } from "date-fns";
+import { ProjectContext } from "../Contexts/ProjectContext";
+import Footer from "./Footer";
 
 const Project = ({ projectID }) => {
   const {
@@ -48,38 +50,39 @@ const Project = ({ projectID }) => {
     deleteTask,
     archiveProject,
     deleteProject,
+    toggleFavorite,
     updateProjectName,
-    projects
+    projects,
   } = useContext(ProjectContext);
   const { id } = useParams();
   const targetProjectID = projectID || id;
   const [anchorEl, setAnchorEl] = useState(null);
-  const [newAction, setNewAction] = useState('');
+  const [newAction, setNewAction] = useState("");
   const [tags, setTags] = useState([]);
   const [tagsOpen, setTagsOpen] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
-  const [newTitle, setNewTitle] = useState('');
+  const [newTitle, setNewTitle] = useState("");
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
 
   const useStyles = makeStyles({
     root: {
       width: 400,
-      margin: 'auto',
-      padding: '1em 0.5em'
+      margin: "auto",
+      padding: "1em 0.5em",
     },
     completed: {
-      textDecoration: 'line-through',
-      opacity: 0.4
+      textDecoration: "line-through",
+      opacity: 0.4,
     },
     homeButton: {
-      margin: '1.25em 0'
+      margin: "1.25em 0",
     },
     tags: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'space-between'
-    }
+      width: "100%",
+      display: "flex",
+      justifyContent: "space-between",
+    },
   });
 
   const classes = useStyles();
@@ -89,7 +92,7 @@ const Project = ({ projectID }) => {
   };
 
   const closeDialog = (projectID, e = null) => {
-    if (e.target.textContent === 'Submit') {
+    if (e.target.textContent === "Submit") {
       addTag(projectID, tags);
     } else {
       const targetProject = projects.find(
@@ -110,7 +113,7 @@ const Project = ({ projectID }) => {
   };
 
   const handleUpdateTitle = (e, projectID) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       setEditTitle(false);
       updateProjectName(projectID, newTitle);
     } else {
@@ -122,7 +125,7 @@ const Project = ({ projectID }) => {
     const project = projects.find((project) => project.id === targetProjectID);
     // TODO: Meant to display only when fetching; Add project not found message
     if (!project) {
-      return 'Fetching project...';
+      return "Fetching project...";
     } else {
       return (
         <>
@@ -172,7 +175,7 @@ const Project = ({ projectID }) => {
                         size="small"
                         onClick={() => setTagsOpen(!tagsOpen)}
                       >
-                        {project.tags.length > 0 ? 'Add/Edit Tags' : 'Add Tags'}
+                        {project.tags.length > 0 ? "Add/Edit Tags" : "Add Tags"}
                       </Button>
                       <Dialog
                         open={tagsOpen}
@@ -207,6 +210,12 @@ const Project = ({ projectID }) => {
               }
               action={
                 <>
+                  <IconButton
+                    aria-label="Favorite"
+                    onClick={() => toggleFavorite(project.id)}
+                  >
+                    {project.favorite ? <Star /> : <StarOutline />}
+                  </IconButton>
                   <IconButton aria-label="More" onClick={handleOpen}>
                     <MoreVert />
                   </IconButton>
@@ -287,13 +296,13 @@ const Project = ({ projectID }) => {
               }
             />
             <CardContent>
-              <List>{project ? renderTasks(project) : 'Add a project'}</List>
+              <List>{project ? renderTasks(project) : "Add a project"}</List>
             </CardContent>
             <CardActionArea>
               <form
                 onSubmit={(e) => {
                   addTask(e, project.id, newAction);
-                  setNewAction('');
+                  setNewAction("");
                 }}
               >
                 <TextField
@@ -342,7 +351,7 @@ const Project = ({ projectID }) => {
   return (
     <>
       <div className={classes.root}>
-        {projects.length > 0 ? renderProject() : 'Loading...'}
+        {projects.length > 0 ? renderProject() : "Loading..."}
         {onProjectPage ? (
           <Button
             variant="contained"
