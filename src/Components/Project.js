@@ -1,7 +1,7 @@
 // TODO: Revisit Project name updating process because it feels unnecessary clunky
 
-import { useParams, Link as RRDLink } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useParams, Link as RRDLink } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -26,8 +26,8 @@ import {
   Menu,
   MenuItem,
   TextField,
-  Typography,
-} from "@material-ui/core";
+  Typography
+} from '@material-ui/core';
 import {
   ArchiveOutlined,
   DeleteOutlined,
@@ -38,11 +38,11 @@ import {
   MoreVert,
   Star,
   StarOutline,
-  UnarchiveOutlined,
-} from "@material-ui/icons";
-import { formatDistanceToNow } from "date-fns";
-import { ProjectContext } from "../Contexts/ProjectContext";
-import Footer from "./Footer";
+  UnarchiveOutlined
+} from '@material-ui/icons';
+import { formatDistanceToNow } from 'date-fns';
+import { ProjectContext } from '../Contexts/ProjectContext';
+import Footer from './Footer';
 
 const Project = ({ projectID }) => {
   const {
@@ -55,38 +55,38 @@ const Project = ({ projectID }) => {
     deleteProject,
     toggleFavorite,
     updateProjectName,
-    projects,
+    projects
   } = useContext(ProjectContext);
   const { id } = useParams();
   const targetProjectID = projectID || id;
   const [anchorEl, setAnchorEl] = useState(null);
-  const [newAction, setNewAction] = useState("");
+  const [newAction, setNewAction] = useState('');
   const [tags, setTags] = useState([]);
   const [tagsOpen, setTagsOpen] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
+  const [newTitle, setNewTitle] = useState('');
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
+  // If URL parameters are passed down, show expanded card by default
   const [expanded, setExpanded] = useState(onProjectPage ? true : false);
 
   const useStyles = makeStyles({
     root: {
       width: 400,
-      margin: "auto",
-      padding: "1em 0.5em",
+      margin: 'auto',
+      padding: '1em 0.5em'
     },
     completed: {
-      textDecoration: "line-through",
-      opacity: 0.4,
+      textDecoration: 'line-through',
+      opacity: 0.4
     },
     homeButton: {
-      margin: "1.25em 0",
+      margin: '1.25em 0'
     },
     tags: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-    },
+      display: 'flex',
+      justifyContent: 'space-between'
+    }
   });
 
   const classes = useStyles();
@@ -96,7 +96,7 @@ const Project = ({ projectID }) => {
   };
 
   const closeDialog = (projectID, e = null) => {
-    if (e.target.textContent === "Submit") {
+    if (e.target.textContent === 'Submit') {
       addTag(projectID, tags);
     } else {
       const targetProject = projects.find(
@@ -117,7 +117,7 @@ const Project = ({ projectID }) => {
   };
 
   const handleUpdateTitle = (e, projectID) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       setEditTitle(false);
       updateProjectName(projectID, newTitle);
     } else {
@@ -127,13 +127,13 @@ const Project = ({ projectID }) => {
 
   const handleExpand = () => {
     setExpanded(!expanded);
-  }
+  };
 
   const renderProject = () => {
     const project = projects.find((project) => project.id === targetProjectID);
     // TODO: Meant to display only when fetching; Add project not found message
     if (!project) {
-      return "Fetching project...";
+      return 'Fetching project...';
     } else {
       return (
         <>
@@ -161,61 +161,9 @@ const Project = ({ projectID }) => {
                   </Typography>
                 )
               }
-              subheader={
-                <>
-                  <div>
-                    {formatDistanceToNow(new Date(project.createdAt))} ago
-                  </div>
-                  <div className={classes.tags}>
-                    <div>
-                      <ButtonGroup size="small">
-                        {project.tags.map((tag) => (
-                          <Button key={tag} variant="outlined">
-                            {tag}
-                          </Button>
-                        ))}
-                      </ButtonGroup>
-                    </div>
-                    <div>
-                      <Button
-                        variant="outlined"
-                        color="secondary"
-                        size="small"
-                        onClick={() => setTagsOpen(!tagsOpen)}
-                      >
-                        {project.tags.length > 0 ? "Add/Edit Tags" : "Add Tags"}
-                      </Button>
-                      <Dialog
-                        open={tagsOpen}
-                        onClose={(e) => closeDialog(project.id, e)}
-                      >
-                        <DialogTitle>Add Tags</DialogTitle>
-                        <DialogContent>
-                          <DialogContentText>
-                            Please separate tags with a comma
-                          </DialogContentText>
-                          <TextField
-                            autoFocus
-                            fullWidth
-                            id="tags"
-                            label="Tags"
-                            onChange={editTags}
-                            value={tags}
-                          />
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={(e) => closeDialog(project.id, e)}>
-                            Submit
-                          </Button>
-                          <Button onClick={(e) => closeDialog(project.id, e)}>
-                            Cancel
-                          </Button>
-                        </DialogActions>
-                      </Dialog>
-                    </div>
-                  </div>
-                </>
-              }
+              subheader={`${formatDistanceToNow(
+                new Date(project.createdAt)
+              )} ago`}
               action={
                 <>
                   <IconButton
@@ -306,28 +254,76 @@ const Project = ({ projectID }) => {
                 </>
               }
             />
-            <CardActionArea>
-              <form
-                onSubmit={(e) => {
-                  addTask(e, project.id, newAction);
-                  setNewAction("");
-                }}
-              >
-                <TextField
-                  label="Add next action"
-                  onChange={(e) => setNewAction(e.target.value)}
-                  fullWidth
-                  autoFocus
-                  variant="outlined"
-                  color="primary"
-                />
-              </form>
-            </CardActionArea>
-            <Collapse in={expanded} unmountOnExit>
             <CardContent>
-              <List>{project ? renderTasks(project) : "Add a project"}</List>
+              <div className={classes.tags}>
+                <div>
+                  <ButtonGroup size="small">
+                    {project.tags.map((tag) => (
+                      <Button key={tag} variant="outlined">
+                        {tag}
+                      </Button>
+                    ))}
+                  </ButtonGroup>
+                </div>
+                <div>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    onClick={() => setTagsOpen(!tagsOpen)}
+                  >
+                    {project.tags.length > 0 ? 'Add/Edit Tags' : 'Add Tags'}
+                  </Button>
+                  <Dialog
+                    open={tagsOpen}
+                    onClose={(e) => closeDialog(project.id, e)}
+                  >
+                    <DialogTitle>Add Tags</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        Please separate tags with a comma
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        fullWidth
+                        id="tags"
+                        label="Tags"
+                        onChange={editTags}
+                        value={tags}
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={(e) => closeDialog(project.id, e)}>
+                        Submit
+                      </Button>
+                      <Button onClick={(e) => closeDialog(project.id, e)}>
+                        Cancel
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
+              </div>
+              <CardActionArea>
+                <form
+                  onSubmit={(e) => {
+                    addTask(e, project.id, newAction);
+                    setNewAction('');
+                  }}
+                >
+                  <TextField
+                    label="Add next action"
+                    onChange={(e) => setNewAction(e.target.value)}
+                    fullWidth
+                    autoFocus
+                    variant="outlined"
+                    color="primary"
+                  />
+                </form>
+              </CardActionArea>
+              <Collapse in={expanded} unmountOnExit>
+                <List>{project ? renderTasks(project) : 'Add a project'}</List>
+              </Collapse>
             </CardContent>
-            </Collapse>
           </Card>
         </>
       );
@@ -364,7 +360,7 @@ const Project = ({ projectID }) => {
   return (
     <>
       <div className={classes.root}>
-        {projects.length > 0 ? renderProject() : "Loading..."}
+        {projects.length > 0 ? renderProject() : 'Loading...'}
         {onProjectPage ? (
           <Button
             variant="contained"
