@@ -65,9 +65,9 @@ const Project = ({ projectID }) => {
   const [tagsOpen, setTagsOpen] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [newTitle, setNewTitle] = useState("");
-  const [expanded, setExpanded] = useState(false);
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
+  const [expanded, setExpanded] = useState(onProjectPage ? true : false);
 
   const useStyles = makeStyles({
     root: {
