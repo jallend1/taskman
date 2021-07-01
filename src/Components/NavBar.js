@@ -113,6 +113,7 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
             <ListItem
               component={RRDLink}
               to={`/projects/${status.toLowerCase()}`}
+              key={status}
             >
               <ListItemText>{status}</ListItemText>
             </ListItem>

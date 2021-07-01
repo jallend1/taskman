@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
 import Project from './Project';
-import Footer from './Footer';
 import { Button, makeStyles, Typography, Paper } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import { AuthContext } from '../Contexts/AuthContext';
@@ -98,7 +97,6 @@ const Home = () => {
           )}
           {/* If fetching is complete and no projects, tells you to make one */}
           {!isFetching && projects.length === 0 ? noProjects() : null}
-          <Footer />
         </div>
       ) : (
         notLoggedIn()

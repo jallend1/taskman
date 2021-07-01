@@ -42,7 +42,6 @@ import {
 } from '@material-ui/icons';
 import { formatDistanceToNow } from 'date-fns';
 import { ProjectContext } from '../Contexts/ProjectContext';
-import Footer from './Footer';
 
 const Project = ({ projectID }) => {
   const {
@@ -374,7 +373,6 @@ const Project = ({ projectID }) => {
           </Button>
         ) : null}
       </div>
-      {onProjectPage ? <Footer /> : null}
     </>
   );
 };

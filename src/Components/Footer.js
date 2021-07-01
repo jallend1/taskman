@@ -1,15 +1,9 @@
-import { Typography, makeStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 const Footer = () => {
-  const useStyles = makeStyles({
-    root: {
-      color: 'green'
-    }
-  });
 
-  const classes = useStyles();
   return (
-    <Typography component="footer" align="center" className={classes.root}>
+    <Typography component="footer" align="center">
       Made by Jason
     </Typography>
   );
