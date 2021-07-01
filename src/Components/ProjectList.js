@@ -33,7 +33,9 @@ const ProjectList = () => {
     );
   };
   const renderProjects = () => {
-    const filteredProjects = projects.filter((project) => project[filter]);
+    let filteredProjects = [];
+    filter === 'all' ? filteredProjects = projects : filteredProjects = projects.filter((project) => project[filter]);
+    // const filteredProjects = projects.filter((project) => project[filter]);
     if (filteredProjects.length === 0) {
       return (
         <Typography variant="h6">
