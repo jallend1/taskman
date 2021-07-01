@@ -11,9 +11,13 @@ import { makeStyles, Button } from '@material-ui/core';
 import { AuthContext } from '../Contexts/AuthContext';
 import { AccountCircle } from '@material-ui/icons';
 
-const NavBar = () => {
+const NavBar = ({drawerWidth}) => {
   const { user, logout } = useContext(AuthContext);
   const useStyles = makeStyles((theme) => ({
+    root: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth
+    },
     spacious: {
       margin: '0 5em',
       flexGrow: 1,
@@ -44,7 +48,7 @@ const NavBar = () => {
 
   const classes = useStyles();
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" color="primary" className={classes.root}>
       <Toolbar>
         <Button component={RRDLink} to="/">
           <Typography variant="h5">TaskMan 2.0</Typography>
