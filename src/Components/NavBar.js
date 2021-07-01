@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
 import {
   AppBar,
@@ -17,12 +17,8 @@ import {
 import { AuthContext } from '../Contexts/AuthContext';
 import { AccountCircle, Menu } from '@material-ui/icons';
 
-const NavBar = () => {
-  const drawerWidth = 240;
-
-  const [drawerOpen, setDrawerOpen] = useState(true);
+const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { user, logout } = useContext(AuthContext);
-
   const useStyles = makeStyles((theme) => ({
     open: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -43,10 +39,6 @@ const NavBar = () => {
       width: drawerWidth
     }
   }));
-
-  const handleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
-  };
 
   const loggedIn = () => {
     return (

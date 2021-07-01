@@ -12,7 +12,8 @@ class ProjectContextProvider extends React.Component {
     this.state = {
       projects: [],
       uid: '',
-      isFetching: true
+      isFetching: true,
+      drawerOpen: true
     };
   }
 
@@ -173,6 +174,10 @@ class ProjectContextProvider extends React.Component {
       .update({ taskList: targetProject.taskList });
   };
 
+  handleDrawer = () => {
+    this.setState({ drawerOpen: !this.state.drawerOpen });
+  };
+
   toggleFavorite = (projectID) => {
     const targetProject = this.state.projects.find(
       (project) => project.id === projectID
@@ -199,6 +204,7 @@ class ProjectContextProvider extends React.Component {
         value={{
           projects: this.state.projects,
           isFetching: this.state.isFetching,
+          drawerOpen: this.state.drawerOpen,
           addTag: this.addTag,
           addTask: this.addTask,
           addProject: this.addProject,
@@ -207,6 +213,7 @@ class ProjectContextProvider extends React.Component {
           completeTask: this.completeTask,
           deleteProject: this.deleteProject,
           deleteTask: this.deleteTask,
+          handleDrawer: this.handleDrawer,
           toggleFavorite: this.toggleFavorite,
           updateProjectName: this.updateProjectName
         }}
