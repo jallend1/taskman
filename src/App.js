@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   BrowserRouter,
   Switch,
@@ -25,47 +26,12 @@ import Login from './Components/Login';
 import Profile from './Components/Profile';
 
 function App() {
-  const drawerWidth = 240;
-  const useStyles = makeStyles((theme) => ({
-    drawer: {
-      width: drawerWidth
-    },
-    drawerPaper: {
-      width: drawerWidth
-    }
-  }));
-  const classes = useStyles();
   return (
     <div className="App">
       <BrowserRouter>
         <AuthContextProvider>
           <ProjectContextProvider>
-            <NavBar drawerWidth={drawerWidth} />
-            <Drawer
-              anchor="left"
-              variant="persistent"
-              className={classes.drawer}
-              open={false}
-              classes={{ paper: classes.drawerPaper }}
-            >
-              <div>Drawer Header Here!</div>
-              <Divider />
-              <List>
-                {['All', 'Active', 'Complete', 'Archive'].map((status) => (
-                  <ListItem
-                    component={RRDLink}
-                    to={`/projects/${status.toLowerCase()}`}
-                  >
-                    <ListItemText>{status}</ListItemText>
-                  </ListItem>
-                ))}
-                <ListItem></ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem>List clickable project tags here</ListItem>
-              </List>
-            </Drawer>
+            <NavBar />
             <Switch>
               <Route path="/about">
                 <About />
