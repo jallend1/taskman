@@ -124,7 +124,7 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
         </div>
         <Divider />
         <List>
-          {['All', 'Active', 'Complete', 'Archive'].map((status) => (
+          {['All', 'Active', 'Complete', 'Archived'].map((status) => (
             <ListItem
               component={RRDLink}
               to={`/projects/${status.toLowerCase()}`}

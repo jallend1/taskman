@@ -257,7 +257,7 @@ const Project = ({ projectID }) => {
               <div className={classes.tags}>
                 <div>
                   <ButtonGroup size="small">
-                    {project.tags.map((tag) => (
+                    {project.tags && project.tags.map((tag) => (
                       <Button key={tag} variant="outlined">
                         {tag}
                       </Button>
@@ -271,7 +271,7 @@ const Project = ({ projectID }) => {
                     size="small"
                     onClick={() => setTagsOpen(!tagsOpen)}
                   >
-                    {project.tags.length > 0 ? 'Add/Edit Tags' : 'Add Tags'}
+                    {project.tags && project.tags.length > 0 ? 'Add/Edit Tags' : 'Add Tags'}
                   </Button>
                   <Dialog
                     open={tagsOpen}
