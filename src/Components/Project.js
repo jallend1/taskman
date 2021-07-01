@@ -75,6 +75,9 @@ const Project = ({ projectID }) => {
       margin: 'auto',
       padding: '1em 0.5em'
     },
+    addAction: { 
+      marginTop: "1.5em"
+    },
     completed: {
       textDecoration: 'line-through',
       opacity: 0.4
@@ -302,7 +305,7 @@ const Project = ({ projectID }) => {
                   </Dialog>
                 </div>
               </div>
-              <CardActionArea>
+              <CardActionArea className={classes.addAction}>
                 <form
                   onSubmit={(e) => {
                     addTask(e, project.id, newAction);
