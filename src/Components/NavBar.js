@@ -15,7 +15,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { AuthContext } from '../Contexts/AuthContext';
-import { AccountCircle, Menu } from '@material-ui/icons';
+import { AccountCircle, ChevronLeft, Menu } from '@material-ui/icons';
 
 const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { user, logout } = useContext(AuthContext);
@@ -26,6 +26,10 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
     },
     closed: {
       width: '100%'
+    },
+    collapse: {
+      display: 'flex',
+      justifyContent: 'space-between'
     },
     spacious: {
       margin: '0 5em',
@@ -106,7 +110,18 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
         open={drawerOpen}
         classes={{ paper: classes.drawerPaper }}
       >
-        <div>Drawer Header Here!</div>
+        <div>
+          <Button
+            variant="contained"
+            fullWidth
+            size="large"
+            onClick={handleDrawer}
+            className={classes.collapse}
+          >
+            Collapse
+            <ChevronLeft />
+          </Button>
+        </div>
         <Divider />
         <List>
           {['All', 'Active', 'Complete', 'Archive'].map((status) => (
