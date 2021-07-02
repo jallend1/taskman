@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
 import Project from './Project';
-import { Button, makeStyles, Typography, Paper } from '@material-ui/core';
+import { Button, Container, makeStyles, Typography, Paper } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import { AuthContext } from '../Contexts/AuthContext';
 
@@ -41,6 +41,7 @@ const Home = () => {
   const notLoggedIn = () => {
     return (
       <>
+      <Container maxWidth="sm">
         <Typography variant="h1" align="center">
           TaskMan
         </Typography>
@@ -74,6 +75,7 @@ const Home = () => {
             Login Page
           </Button>
         </Paper>
+        </Container>
       </>
     );
   };
