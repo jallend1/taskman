@@ -4,6 +4,7 @@ import {
   AppBar,
   Avatar,
   Button,
+  ButtonGroup,
   Divider,
   Drawer,
   IconButton,
@@ -35,7 +36,10 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
     collapse: {
       display: 'flex',
       justifyContent: 'space-between',
-      backgroundColor: '#F2E63D'
+      backgroundColor: '#F2E63D',
+      '&:hover': {
+        backgroundColor: '#FEA443'
+      }
     },
     createButton: {
       backgroundColor: '#D91A60'
@@ -135,7 +139,19 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
           </Button>
         </div>
         <Divider />
-        <List>
+        <ButtonGroup orientation="vertical" variant="text">
+          {['All', 'Active', 'Complete', 'Archived'].map((status) => (
+            <Button
+              fullWidth
+              component={RRDLink}
+              to={`/projects/${status.toLowerCase()}`}
+              key={status}
+            >
+              {status}
+            </Button>
+          ))}
+        </ButtonGroup>
+        {/* <List>
           {['All', 'Active', 'Complete', 'Archived'].map((status) => (
             <ListItem
               component={RRDLink}
@@ -146,10 +162,10 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
             </ListItem>
           ))}
           <ListItem></ListItem>
-        </List>
+        </List> */}
         <Divider />
         <List>
-          <ListItem>List clickable project tags here</ListItem>
+          <ListItem>Project Tags</ListItem>
         </List>
       </Drawer>
     </>
