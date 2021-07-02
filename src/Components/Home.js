@@ -17,9 +17,9 @@ const Home = () => {
       display: 'flex',
       flexWrap: 'wrap'
     },
-    blurb: {
-      padding: '2em'
-    }
+    blurb : {
+      padding: '2em',
+    },
   });
   const classes = useStyles();
 
@@ -46,23 +46,24 @@ const Home = () => {
           TaskMan
         </Typography>
         <Paper className={classes.blurb}>
-          <Typography paragraph align="center">
+          <div className="loginBlurb">
+          <Typography paragraph >
             TaskMan is a basic task manager designed with a focus on the
             individual actions that make up your projects.
           </Typography>
-          <Typography paragraph align="center">
+          <Typography paragraph >
             Instead of having a single tasklist that is filled with vague goals
             like "Clean the house," I like to have that single project broken up
             into several distinct actions like "Wash the dishes," "Do the
             laundry," and "Take out the trash."
           </Typography>
-          <Typography paragraph align="center">
+          <Typography paragraph >
             Breaking down large task into specific and sequential actions makes
             accomplishing large projects much less daunting, and the reward that
             comes with finishing a task serves as a great reminder that progress
             IS being made.{' '}
           </Typography>
-          <Typography variant="h5" className={classes.blurb} align="center">
+          <Typography variant="h5" className={classes.blurb} >
             Log in or create an account to get started!
           </Typography>
           <Button
@@ -74,6 +75,7 @@ const Home = () => {
           >
             Login Page
           </Button>
+          </div>
         </Paper>
         </Container>
       </>
