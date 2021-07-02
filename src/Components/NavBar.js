@@ -34,7 +34,8 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
     },
     collapse: {
       display: 'flex',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      backgroundColor: '#F2E63D'
     },
     createButton: {
       backgroundColor: '#D91A60'
@@ -44,7 +45,9 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
       width: drawerWidth
     },
     drawerPaper: {
-      width: drawerWidth
+      width: drawerWidth,
+      background: 'transparent',
+      backdropFilter: 'blur(5px)'
     }
   }));
 
