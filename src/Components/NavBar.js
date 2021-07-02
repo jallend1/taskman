@@ -20,6 +20,9 @@ import { AccountCircle, ChevronLeft, Menu } from '@material-ui/icons';
 const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { user, logout } = useContext(AuthContext);
   const useStyles = makeStyles((theme) => ({
+    root: {
+      backgroundColor: '#bfecff'
+    },
     open: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth
@@ -72,8 +75,9 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
         position="static"
         color="primary"
         className={drawerOpen ? classes.open : classes.closed}
+        style={{ boxShadow: 'none' }}
       >
-        <Toolbar>
+        <Toolbar className={classes.root}>
           <IconButton onClick={handleDrawer}>
             <Menu />
           </IconButton>
