@@ -21,7 +21,9 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { user, logout } = useContext(AuthContext);
   const useStyles = makeStyles((theme) => ({
     root: {
-      backgroundColor: '#bfecff'
+      backgroundColor: '#bfecff',
+      display: 'flex',
+      justifyContent: 'space-between'
     },
     open: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -34,10 +36,9 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
       display: 'flex',
       justifyContent: 'space-between'
     },
-    spacious: {
-      margin: '0 5em',
-      flexGrow: 1,
-      backgroundColor: '#FEA443'
+    createButton: {
+      backgroundColor: '#D91A60'
+      // backgroundColor: '#FEA443'
     },
     drawer: {
       width: drawerWidth
@@ -78,21 +79,25 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
         style={{ boxShadow: 'none' }}
       >
         <Toolbar className={classes.root}>
-          <IconButton onClick={handleDrawer}>
-            <Menu />
-          </IconButton>
-          <Button component={RRDLink} to="/">
-            <Typography variant="h5">TaskMan 2.0</Typography>
-          </Button>
-          <Button
-            color="secondary"
-            variant="contained"
-            component={RRDLink}
-            to="/new"
-            className={classes.spacious}
-          >
-            Create A New Project
-          </Button>
+          <div>
+            <IconButton onClick={handleDrawer}>
+              <Menu />
+            </IconButton>
+            <Button component={RRDLink} to="/">
+              <Typography variant="h5">TaskMan 2.0</Typography>
+            </Button>
+          </div>
+          <div>
+            <Button
+              color="secondary"
+              variant="contained"
+              component={RRDLink}
+              to="/new"
+              className={classes.createButton}
+            >
+              Create A New Project
+            </Button>
+          </div>
           <div>
             {user ? (
               loggedIn()
