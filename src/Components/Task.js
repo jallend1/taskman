@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { ProjectContext } from '../Contexts/ProjectContext';
+import { v4 as uuidv4} from 'uuid';
 import {
   makeStyles,
   ListItem,
@@ -12,7 +13,6 @@ import {
 import { DeleteOutlined } from '@material-ui/icons';
 
 const Task = ({projectID, task, index}) => {
-  console.log()
   const { completeTask, deleteTask } = useContext(ProjectContext);
   const [hoverState, setHoverState] = useState(false);
   const useStyles = makeStyles({
@@ -23,7 +23,8 @@ const Task = ({projectID, task, index}) => {
   });
   const classes = useStyles();
   return (
-    <ListItem key={task.action}>
+    <div onMouseEnter={() => setHoverState(true)} onMouseLeave={() => setHoverState(false)}>
+    <ListItem key={uuidv4()}>
       <ListItemIcon>
         <Checkbox
           checked={task.isComplete}
@@ -34,6 +35,7 @@ const Task = ({projectID, task, index}) => {
         primary={task.action}
         className={task.isComplete ? classes.completed : null}
       />
+      {hoverState ? (
       <ListItemSecondaryAction>
         <IconButton
           edge="end"
@@ -43,7 +45,10 @@ const Task = ({projectID, task, index}) => {
           <DeleteOutlined />
         </IconButton>
       </ListItemSecondaryAction>
+
+      ) : null}
     </ListItem>
+    </div>
   );
 };
 
