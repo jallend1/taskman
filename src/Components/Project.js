@@ -9,7 +9,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Checkbox,
   Collapse,
   Dialog,
   DialogActions,
@@ -18,9 +17,7 @@ import {
   DialogTitle,
   IconButton,
   List,
-  ListItem,
   ListItemIcon,
-  ListItemSecondaryAction,
   ListItemText,
   makeStyles,
   Menu,
@@ -41,6 +38,7 @@ import {
   UnarchiveOutlined
 } from '@material-ui/icons';
 import { formatDistanceToNow } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 import { ProjectContext } from '../Contexts/ProjectContext';
 
 import Task from './Task';
@@ -50,8 +48,6 @@ const Project = ({ projectID }) => {
     addTag,
     addTask,
     completeProject,
-    completeTask,
-    deleteTask,
     archiveProject,
     deleteProject,
     toggleFavorite,
@@ -334,7 +330,9 @@ const Project = ({ projectID }) => {
   };
   const renderTasks = (project) => {
     return project.taskList.map((task, index) => {
-      return <Task task={task} index={index} projectID={project.id} />;
+      return (
+        <Task task={task} index={index} projectID={project.id} key={uuidv4()} />
+      );
     });
   };
 
