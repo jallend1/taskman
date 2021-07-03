@@ -176,6 +176,20 @@ class ProjectContextProvider extends React.Component {
       .update({ taskList: targetProject.taskList });
   };
 
+  editTask = (e, projectID, index, newTaskName) => {
+    e.preventDefault();
+    const projectsCopy = this.state.projects;
+    const targetProject = projectsCopy.find(
+      (project) => project.id === projectID
+    );
+    targetProject.taskList[index].action = newTaskName;
+    db.collection('userProjects')
+      .doc(this.state.uid)
+      .collection('projects')
+      .doc(projectID)
+      .update({ taskList: targetProject.taskList });
+  };
+
   toggleFavorite = (projectID) => {
     const targetProject = this.state.projects.find(
       (project) => project.id === projectID
@@ -211,6 +225,7 @@ class ProjectContextProvider extends React.Component {
           completeTask: this.completeTask,
           deleteProject: this.deleteProject,
           deleteTask: this.deleteTask,
+          editTask: this.editTask,
           handleDrawer: this.handleDrawer,
           toggleFavorite: this.toggleFavorite,
           updateProjectName: this.updateProjectName
