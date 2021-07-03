@@ -10,7 +10,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemText,
   makeStyles,
   Toolbar,
   Typography
@@ -151,18 +150,6 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
             </Button>
           ))}
         </ButtonGroup>
-        {/* <List>
-          {['All', 'Active', 'Complete', 'Archived'].map((status) => (
-            <ListItem
-              component={RRDLink}
-              to={`/projects/${status.toLowerCase()}`}
-              key={status}
-            >
-              <ListItemText>{status}</ListItemText>
-            </ListItem>
-          ))}
-          <ListItem></ListItem>
-        </List> */}
         <Divider />
         <List>
           <ListItem>Project Tags</ListItem>

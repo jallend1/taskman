@@ -43,6 +43,8 @@ import {
 import { formatDistanceToNow } from 'date-fns';
 import { ProjectContext } from '../Contexts/ProjectContext';
 
+import Task from './Task';
+
 const Project = ({ projectID }) => {
   const {
     addTag,
@@ -75,12 +77,8 @@ const Project = ({ projectID }) => {
       margin: 'auto',
       padding: '1em 0.5em'
     },
-    addAction: { 
-      marginTop: "1.5em"
-    },
-    completed: {
-      textDecoration: 'line-through',
-      opacity: 0.4
+    addAction: {
+      marginTop: '1.5em'
     },
     homeButton: {
       margin: '1.25em 0'
@@ -260,11 +258,12 @@ const Project = ({ projectID }) => {
               <div className={classes.tags}>
                 <div>
                   <ButtonGroup size="small">
-                    {project.tags && project.tags.map((tag) => (
-                      <Button key={tag} variant="outlined">
-                        {tag}
-                      </Button>
-                    ))}
+                    {project.tags &&
+                      project.tags.map((tag) => (
+                        <Button key={tag} variant="outlined">
+                          {tag}
+                        </Button>
+                      ))}
                   </ButtonGroup>
                 </div>
                 <div>
@@ -274,7 +273,9 @@ const Project = ({ projectID }) => {
                     size="small"
                     onClick={() => setTagsOpen(!tagsOpen)}
                   >
-                    {project.tags && project.tags.length > 0 ? 'Add/Edit Tags' : 'Add Tags'}
+                    {project.tags && project.tags.length > 0
+                      ? 'Add/Edit Tags'
+                      : 'Add Tags'}
                   </Button>
                   <Dialog
                     open={tagsOpen}
@@ -333,29 +334,7 @@ const Project = ({ projectID }) => {
   };
   const renderTasks = (project) => {
     return project.taskList.map((task, index) => {
-      return (
-        <ListItem key={task.action}>
-          <ListItemIcon>
-            <Checkbox
-              checked={task.isComplete}
-              onClick={() => completeTask(project.id, index)}
-            />
-          </ListItemIcon>
-          <ListItemText
-            primary={task.action}
-            className={task.isComplete ? classes.completed : null}
-          />
-          <ListItemSecondaryAction>
-            <IconButton
-              edge="end"
-              aria-label="delete"
-              onClick={() => deleteTask(project.id, index)}
-            >
-              <DeleteOutlined />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      );
+      return <Task task={task} index={index} projectID={project.id} />;
     });
   };
 
