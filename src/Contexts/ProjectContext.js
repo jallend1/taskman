@@ -165,17 +165,15 @@ class ProjectContextProvider extends React.Component {
 
   deleteTask = (projectID, index) => {
     const projectsCopy = this.state.projects;
-    const targetProject = projectsCopy.find((project) => project.id);
+    const targetProject = projectsCopy.find(
+      (project) => projectID === project.id
+    );
     targetProject.taskList.splice(index, 1);
     db.collection('userProjects')
       .doc(this.state.uid)
       .collection('projects')
       .doc(projectID)
       .update({ taskList: targetProject.taskList });
-  };
-
-  handleDrawer = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
   };
 
   toggleFavorite = (projectID) => {
