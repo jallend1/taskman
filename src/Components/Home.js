@@ -1,7 +1,14 @@
 import { useContext } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
 import Project from './Project';
-import { Button, Container, makeStyles, Typography, Paper } from '@material-ui/core';
+import {
+  Button,
+  Container,
+  Grid,
+  makeStyles,
+  Typography,
+  Paper
+} from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import { AuthContext } from '../Contexts/AuthContext';
 
@@ -17,9 +24,9 @@ const Home = () => {
       display: 'flex',
       flexWrap: 'wrap'
     },
-    blurb : {
-      padding: '2em',
-    },
+    blurb: {
+      padding: '2em'
+    }
   });
   const classes = useStyles();
 
@@ -41,52 +48,60 @@ const Home = () => {
   const notLoggedIn = () => {
     return (
       <>
-      <Container maxWidth="sm">
-        <Typography variant="h1" align="center">
-          TaskMan
-        </Typography>
-        <Paper className={classes.blurb}>
-          <div className="loginBlurb">
-          <Typography paragraph >
-            TaskMan is a basic task manager designed with a focus on the
-            individual actions that make up your projects.
+        <Container maxWidth="sm">
+          <Typography variant="h1" align="center">
+            TaskMan
           </Typography>
-          <Typography paragraph >
-            Instead of having a single tasklist that is filled with vague goals
-            like "Clean the house," I like to have that single project broken up
-            into several distinct actions like "Wash the dishes," "Do the
-            laundry," and "Take out the trash."
-          </Typography>
-          <Typography paragraph >
-            Breaking down large task into specific and sequential actions makes
-            accomplishing large projects much less daunting, and the reward that
-            comes with finishing a task serves as a great reminder that progress
-            IS being made.{' '}
-          </Typography>
-          <Typography variant="h5" className={classes.blurb} >
-            Log in or create an account to get started!
-          </Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            fullWidth
-            component={RRDLink}
-            to="/login"
-          >
-            Login Page
-          </Button>
-          </div>
-        </Paper>
+          <Paper className={classes.blurb}>
+            <div className="loginBlurb">
+              <Typography paragraph>
+                TaskMan is a basic task manager designed with a focus on the
+                individual actions that make up your projects.
+              </Typography>
+              <Typography paragraph>
+                Instead of having a single tasklist that is filled with vague
+                goals like "Clean the house," I like to have that single project
+                broken up into several distinct actions like "Wash the dishes,"
+                "Do the laundry," and "Take out the trash."
+              </Typography>
+              <Typography paragraph>
+                Breaking down large task into specific and sequential actions
+                makes accomplishing large projects much less daunting, and the
+                reward that comes with finishing a task serves as a great
+                reminder that progress IS being made.{' '}
+              </Typography>
+              <Typography variant="h5" className={classes.blurb}>
+                Log in or create an account to get started!
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                fullWidth
+                component={RRDLink}
+                to="/login"
+              >
+                Login Page
+              </Button>
+            </div>
+          </Paper>
         </Container>
       </>
     );
   };
   const renderProjects = () => {
-    return projects
-      .filter((project) => !project.isArchived)
-      .map((project) => {
-        return <Project key={project.id} projectID={project.id} />;
-      });
+    return (
+      <Grid container>
+        {projects
+          .filter((project) => !project.isArchived)
+          .map((project) => {
+            return (
+              <Grid item xs={12} md={6} lg={4} xl={3}>
+                <Project key={project.id} projectID={project.id} />
+              </Grid>
+            );
+          })}
+      </Grid>
+    );
   };
 
   return (

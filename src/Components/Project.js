@@ -69,7 +69,7 @@ const Project = ({ projectID }) => {
 
   const useStyles = makeStyles({
     root: {
-      width: 400,
+      minWidth: 400,
       margin: 'auto',
       padding: '1em 0.5em'
     },
