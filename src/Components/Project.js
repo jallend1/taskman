@@ -152,6 +152,7 @@ const Project = ({ projectID }) => {
                     variant="h6"
                     component={RRDLink}
                     to={`/project/${project.id}`}
+                    style={{textDecoration: "none"}}
                   >
                     {project.title}
                   </Typography>
