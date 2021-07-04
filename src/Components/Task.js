@@ -22,6 +22,9 @@ const Task = ({ projectID, task, index }) => {
     completed: {
       textDecoration: 'line-through',
       opacity: 0.4
+    },
+    taskText: { 
+      maxWidth: "70%"
     }
   });
   const classes = useStyles();
@@ -30,7 +33,7 @@ const Task = ({ projectID, task, index }) => {
       onMouseEnter={() => setHoverState(true)}
       onMouseLeave={() => setHoverState(false)}
     >
-      <ListItem key={uuidv4()}>
+      <ListItem key={uuidv4()} >
         {!editAction ? (
           <>
             <ListItemIcon>
@@ -41,7 +44,8 @@ const Task = ({ projectID, task, index }) => {
             </ListItemIcon>
             <ListItemText
               primary={task.action}
-              className={task.isComplete ? classes.completed : null}
+              className={`${task.isComplete ? classes.completed : null} ${classes.taskText}`}
+              
             />
             {/* If hovering over task, show additional task actions */}
             {hoverState ? (

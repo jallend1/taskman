@@ -90,13 +90,13 @@ const Home = () => {
   };
   const renderProjects = () => {
     return (
-      <Grid container>
+      <Grid container justify="center">
         {projects
           .filter((project) => !project.isArchived)
           .map((project) => {
             return (
-              <Grid item xs={12} md={6} lg={4} xl={3}>
-                <Project key={project.id} projectID={project.id} />
+              <Grid item xs={12} md={6} lg={4} xl={3} key={project.id}>
+                <Project projectID={project.id} />
               </Grid>
             );
           })}
