@@ -81,6 +81,31 @@ const About = () => {
           </CardContent>
         </CardActionArea>
       </Card>
+      <Card className={classes.root}>
+        <CardHeader title="Version 3.0" />
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            className={classes.preview}
+            image="./images/version3.png"
+            alt="Layout of version 3.0"
+          />
+          <CardContent>
+            <List>
+              <ListItem>
+                Creates collapsible left-hand drawer for navigation to list
+                filters
+              </ListItem>
+              <ListItem>Adds ability to create project tags</ListItem>
+              <ListItem>Edit project name and individual tasks</ListItem>
+              <ListItem>Collapsible task lists</ListItem>
+              <ListItem>Favorite lists</ListItem>
+              <ListItem>Mark entire projects complete or archive them</ListItem>
+              <ListItem>Additional styling and background image</ListItem>
+            </List>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </>
   );
 };

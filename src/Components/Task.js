@@ -45,7 +45,6 @@ const Task = ({ projectID, task, index }) => {
             <ListItemText
               primary={task.action}
               className={`${task.isComplete ? classes.completed : null} ${classes.taskText}`}
-              
             />
             {/* If hovering over task, show additional task actions */}
             {hoverState ? (

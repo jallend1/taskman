@@ -8,8 +8,6 @@ import {
   Divider,
   Drawer,
   IconButton,
-  List,
-  ListItem,
   makeStyles,
   Toolbar,
   Typography
@@ -35,10 +33,10 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
     collapse: {
       display: 'flex',
       justifyContent: 'space-between',
-      backgroundColor: '#F2E63D',
-      '&:hover': {
-        backgroundColor: '#FEA443'
-      }
+      // backgroundColor: '#F2E63D',
+      // '&:hover': {
+      //   backgroundColor: '#FEA443'
+      // }
     },
     createButton: {
       backgroundColor: '#D91A60'
@@ -90,7 +88,7 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
               <Menu />
             </IconButton>
             <Button component={RRDLink} to="/">
-              <Typography variant="h5">TaskMan 2.0</Typography>
+              <Typography variant="h5">TaskMan 3.0</Typography>
             </Button>
           </div>
           <div>
@@ -127,7 +125,7 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
       >
         <div>
           <Button
-            variant="contained"
+            variant="outlined"
             fullWidth
             size="large"
             onClick={handleDrawer}
@@ -151,9 +149,10 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
           ))}
         </ButtonGroup>
         <Divider />
-        <List>
+        {/* TODO: Implement list of clickable tags to show matching projects */}
+        {/* <List>
           <ListItem>Project Tags</ListItem>
-        </List>
+        </List> */}
       </Drawer>
     </>
   );
