@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { ProjectContext } from '../Contexts/ProjectContext';
-import { AuthContext } from '../Contexts/AuthContext';
 import Task from './Task';
 
 const NextActions = () => {

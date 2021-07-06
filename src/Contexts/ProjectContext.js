@@ -124,12 +124,15 @@ class ProjectContextProvider extends React.Component {
     const targetProject = this.state.projects.find(
       (project) => project.id === projectID
     );
-    targetProject.complete = !targetProject.complete;
+    const complete = !targetProject.complete;
+    if(complete){
+      targetProject.taskList.forEach(task => task.isComplete = true);
+    }
     db.collection('userProjects')
       .doc(this.state.uid)
       .collection('projects')
       .doc(projectID)
-      .update({ complete: targetProject.complete });
+      .update({ complete, taskList: targetProject.taskList});
   };
 
   completeTask = (projectID, index) => {
@@ -142,11 +145,12 @@ class ProjectContextProvider extends React.Component {
     // Moves completed item to the end of the array
     const completedItem = targetProject.taskList.splice(index, 1);
     targetProject.taskList.push(completedItem[0]);
+    const complete = targetProject.taskList.every(task => task.isComplete === true)
     db.collection('userProjects')
       .doc(this.state.uid)
       .collection('projects')
       .doc(projectID)
-      .update({ taskList: targetProject.taskList });
+      .update({ taskList: targetProject.taskList, complete});
   };
 
   deleteProject = (projectID) => {
