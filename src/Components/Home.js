@@ -1,10 +1,8 @@
 import { useContext } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
-import Project from './Project';
 import {
   Button,
   Container,
-  Grid,
   makeStyles,
   Typography,
   Paper
@@ -88,21 +86,6 @@ const Home = () => {
       </>
     );
   };
-  const renderProjects = () => {
-    return (
-      <Grid container justify="center">
-        {projects
-          .filter((project) => !project.isArchived)
-          .map((project) => {
-            return (
-              <Grid item xs={12} md={6} lg={4} xl={3} key={project.id}>
-                <Project projectID={project.id} />
-              </Grid>
-            );
-          })}
-      </Grid>
-    );
-  };
 
   return (
     <>
@@ -111,9 +94,9 @@ const Home = () => {
           {/* Loading message while fetching  */}
           {isFetching && <Typography>Getting your projects...</Typography>}
           {/* If projects exist, renders them */}
-          {projects.length > 0 && (
+          {/* {projects.length > 0 && (
             <div className={classes.projects}>{renderProjects()}</div>
-          )}
+          )} */}
           {/* If fetching is complete and no projects, tells you to make one */}
           {!isFetching && projects.length === 0 ? noProjects() : null}
         </div>

@@ -4,7 +4,7 @@ import { AuthContext } from '../Contexts/AuthContext';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Project from './Project';
 
-import { Button, capitalize, Typography } from '@material-ui/core';
+import { Button, capitalize, Grid, Typography } from '@material-ui/core';
 
 const ProjectList = () => {
   const { projects, isFetching } = useContext(ProjectContext);
@@ -43,9 +43,16 @@ const ProjectList = () => {
         </Typography>
       );
     } else
-      return filteredProjects.map((project) => {
-        return <Project key={project.id} projectID={project.id} />;
-      });
+      return (
+        <Grid container justify="center">
+      {filteredProjects.map((project) => {
+        return (
+                <Grid item xs={12} md={6} lg={4} xl={3} key={project.id}>
+                  <Project projectID={project.id} />
+                </Grid>
+              )})}
+        </Grid>
+      );
   };
 
   return (
