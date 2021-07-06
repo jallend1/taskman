@@ -1,12 +1,15 @@
 import { useContext } from 'react';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import { AuthContext } from '../Contexts/AuthContext';
+import Task from './Task';
 
 const NextActions = () => {
     const { projects } = useContext(ProjectContext);
-    const { user } = useContext(AuthContext);
+    console.log(projects)
     return (
-        'hello there'
+        <div>
+        {projects.map(project => <Task projectID = {project.id} task={project.taskList[0]} index={0} />)}
+        </div>
     )
 }
 

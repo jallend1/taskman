@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import { AuthContext } from '../Contexts/AuthContext';
+import NextActions from './NextActions';
 
 const Home = () => {
   const { projects, isFetching } = useContext(ProjectContext);
@@ -18,7 +19,7 @@ const Home = () => {
     root: {
       padding: '1em 0'
     },
-    projects: {
+    actions: {
       display: 'flex',
       flexWrap: 'wrap'
     },
@@ -87,16 +88,20 @@ const Home = () => {
     );
   };
 
+  const renderActions = () => {
+    return <NextActions />;
+  };
+
   return (
     <>
       {user ? (
         <div className={classes.root}>
           {/* Loading message while fetching  */}
           {isFetching && <Typography>Getting your projects...</Typography>}
-          {/* If projects exist, renders them */}
-          {/* {projects.length > 0 && (
-            <div className={classes.projects}>{renderProjects()}</div>
-          )} */}
+          {/* If projects exist, renders the actions */}
+          {projects.length > 0 && (
+            <div className={classes.actions}>{renderActions()}</div>
+          )}
           {/* If fetching is complete and no projects, tells you to make one */}
           {!isFetching && projects.length === 0 ? noProjects() : null}
         </div>
