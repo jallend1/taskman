@@ -34,8 +34,9 @@ const ProjectList = () => {
   };
   const renderProjects = () => {
     let filteredProjects = [];
-    filter === 'all' ? filteredProjects = projects : filteredProjects = projects.filter((project) => project[filter]);
-    // const filteredProjects = projects.filter((project) => project[filter]);
+    filter === 'all'
+      ? (filteredProjects = projects)
+      : (filteredProjects = projects.filter((project) => project[filter]));
     if (filteredProjects.length === 0) {
       return (
         <Typography variant="h6">
@@ -45,12 +46,13 @@ const ProjectList = () => {
     } else
       return (
         <Grid container justify="center">
-      {filteredProjects.map((project) => {
-        return (
-                <Grid item xs={12} md={6} lg={4} xl={3} key={project.id}>
-                  <Project projectID={project.id} />
-                </Grid>
-              )})}
+          {filteredProjects.map((project) => {
+            return (
+              <Grid item xs={12} md={6} lg={4} xl={3} key={project.id}>
+                <Project projectID={project.id} />
+              </Grid>
+            );
+          })}
         </Grid>
       );
   };
