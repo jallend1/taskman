@@ -4,11 +4,11 @@ import { useParams, Link as RRDLink } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import {
   Button,
-  ButtonGroup,
   CardActionArea,
   Card,
   CardHeader,
   CardContent,
+  Chip,
   Collapse,
   Dialog,
   DialogActions,
@@ -254,14 +254,14 @@ const Project = ({ projectID }) => {
             <CardContent>
               <div className={classes.tags}>
                 <div>
-                  <ButtonGroup size="small">
+                  
                     {project.tags &&
                       project.tags.map((tag) => (
-                        <Button key={tag} variant="outlined">
-                          {tag}
-                        </Button>
+                        <Chip key={tag} variant="outlined" label={tag} />
+                          
+                        
                       ))}
-                  </ButtonGroup>
+                  
                 </div>
                 <div>
                   <Button
@@ -271,7 +271,7 @@ const Project = ({ projectID }) => {
                     onClick={() => setTagsOpen(!tagsOpen)}
                   >
                     {project.tags && project.tags.length > 0
-                      ? 'Add/Edit Tags'
+                      ? 'Edit Tags'
                       : 'Add Tags'}
                   </Button>
                   <Dialog
