@@ -220,7 +220,7 @@ const Project = ({ projectID }) => {
                         archiveProject(project.id);
                       }}
                     >
-                      {project.isArchived ? (
+                      {project.archived ? (
                         <>
                           <ListItemIcon>
                             <UnarchiveOutlined color="secondary" />

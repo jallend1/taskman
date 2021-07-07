@@ -112,12 +112,16 @@ class ProjectContextProvider extends React.Component {
     const targetProject = projectsCopy.find(
       (project) => project.id === projectID
     );
-    targetProject.isArchived = !targetProject.isArchived;
+    targetProject.archived = !targetProject.archived;
+    if (targetProject.archived) targetProject.active = false;
     db.collection('userProjects')
       .doc(this.state.uid)
       .collection('projects')
       .doc(projectID)
-      .update({ isArchived: targetProject.isArchived });
+      .update({
+        archived: targetProject.archived,
+        active: targetProject.active
+      });
   };
 
   completeProject = (projectID) => {
