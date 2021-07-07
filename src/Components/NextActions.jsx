@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { List, Paper, Typography } from '@material-ui/core';
 import { useContext } from 'react';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Task from './Task';
@@ -6,9 +6,11 @@ import Task from './Task';
 const NextActions = () => {
   const { projects } = useContext(ProjectContext);
   return (
-    <Card>
-      <CardHeader title="Next Actions" />
-      <CardContent>
+    <Paper>
+      <Typography variant="h3" align="center">
+        Next Actions
+      </Typography>
+      <List>
         {projects.map((project) => {
           if (!project.complete && !project.archived) {
             return (
@@ -22,8 +24,8 @@ const NextActions = () => {
             return null;
           }
         })}
-      </CardContent>
-    </Card>
+      </List>
+    </Paper>
   );
 };
 

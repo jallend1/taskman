@@ -33,7 +33,7 @@ const Task = ({ projectID, task, index }) => {
       onMouseEnter={() => setHoverState(true)}
       onMouseLeave={() => setHoverState(false)}
     >
-      <ListItem key={uuidv4()}>
+      <ListItem key={uuidv4()} divider dense>
         {!editAction ? (
           <>
             <ListItemIcon>
