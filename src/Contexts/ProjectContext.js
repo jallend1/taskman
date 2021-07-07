@@ -131,12 +131,17 @@ class ProjectContextProvider extends React.Component {
     const complete = !targetProject.complete;
     if (complete) {
       targetProject.taskList.forEach((task) => (task.isComplete = true));
+      targetProject.active = false;
     }
     db.collection('userProjects')
       .doc(this.state.uid)
       .collection('projects')
       .doc(projectID)
-      .update({ complete, taskList: targetProject.taskList });
+      .update({
+        complete,
+        taskList: targetProject.taskList,
+        active: targetProject.active
+      });
   };
 
   completeTask = (projectID, index) => {
