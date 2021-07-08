@@ -152,7 +152,7 @@ const Project = ({ projectID }) => {
                     variant="h6"
                     component={RRDLink}
                     to={`/project/${project.id}`}
-                    style={{textDecoration: "none"}}
+                    style={{ textDecoration: 'none' }}
                   >
                     {project.title}
                   </Typography>
@@ -254,14 +254,10 @@ const Project = ({ projectID }) => {
             <CardContent>
               <div className={classes.tags}>
                 <div>
-                  
-                    {project.tags &&
-                      project.tags.map((tag) => (
-                        <Chip key={tag} variant="outlined" label={tag} />
-                          
-                        
-                      ))}
-                  
+                  {project.tags &&
+                    project.tags.map((tag) => (
+                      <Chip key={tag} variant="outlined" label={tag} />
+                    ))}
                 </div>
                 <div>
                   <Button
