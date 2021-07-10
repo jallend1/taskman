@@ -1,7 +1,6 @@
 import { Link as RRDLink } from 'react-router-dom';
 import {
   Card,
-  CardHeader,
   CardContent,
   IconButton,
   List,
@@ -44,9 +43,15 @@ const NextActions = () => {
             const totalActions = project.taskList.length;
             return (
               <Card key={project.id} className={classes.nextAction}>
-                <CardHeader
-                  title={<Task projectID={project.id} task={project.taskList[0]} index={0} />}
-                  action={
+                <CardContent>
+                  <Task
+                    projectID={project.id}
+                    task={project.taskList[0]}
+                    index={0}
+                  />
+                  <Typography variant="subtitle2" align="right">
+                    {remainingActions} tasks out of {totalActions} remaining in{' '}
+                    {project.title}
                     <IconButton
                       aria-label="Go to project"
                       component={RRDLink}
@@ -54,10 +59,7 @@ const NextActions = () => {
                     >
                       <ArrowForwardOutlined />
                     </IconButton>
-                  }
-                />
-                <CardContent>
-                  <Typography variant="subtitle2" align="right">{remainingActions} tasks out of {totalActions} remaining in <RRDLink to={`/project/${project.id}`}>{project.title}</RRDLink></Typography>
+                  </Typography>
                 </CardContent>
               </Card>
             );
