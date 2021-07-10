@@ -42,6 +42,7 @@ const NextActions = () => {
               (task) => !task.isComplete
             ).length;
             const totalActions = project.taskList.length;
+            {/* TODO: Switch Card Content and Card header so the action is emphasized? */}
             return (
               <Card key={project.id} className={classes.nextAction}>
                 <CardHeader
