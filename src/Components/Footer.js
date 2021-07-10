@@ -4,7 +4,7 @@ const Footer = () => {
 
   return (
     <Typography component="footer" align="center">
-      Made by Jason
+      Jason made this.
     </Typography>
   );
 };

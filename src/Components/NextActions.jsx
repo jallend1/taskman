@@ -42,11 +42,10 @@ const NextActions = () => {
               (task) => !task.isComplete
             ).length;
             const totalActions = project.taskList.length;
-            {/* TODO: Switch Card Content and Card header so the action is emphasized? */}
             return (
               <Card key={project.id} className={classes.nextAction}>
                 <CardHeader
-                  title={project.title}
+                  title={<Task projectID={project.id} task={project.taskList[0]} index={0} />}
                   action={
                     <IconButton
                       aria-label="Go to project"
@@ -56,14 +55,9 @@ const NextActions = () => {
                       <ArrowForwardOutlined />
                     </IconButton>
                   }
-                  subheader={`${remainingActions} tasks out of ${totalActions} remaining`}
                 />
                 <CardContent>
-                  <Task
-                    projectID={project.id}
-                    task={project.taskList[0]}
-                    index={0}
-                  />
+                  <Typography variant="subtitle2" align="right">{remainingActions} tasks out of {totalActions} remaining in <RRDLink to={`/project/${project.id}`}>{project.title}</RRDLink></Typography>
                 </CardContent>
               </Card>
             );
