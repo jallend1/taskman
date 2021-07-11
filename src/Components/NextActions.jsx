@@ -18,10 +18,23 @@ const NextActions = () => {
   const { projects } = useContext(ProjectContext);
   const useStyles = makeStyles({
     root: {
-      margin: 'auto'
+      margin: 'auto',
+      padding: '1.25em 0em'
+    },
+    mainList: {
+      padding: 0
+    },
+    cardStyle: {
+      padding: 0,
+      '&:last-child': {
+        paddingBottom: 0
+      }
     },
     nextAction: {
-      margin: '2em'
+      margin: '1.25em'
+    },
+    progress: {
+      fontSize: '0.67em'
     }
   });
   const classes = useStyles();
@@ -31,7 +44,7 @@ const NextActions = () => {
       <Typography variant="h3" align="center">
         Next Actions
       </Typography>
-      <List>
+      <List className={classes.mainList}>
         <ListSubheader align="center">
           The very next action from each of your projects
         </ListSubheader>
@@ -43,13 +56,17 @@ const NextActions = () => {
             const totalActions = project.taskList.length;
             return (
               <Card key={project.id} className={classes.nextAction}>
-                <CardContent>
+                <CardContent className={classes.cardStyle}>
                   <Task
                     projectID={project.id}
                     task={project.taskList[0]}
                     index={0}
                   />
-                  <Typography variant="subtitle2" align="right">
+                  <Typography
+                    variant="subtitle2"
+                    align="right"
+                    className={classes.progress}
+                  >
                     {remainingActions} tasks out of {totalActions} remaining in{' '}
                     {project.title}
                     <IconButton
