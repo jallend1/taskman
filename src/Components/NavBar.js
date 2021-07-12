@@ -5,6 +5,7 @@ import {
   Avatar,
   Button,
   ButtonGroup,
+  Chip,
   Divider,
   Drawer,
   IconButton,
@@ -13,10 +14,13 @@ import {
   Typography
 } from '@material-ui/core';
 import { AuthContext } from '../Contexts/AuthContext';
+import { ProjectContext } from '../Contexts/ProjectContext';
 import { AccountCircle, ChevronLeft, Menu } from '@material-ui/icons';
 
 const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { user, logout } = useContext(AuthContext);
+  const { tags } = useContext(ProjectContext);
+  console.log(tags);
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: '#bfecff',
@@ -32,11 +36,14 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
     },
     collapse: {
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'space-between'
       // backgroundColor: '#F2E63D',
       // '&:hover': {
       //   backgroundColor: '#FEA443'
       // }
+    },
+    chips: {
+      display: 'flex'
     },
     createButton: {
       backgroundColor: '#D91A60'
@@ -149,10 +156,13 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
           ))}
         </ButtonGroup>
         <Divider />
-        {/* TODO: Implement list of clickable tags to show matching projects */}
-        {/* <List>
-          <ListItem>Project Tags</ListItem>
-        </List> */}
+        <div className={classes.chips}>
+          {tags.map((tag) => (
+            <RRDLink to={`/projects/tag/${tag}`} key={tag}>
+              <Chip label={tag} color="primary" />
+            </RRDLink>
+          ))}
+        </div>
       </Drawer>
     </>
   );

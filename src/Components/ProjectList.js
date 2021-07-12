@@ -7,9 +7,17 @@ import Project from './Project';
 import { Button, capitalize, Grid, Typography } from '@material-ui/core';
 
 const ProjectList = () => {
+  // TODO: Use State to determine if on primary filter page or filtering by tag -- Alternatively add one more nest to route saying /primary or /tag
+  const TagFilter = () => {
+    const { tagID } = useParams();
+    return tagID;
+  };
+
   const { projects, isFetching } = useContext(ProjectContext);
   const { user } = useContext(AuthContext);
-  const { filter } = useParams();
+  let { filter } = useParams();
+  if (!filter) filter = TagFilter();
+  console.log(filter);
 
   const notLoggedIn = () => {
     return (

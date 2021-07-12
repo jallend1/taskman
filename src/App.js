@@ -68,6 +68,10 @@ function App() {
                   <Route path="/project/:id">
                     <Project projectInURL={true} />
                   </Route>
+                  {/* Clarify this portion maybe combine into /projects/:filter where filter = primary || tag */}
+                  <Route path="/projects/tag/:tagID">
+                    <ProjectList />
+                  </Route>
                   <Route path="/projects/:filter">
                     <ProjectList />
                   </Route>
