@@ -12,6 +12,7 @@ class ProjectContextProvider extends React.Component {
     this.state = {
       projects: [],
       uid: '',
+      tags: [],
       isFetching: true,
       drawerOpen: true
     };
@@ -53,6 +54,14 @@ class ProjectContextProvider extends React.Component {
           },
           (error) => console.log(error)
         );
+      db.collection('users')
+        .doc(userID)
+        .onSnapshot((userProfile) => {
+          console.log('doing stuff!');
+          const tags = [];
+          userProfile.tags?.forEach((tag) => tags.push(tag));
+          this.setState({ tags });
+        });
     } else {
       this.setState({ projects: [], uid: '' });
     }
@@ -81,14 +90,26 @@ class ProjectContextProvider extends React.Component {
   };
 
   addTag = (projectID, tags) => {
+    // Takes copy of current tags array from state
+    const currentTags = this.state.tags.slice();
+    // Converts incoming tags into array
     if (typeof tags === 'string') {
       tags = tags.toLowerCase().split(',');
     }
+    // If the incoming tags aren't already in the list of users tags, adds it
+    tags.forEach((tag) => {
+      if (!currentTags.includes(tag)) {
+        currentTags.push(tag);
+      }
+    });
+    // Updates the tags on the individual project
     db.collection('userProjects')
       .doc(this.state.uid)
       .collection('projects')
       .doc(projectID)
       .update({ tags });
+    // Updates the tags on the user's profile list of tags
+    db.collection('users').doc(this.state.uid).update({ tags: currentTags });
   };
   addTask = (e, projectID, newTask) => {
     e.preventDefault();
