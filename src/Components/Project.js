@@ -317,7 +317,7 @@ const Project = ({ projectID }) => {
                   />
                 </form>
               </CardActionArea>
-              <Collapse in={expanded} unmountOnExit>
+              <Collapse in={expanded} unmountOnExit style={{maxHeight: 600, overflow: "auto"}}>
                 <List>{project ? renderTasks(project) : 'Add a project'}</List>
               </Collapse>
             </CardContent>
