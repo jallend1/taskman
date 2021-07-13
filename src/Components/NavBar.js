@@ -152,9 +152,14 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
         <Divider />
         <div className={classes.chips}>
           {tags.map((tag) => (
-            <RRDLink to={`/projects/tag/${tag}`} key={tag}>
-              <Chip label={tag} color="primary" />
-            </RRDLink>
+            <Chip
+              label={tag}
+              color="primary"
+              component={RRDLink}
+              to={`/projects/tag/${tag}`}
+              key={tag}
+              clickable
+            />
           ))}
         </div>
       </Drawer>
