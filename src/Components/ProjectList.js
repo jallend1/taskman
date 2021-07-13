@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { Link as RRDLink, useParams } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
+import { Link as RRDLink, useParams, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthContext';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Project from './Project';
@@ -7,7 +7,9 @@ import Project from './Project';
 import { Button, capitalize, Grid, Typography } from '@material-ui/core';
 
 const ProjectList = () => {
-  // TODO: Use State to determine if on primary filter page or filtering by tag -- Alternatively add one more nest to route saying /primary or /tag
+  const [tagFilter, setTagFilter] = useState(false);
+
+  // Extracts tag from parameters
   const TagFilter = () => {
     const { tagID } = useParams();
     return tagID;
@@ -16,8 +18,18 @@ const ProjectList = () => {
   const { projects, isFetching } = useContext(ProjectContext);
   const { user } = useContext(AuthContext);
   let { filter } = useParams();
+  // If filter doesn't extract anything, extract tag property
   if (!filter) filter = TagFilter();
-  console.log(filter);
+  const routeLocation = useLocation();
+
+  // If path contains the word "tag," sets state as such to filter projects by tag
+  useEffect(
+    () =>
+      routeLocation.pathname.includes('tag')
+        ? setTagFilter(true)
+        : setTagFilter(false),
+    [routeLocation.pathname]
+  );
 
   const notLoggedIn = () => {
     return (
@@ -42,9 +54,16 @@ const ProjectList = () => {
   };
   const renderProjects = () => {
     let filteredProjects = [];
-    filter === 'all'
-      ? (filteredProjects = projects)
-      : (filteredProjects = projects.filter((project) => project[filter]));
+    if (tagFilter) {
+      filteredProjects = projects.filter((project) =>
+        project.tags.includes(filter)
+      );
+    } else {
+      filter === 'all'
+        ? (filteredProjects = projects)
+        : (filteredProjects = projects.filter((project) => project[filter]));
+    }
+
     if (filteredProjects.length === 0) {
       return (
         <Typography variant="h6">

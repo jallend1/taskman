@@ -20,7 +20,6 @@ import { AccountCircle, ChevronLeft, Menu } from '@material-ui/icons';
 const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { user, logout } = useContext(AuthContext);
   const { tags } = useContext(ProjectContext);
-  console.log(tags);
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: '#bfecff',
@@ -37,17 +36,12 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
     collapse: {
       display: 'flex',
       justifyContent: 'space-between'
-      // backgroundColor: '#F2E63D',
-      // '&:hover': {
-      //   backgroundColor: '#FEA443'
-      // }
     },
     chips: {
       display: 'flex'
     },
     createButton: {
       backgroundColor: '#D91A60'
-      // backgroundColor: '#FEA443'
     },
     drawer: {
       width: drawerWidth
