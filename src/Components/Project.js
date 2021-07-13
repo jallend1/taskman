@@ -165,7 +165,7 @@ const Project = ({ projectID }) => {
               )} ago`}
               action={
                 <>
-                  <Tooltip title="Favorite">
+                  <Tooltip title={project.favorite ? 'Unfavorite' : 'Favorite'}>
                     <IconButton
                       aria-label="Favorite"
                       onClick={() => toggleFavorite(project.id)}
