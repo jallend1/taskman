@@ -6,6 +6,7 @@ import {
   List,
   ListSubheader,
   Paper,
+  Tooltip,
   Typography,
   makeStyles
 } from '@material-ui/core';
@@ -69,13 +70,15 @@ const NextActions = () => {
                   >
                     {remainingActions} tasks out of {totalActions} remaining in{' '}
                     {project.title}
-                    <IconButton
-                      aria-label="Go to project"
-                      component={RRDLink}
-                      to={`/project/${project.id}`}
-                    >
-                      <ArrowForwardOutlined />
-                    </IconButton>
+                    <Tooltip title="Go to project">
+                      <IconButton
+                        aria-label="Go to project"
+                        component={RRDLink}
+                        to={`/project/${project.id}`}
+                      >
+                        <ArrowForwardOutlined />
+                      </IconButton>
+                    </Tooltip>
                   </Typography>
                 </CardContent>
               </Card>

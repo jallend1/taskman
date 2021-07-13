@@ -23,6 +23,7 @@ import {
   Menu,
   MenuItem,
   TextField,
+  Tooltip,
   Typography
 } from '@material-ui/core';
 import {
@@ -164,18 +165,24 @@ const Project = ({ projectID }) => {
               )} ago`}
               action={
                 <>
-                  <IconButton
-                    aria-label="Favorite"
-                    onClick={() => toggleFavorite(project.id)}
-                  >
-                    {project.favorite ? <Star /> : <StarOutline />}
-                  </IconButton>
-                  <IconButton aria-label="Expand" onClick={handleExpand}>
-                    {expanded ? <ExpandLess /> : <ExpandMore />}
-                  </IconButton>
-                  <IconButton aria-label="More" onClick={handleOpen}>
-                    <MoreVert />
-                  </IconButton>
+                  <Tooltip title="Favorite">
+                    <IconButton
+                      aria-label="Favorite"
+                      onClick={() => toggleFavorite(project.id)}
+                    >
+                      {project.favorite ? <Star /> : <StarOutline />}
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title={expanded ? 'Collapse' : 'Expand'}>
+                    <IconButton aria-label="Expand" onClick={handleExpand}>
+                      {expanded ? <ExpandLess /> : <ExpandMore />}
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Additional Actions">
+                    <IconButton aria-label="More" onClick={handleOpen}>
+                      <MoreVert />
+                    </IconButton>
+                  </Tooltip>
                   <Menu
                     anchorEl={anchorEl}
                     keepMounted
@@ -317,7 +324,11 @@ const Project = ({ projectID }) => {
                   />
                 </form>
               </CardActionArea>
-              <Collapse in={expanded} unmountOnExit style={{maxHeight: 600, overflow: "auto"}}>
+              <Collapse
+                in={expanded}
+                unmountOnExit
+                style={{ maxHeight: 600, overflow: 'auto' }}
+              >
                 <List>{project ? renderTasks(project) : 'Add a project'}</List>
               </Collapse>
             </CardContent>
