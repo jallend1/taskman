@@ -9,7 +9,8 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  TextField
+  TextField,
+  Tooltip
 } from '@material-ui/core';
 import { DeleteOutlined, EditOutlined } from '@material-ui/icons';
 
@@ -36,12 +37,16 @@ const Task = ({ projectID, task, index }) => {
       <ListItem key={uuidv4()} dense>
         {!editAction ? (
           <>
-            <ListItemIcon>
-              <Checkbox
-                checked={task.isComplete}
-                onClick={() => completeTask(projectID, index)}
-              />
-            </ListItemIcon>
+            <Tooltip
+              title={task.isComplete ? 'Mark task incomplete' : 'Complete task'}
+            >
+              <ListItemIcon>
+                <Checkbox
+                  checked={task.isComplete}
+                  onClick={() => completeTask(projectID, index)}
+                />
+              </ListItemIcon>
+            </Tooltip>
             <ListItemText
               primary={task.action}
               className={`${task.isComplete ? classes.completed : null} ${
@@ -51,19 +56,23 @@ const Task = ({ projectID, task, index }) => {
             {/* If hovering over task, show additional task actions */}
             {hoverState ? (
               <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => deleteTask(projectID, index)}
-                >
-                  <DeleteOutlined />
-                </IconButton>
-                <IconButton
-                  aria-label="edit"
-                  onClick={() => setEditAction(!editAction)}
-                >
-                  <EditOutlined />
-                </IconButton>
+                <Tooltip title="Delete task">
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => deleteTask(projectID, index)}
+                  >
+                    <DeleteOutlined />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Edit task">
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => setEditAction(!editAction)}
+                  >
+                    <EditOutlined />
+                  </IconButton>
+                </Tooltip>
               </ListItemSecondaryAction>
             ) : null}
           </>
