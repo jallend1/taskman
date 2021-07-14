@@ -112,11 +112,19 @@ class ProjectContextProvider extends React.Component {
   addTask = (e, projectID, newTask) => {
     e.preventDefault();
     if (newTask.trim() !== '') {
-      const projectsCopy = this.state.projects;
+      const projectsCopy = this.state.projects.slice();
       const currentProject = projectsCopy.find(
         (project) => project.id === projectID
       );
-      currentProject.taskList.push({ action: newTask, isComplete: false });
+      // Finds the index of the first task in the array that is not complete
+      const startOfComplete = currentProject.taskList.findIndex(
+        (task) => task.isComplete
+      );
+      // Adds the new task at the end of the tasklist, but before the section of completed tasks
+      currentProject.taskList.splice(startOfComplete, 0, {
+        action: newTask,
+        isComplete: false
+      });
       db.collection('userProjects')
         .doc(this.state.uid)
         .collection('projects')
