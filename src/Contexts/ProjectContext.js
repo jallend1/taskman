@@ -164,15 +164,22 @@ class ProjectContextProvider extends React.Component {
   };
 
   completeTask = (projectID, index) => {
-    const projectsCopy = this.state.projects;
+    const projectsCopy = this.state.projects.slice();
     const targetProject = projectsCopy.find(
       (project) => project.id === projectID
     );
     targetProject.taskList[index].isComplete =
       !targetProject.taskList[index].isComplete;
-    // Moves completed item to the end of the array
     const completedItem = targetProject.taskList.splice(index, 1);
-    targetProject.taskList.push(completedItem[0]);
+    // Moves completed item to the end of the array
+    if (completedItem[0].isComplete) {
+      targetProject.taskList.push(completedItem[0]);
+    }
+    // If item is being marked incomplete, plops it back at the front of the array
+    else {
+      targetProject.taskList.unshift(completedItem[0]);
+    }
+    // If the latest task was the last incomplete one, updates entire project to complete
     const complete = targetProject.taskList.every(
       (task) => task.isComplete === true
     );
