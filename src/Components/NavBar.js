@@ -22,7 +22,8 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { tags } = useContext(ProjectContext);
   const useStyles = makeStyles((theme) => ({
     root: {
-      backgroundColor: '#bfecff',
+      // backgroundColor: '#bfecff',
+      backgroundColor: '#fff',
       display: 'flex',
       justifyContent: 'space-between'
     },
