@@ -2,7 +2,6 @@ import React, { createContext } from 'react';
 import { db } from '../firebaseConfig';
 import { withRouter } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
-
 export const ProjectContext = createContext();
 
 class ProjectContextProvider extends React.Component {

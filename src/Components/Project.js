@@ -1,5 +1,5 @@
 // TODO: Revisit Project name updating process because it feels unnecessary clunky
-
+import SnackBar from './SnackBar';
 import { useParams, Link as RRDLink } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import {
@@ -57,6 +57,7 @@ const Project = ({ projectID }) => {
   } = useContext(ProjectContext);
   const { id } = useParams();
   const targetProjectID = projectID || id;
+  const [showSnackBar, setShowSnackBar] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [newAction, setNewAction] = useState('');
   const [tags, setTags] = useState([]);
@@ -225,6 +226,7 @@ const Project = ({ projectID }) => {
                     <MenuItem
                       onClick={() => {
                         setAnchorEl(null);
+                        setShowSnackBar(true);
                         archiveProject(project.id);
                       }}
                     >
@@ -362,6 +364,9 @@ const Project = ({ projectID }) => {
           </Button>
         ) : null}
       </div>
+      {showSnackBar ? 
+      <SnackBar message="from the archive" showSnackBar /> : null
+      }
     </>
   );
 };
