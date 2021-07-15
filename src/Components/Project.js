@@ -58,6 +58,7 @@ const Project = ({ projectID }) => {
   const { id } = useParams();
   const targetProjectID = projectID || id;
   const [showSnackBar, setShowSnackBar] = useState(false);
+  const [snackMessage, setSnackMessage] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const [newAction, setNewAction] = useState('');
   const [tags, setTags] = useState([]);
@@ -104,6 +105,10 @@ const Project = ({ projectID }) => {
       setTags(targetProject.tags);
     }
     setTagsOpen(false);
+  };
+
+  const closeSnack = () => {
+    setShowSnackBar(false);
   };
 
   const editTags = (e) => {
@@ -204,6 +209,12 @@ const Project = ({ projectID }) => {
                     <MenuItem
                       onClick={() => {
                         setAnchorEl(null);
+                        setSnackMessage(
+                          project.complete
+                            ? 'Project has been marked incomplete'
+                            : 'Project has been marked complete'
+                        );
+                        setShowSnackBar(true);
                         completeProject(project.id);
                       }}
                     >
@@ -226,6 +237,11 @@ const Project = ({ projectID }) => {
                     <MenuItem
                       onClick={() => {
                         setAnchorEl(null);
+                        setSnackMessage(
+                          project.archived
+                            ? 'Project has been unarchived'
+                            : 'Project has been archived'
+                        );
                         setShowSnackBar(true);
                         archiveProject(project.id);
                       }}
@@ -249,6 +265,8 @@ const Project = ({ projectID }) => {
                     <MenuItem
                       onClick={() => {
                         setAnchorEl(null);
+                        setSnackMessage('Project has been deleted');
+                        setShowSnackBar(true);
                         deleteProject(project.id);
                       }}
                     >
@@ -364,9 +382,9 @@ const Project = ({ projectID }) => {
           </Button>
         ) : null}
       </div>
-      {showSnackBar ? 
-      <SnackBar message="from the archive" showSnackBar /> : null
-      }
+      {showSnackBar ? (
+        <SnackBar message={snackMessage} closeSnack={closeSnack} showSnackBar />
+      ) : null}
     </>
   );
 };

@@ -1,13 +1,22 @@
 // import { useState } from 'react';
-import{ Snackbar} from '@material-ui/core';
+import { IconButton, Snackbar } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
-const SnackBar = ({message, showSnackBar}) => {
-    console.log(message)
-    return (
-        <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}} autoHideDuration={3000} message={message} open={showSnackBar} action={
-            <div></div>
-        } />
-        )
-}
+const SnackBar = ({ message, closeSnack, showSnackBar }) => {
+  return (
+    <Snackbar
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      onClose={closeSnack}
+      autoHideDuration={3000}
+      message={message}
+      open={showSnackBar}
+      action={
+        <IconButton onClick={closeSnack}>
+          <Close />
+        </IconButton>
+      }
+    ></Snackbar>
+  );
+};
 
 export default SnackBar;
