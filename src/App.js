@@ -1,3 +1,6 @@
+// TODO: Lift SnackBar open state to App level; Pass Down as props to Project and ProjectList
+// TODO: Isolate ProjectHeader into isolated function for reuse on ProjectList page when in list format?
+
 import { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ProjectContextProvider from './Contexts/ProjectContext';
