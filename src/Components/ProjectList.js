@@ -4,9 +4,12 @@ import { AuthContext } from '../Contexts/AuthContext';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Project from './Project';
 
-import { Button, capitalize, Grid, Typography } from '@material-ui/core';
+import { Button, capitalize, Grid, makeStyles, Typography } from '@material-ui/core';
 
 const ProjectList = () => {
+  const { projects, isFetching } = useContext(ProjectContext);
+  const { user } = useContext(AuthContext);
+  const [listView, setListView] = useState(false);
   const [tagFilter, setTagFilter] = useState(false);
 
   // Extracts tag from parameters
@@ -14,15 +17,12 @@ const ProjectList = () => {
     const { tagID } = useParams();
     return tagID;
   };
-
-  const { projects, isFetching } = useContext(ProjectContext);
-  const { user } = useContext(AuthContext);
   let { filter } = useParams();
   // If filter doesn't extract anything, extract tag property
   if (!filter) filter = TagFilter();
+  // If path contains the word "tag," sets state as such to filter projects by tag
   const routeLocation = useLocation();
 
-  // If path contains the word "tag," sets state as such to filter projects by tag
   useEffect(
     () =>
       routeLocation.pathname.includes('tag')
@@ -30,6 +30,14 @@ const ProjectList = () => {
         : setTagFilter(false),
     [routeLocation.pathname]
   );
+
+  const useStyles = makeStyles({
+    root: {
+      display: "flex"
+    }
+  });
+
+  const classes = useStyles();
 
   const notLoggedIn = () => {
     return (
@@ -53,6 +61,7 @@ const ProjectList = () => {
     );
   };
   const renderProjects = () => {
+    renderList();
     let filteredProjects = [];
     if (tagFilter) {
       filteredProjects = projects.filter((project) =>
@@ -84,11 +93,18 @@ const ProjectList = () => {
       );
   };
 
+  const renderList = () => {
+    projects.map(project => console.log(project.title))
+  }
+
   return (
     <>
       {user ? (
         <div>
-          <Typography variant="h3">{capitalize(filter)} Projects</Typography>
+          <header>
+          <Typography variant="h3" align="center">{capitalize(filter)} Projects</Typography>
+          <Button onClick={() => setListView(!listView)}> {listView ? 'View as Cards' : 'View As List'}</Button>
+          </header>
           {/* Loading message while fetching  */}
           {isFetching && <Typography>Getting your projects...</Typography>}
           {/* If projects exist, renders them */}
