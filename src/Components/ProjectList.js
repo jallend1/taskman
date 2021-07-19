@@ -4,13 +4,7 @@ import { AuthContext } from '../Contexts/AuthContext';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Project from './Project';
 
-import {
-  Button,
-  capitalize,
-  Grid,
-  makeStyles,
-  Typography
-} from '@material-ui/core';
+import { Button, capitalize, Grid, Typography } from '@material-ui/core';
 
 const ProjectList = () => {
   const { projects, isFetching } = useContext(ProjectContext);
@@ -36,14 +30,6 @@ const ProjectList = () => {
         : setTagFilter(false),
     [routeLocation.pathname]
   );
-
-  const useStyles = makeStyles({
-    root: {
-      display: 'flex'
-    }
-  });
-
-  const classes = useStyles();
 
   const notLoggedIn = () => {
     return (
@@ -102,7 +88,7 @@ const ProjectList = () => {
     return (
       <div className="project-list">
         {projects.map((project) => (
-          <Project projectID={project.id} collapse={true} />
+          <Project projectID={project.id} collapse={true} key={project.id} />
         ))}
       </div>
     );
