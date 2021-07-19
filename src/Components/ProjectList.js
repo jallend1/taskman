@@ -4,7 +4,13 @@ import { AuthContext } from '../Contexts/AuthContext';
 import { ProjectContext } from '../Contexts/ProjectContext';
 import Project from './Project';
 
-import { Button, capitalize, Grid, makeStyles, Typography } from '@material-ui/core';
+import {
+  Button,
+  capitalize,
+  Grid,
+  makeStyles,
+  Typography
+} from '@material-ui/core';
 
 const ProjectList = () => {
   const { projects, isFetching } = useContext(ProjectContext);
@@ -33,7 +39,7 @@ const ProjectList = () => {
 
   const useStyles = makeStyles({
     root: {
-      display: "flex"
+      display: 'flex'
     }
   });
 
@@ -94,21 +100,46 @@ const ProjectList = () => {
   };
 
   const renderList = () => {
-    projects.map(project => console.log(project.title))
-  }
+    return (
+      <div className="project-list">
+        {projects.map((project) => {
+          const incompleteProjects = project.taskList.filter(
+            (task) => task.isComplete
+          ).length;
+          return (
+            <div key={project.id}>
+              <RRDLink to={`/project/${project.id}`}>
+                <h3>{project.title}</h3>
+              </RRDLink>
+              <p>
+                {incompleteProjects} of {project.taskList.length} complete
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <>
       {user ? (
         <div>
           <header>
-          <Typography variant="h3" align="center">{capitalize(filter)} Projects</Typography>
-          <Button onClick={() => setListView(!listView)}> {listView ? 'View as Cards' : 'View As List'}</Button>
+            <Typography variant="h3" align="center">
+              {capitalize(filter)} Projects
+            </Typography>
+            <Button onClick={() => setListView(!listView)}>
+              {' '}
+              {listView ? 'View as Cards' : 'View As List'}
+            </Button>
           </header>
           {/* Loading message while fetching  */}
           {isFetching && <Typography>Getting your projects...</Typography>}
           {/* If projects exist, renders them */}
-          {projects.length > 0 && <div>{renderProjects()}</div>}
+          {listView
+            ? renderList()
+            : projects.length > 0 && <div>{renderProjects()}</div>}
         </div>
       ) : (
         notLoggedIn()

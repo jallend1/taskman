@@ -23,6 +23,11 @@ code {
   line-height: 1.6;
 }
 
+.project-list {
+  width: 300px;
+  margin: auto;
+}
+
 footer {
   color: white;
 }
