@@ -67,7 +67,6 @@ const ProjectList = () => {
     );
   };
   const renderProjects = () => {
-    renderList();
     let filteredProjects = [];
     if (tagFilter) {
       filteredProjects = projects.filter((project) =>
@@ -102,21 +101,9 @@ const ProjectList = () => {
   const renderList = () => {
     return (
       <div className="project-list">
-        {projects.map((project) => {
-          const incompleteProjects = project.taskList.filter(
-            (task) => task.isComplete
-          ).length;
-          return (
-            <div key={project.id}>
-              <RRDLink to={`/project/${project.id}`}>
-                <h3>{project.title}</h3>
-              </RRDLink>
-              <p>
-                {incompleteProjects} of {project.taskList.length} complete
-              </p>
-            </div>
-          );
-        })}
+        {projects.map((project) => (
+          <Project projectID={project.id} collapse={true} />
+        ))}
       </div>
     );
   };
