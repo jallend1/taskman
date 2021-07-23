@@ -88,7 +88,7 @@ const ProjectList = () => {
     return (
       <div className="project-list">
         {projects.map((project) => (
-          <Project projectID={project.id} collapse={true} key={project.id} />
+          <Project projectID={project.id} showAsList={true} key={project.id} />
         ))}
       </div>
     );

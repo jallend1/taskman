@@ -44,7 +44,7 @@ import { ProjectContext } from '../Contexts/ProjectContext';
 
 import Task from './Task';
 
-const Project = ({ projectID, collapse }) => {
+const Project = ({ projectID, showAsList }) => {
   const {
     addTag,
     addTask,
@@ -66,7 +66,7 @@ const Project = ({ projectID, collapse }) => {
   const [editTitle, setEditTitle] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   // Show expanded cards by default, unless collapse prop passed down
-  const [expanded, setExpanded] = useState(!collapse);
+  const [expanded, setExpanded] = useState(!showAsList);
   // If there are URL parameters passed down, display individual project page components
   const onProjectPage = id ? true : false;
   const useStyles = makeStyles({
