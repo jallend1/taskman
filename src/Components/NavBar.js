@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { Link as RRDLink } from 'react-router-dom';
+import { useContext } from "react";
+import { Link as RRDLink } from "react-router-dom";
 import {
   AppBar,
   Avatar,
@@ -11,11 +11,11 @@ import {
   IconButton,
   makeStyles,
   Toolbar,
-  Typography
-} from '@material-ui/core';
-import { AuthContext } from '../Contexts/AuthContext';
-import { ProjectContext } from '../Contexts/ProjectContext';
-import { AccountCircle, ChevronLeft, Menu } from '@material-ui/icons';
+  Typography,
+} from "@material-ui/core";
+import { AuthContext } from "../Contexts/AuthContext";
+import { ProjectContext } from "../Contexts/ProjectContext";
+import { AccountCircle, ChevronLeft, Menu } from "@material-ui/icons";
 
 const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const { user, logout } = useContext(AuthContext);
@@ -23,35 +23,37 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       // backgroundColor: '#bfecff',
-      backgroundColor: '#fff',
-      display: 'flex',
-      justifyContent: 'space-between'
+      backgroundColor: "#fff",
+      display: "flex",
+      justifyContent: "space-between",
     },
     open: {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth
+      marginLeft: drawerWidth,
     },
     closed: {
-      width: '100%'
+      width: "100%",
     },
     collapse: {
-      display: 'flex',
-      justifyContent: 'space-between'
+      display: "flex",
+      justifyContent: "space-between",
     },
     chips: {
-      display: 'flex'
+      padding: "1.25em",
+      display: "flex",
+      justifyContent: "space-around",
     },
     createButton: {
-      backgroundColor: '#D91A60'
+      backgroundColor: "#D91A60",
     },
     drawer: {
-      width: drawerWidth
+      width: drawerWidth,
     },
     drawerPaper: {
       width: drawerWidth,
-      background: 'transparent',
-      backdropFilter: 'blur(5px)'
-    }
+      background: "transparent",
+      backdropFilter: "blur(5px)",
+    },
   }));
 
   const loggedIn = () => {
@@ -82,7 +84,7 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
         position="static"
         color="primary"
         className={drawerOpen ? classes.open : classes.closed}
-        style={{ boxShadow: 'none' }}
+        style={{ boxShadow: "none" }}
       >
         <Toolbar className={classes.root}>
           <div>
@@ -139,7 +141,7 @@ const NavBar = ({ drawerOpen, handleDrawer, drawerWidth }) => {
         </div>
         <Divider />
         <ButtonGroup orientation="vertical" variant="text">
-          {['All', 'Active', 'Complete', 'Archived'].map((status) => (
+          {["All", "Active", "Complete", "Archived"].map((status) => (
             <Button
               fullWidth
               component={RRDLink}
